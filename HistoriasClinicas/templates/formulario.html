@@ -1,0 +1,232 @@
+{%  extends "base.html" %}
+{%  block title %}
+    Historia Clinica
+{%  endblock    %}
+{% load static %}
+{%  block styles %}
+<link rel="stylesheet" href="{% static 'css/formularioHC.css' %}">
+  {%  endblock  %}
+{%  block content   %}
+
+<div class="container ">
+    <br><br>
+    <br>
+    <h1 style="color: rgb(9, 132, 240);"><center>Formulario de Historia Clinica. </center></h1> 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="textLabel">
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}¡Bien!:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}Advertencia:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}Aviso: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="container">
+        <h5 style="text-align: right;">Fecha Actual : {{fecha_actual}}</h5>
+        <h5 style="text-align: right;">Hora Actual : {{Hora_actual}}</h5>
+        <form action="{% url 'saveHistoriaClinica' %}" method="POST">
+          {%  csrf_token  %}
+            {% for row in form %}
+            {% if "mascota" in row.label_tag  %}
+            <div class=" container" >
+                <div class="grid-container">
+                    <label  class="textLabel" for="{{ row.html_name }}" >
+                    {{ row.label_tag }}
+                </label>
+                </div>               
+                    {{ row }}                              
+                <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
+            </div>
+            {%  endif %}
+            {% endfor %}
+            <h4>1. ANAMNESICOS:</h4>
+            {% for row in form %}
+                {% if "Queja principal" in row.label_tag or "Tratamientos Previos" in row.label_tag or "Enfermedades Anteriores" in row.label_tag or "Cirugias Anteriores" in row.label_tag %}
+                <div class=" container" >
+                    <div class="grid-container">
+                        <label  class="textLabel" for="{{ row.html_name }}" >
+                        {{ row.label_tag }}
+                    </label>
+                    </div>               
+                        {{ row }}                              
+                    <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
+                </div>
+                {% endif %}
+                {% if "Dieta" in row.label_tag  %}
+                <div class=" container" >             
+                    <div class="grid-container">
+                        <label  class="textLabel" for="{{ row.html_name }}" >
+                        {{ row.label_tag }}
+                        </label>
+                    </div > 
+                        {{ row }} 
+                        
+                        <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p> 
+                </div>
+                {% endif %}
+                {% if "Medicina Preventiva" in row.label_tag  %}
+                <div class=" container" >             
+                    <div class="grid-container">
+                        <label  class="textLabel" for="{{ row.html_name }}" >
+                        {{ row.label_tag }}<p style="color: rgb(11, 98, 228);">{{ row.help_text }}</p>
+                        </label>
+                    </div>                   
+                        {{ row }}
+                    
+                        <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
+                </div>
+                {% endif %}
+            {% endfor %}
+            <br>
+            <h4>2. INSPECCION:</h4>
+            {% for row in form %}
+            {% if "Inspección" in row.label_tag  %}
+                <div class=" container" >
+                                 
+                        {{ row }}                              
+                    <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
+                </div>
+            {%  endif %}
+            {% endfor %}
+            <br>
+            <h4>3. PALPACION - PERCUSION - AUSCULTACION:</h4>
+            <div class=" row " >
+            {% for row in form %}
+            {% if "temperatura" in row.label_tag or "pulso" in row.label_tag or  "respiracion" in row.label_tag or "T. LI. C." in row.label_tag or "hidratacion" in row.label_tag or "peso" in row.label_tag or "ganglios" in row.label_tag %}
+                    <div class="col-3">
+                        <label  class="" for="{{ row.html_name }}" >
+                            {{ row.label_tag }}
+                        </label>                            
+                            {{ row }}{{ row.help_text }}                              
+                        <p class="help-block">{{ row.errors.as_text }}{{ row.field.css_classes}}</p>                       
+                    </div>                        
+                
+            {%  endif %}
+            {% endfor %}
+            {% for row in form %}
+            {% if "Sistema" in row.label_tag or "Piel" in row.label_tag or "Hallazgos" in row.label_tag %}
+                <div class=" container" >
+                    <div class="grid-container">
+                        <label  class="textLabel" for="{{ row.html_name }}" >
+                        {{ row.label_tag }}
+                        </label>{{ row.help_text }}
+                    </div>                   
+                        {{ row }}                    
+                        <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                    
+                </div>
+            {%  endif %}
+            {% endfor %}
+            <br>
+            </div>
+            <h4>4. EXAMENES SOLICITADOS:</h4>
+            {% for row in form %}
+            {% if "Solicitados" in row.label_tag  %}
+                <div class=" container" >                                 
+                        {{ row }}                              
+                    <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
+                </div>
+            {%  endif %}
+            {% endfor %}
+            <h4>5. EXAMENES AUTORIZADOS:</h4>
+            {% for row in form %}
+            {% if "Autorizados" in row.label_tag  %}
+                <div class=" container" >                                 
+                        {{ row }}                              
+                    <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
+                </div>
+            {%  endif %}
+            {% endfor %}
+            <h4>6. IMPRESIÓN DIAGNOSTICA:</h4>
+            {% for row in form %}
+            {% if "Diagnostica" in row.label_tag  %}
+                <div class=" container" >                                 
+                        {{ row }}{{ row.label_tag }}                              
+                    <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
+                </div>
+            {%  endif %}
+            {% endfor %}
+            <h4>7. PRONOSTICO:</h4>
+            {% for row in form %}
+            {% if "Pronostico" in row.label_tag  %}
+                {{ row }} 
+                <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>
+                
+            {%  endif %}
+            {% endfor %}
+            <h4>8. TRATAMIENTO IDEAL:</h4>
+            <div class=" row " >
+            {% for row in form %}
+            {% if "Ideal" in row.label_tag  %}
+                <div class="col-6">
+                    <label  class="" for="{{ row.html_name }}" >
+                        
+                    </label>
+                    {{ row }}  
+                </div>                                              
+            {%  endif %}
+            {% endfor %}
+            {% for row in form %}
+            {% if  "Cotizacion 1" in row.label_tag %}
+                <div class="col-6" >                    
+                    {{ row.label_tag }}                    
+                    {{ row }}              
+                </div>
+            {%  endif %}
+            {% endfor %}
+            </div>
+            <h4>9. TRATAMIENTO INSTAURADO:</h4>
+            <div class=" row " >
+            {% for row in form %}
+            {% if "Instaurado" in row.label_tag  %}
+                <div class="col-6">
+                    <label  class="" for="{{ row.html_name }}" >
+                        
+                    </label>
+                    {{ row }}  
+                </div>                                              
+            {%  endif %}
+            {% endfor %}
+            {% for row in form %}
+            {% if  "Cotizacion 2" in row.label_tag %}
+                <div class="col-6" >                    
+                    {{ row.label_tag }}                    
+                    {{ row }}              
+                </div>
+            {%  endif %}
+            {% endfor %}
+            </div>
+            <h4>10. OBSERVACIONES:</h4>
+            {% for row in form %}
+            {% if "observaciones" in row.label_tag  %}
+                {{ row }} 
+                <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>
+                
+            {%  endif %}
+            {% endfor %}
+            {% for row in form %}
+            {% if "VETERINARIO" in row.label_tag  %}
+                <label  class="textLabel" for="{{ row.html_name }}" >
+                    {{ row.label_tag }}
+                </label>{{ row.help_text }}
+                {{ row }} 
+                <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>
+                
+            {%  endif %}
+            {% endfor %}
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button type="submit" class="btn btn-primary btn-lg mt-3"
+                        style="text-decoration: none; color:white">
+                    Guardar
+                    </button>
+                </div>                
+        </form>            
+    </div>
+</div>
+   <br><br>
+
+{%  endblock    %}
+    

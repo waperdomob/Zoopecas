@@ -1,0 +1,101 @@
+{%  extends "base.html" %}
+{%  block title %}
+    Categorias Productos
+{%  endblock    %}
+{%  load static %}
+    {%  block styles %}
+    <link rel="stylesheet" href="{% static 'css/indexProducto.css' %}">
+  {%  endblock  %} 
+{%  block content   %}
+{% include 'categoria/categoriaModal.html' %}
+
+   <div class="container ">
+ 
+    <h1 style="color: rgb(9, 132, 240);"><center>Categorias de productos. </center></h1> 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="textLabel">
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}¡Bien!:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}Advertencia:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}Aviso: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <br><br>       
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="container d-flex justify-content-center align-items-center ">
+                
+            </div>
+        </div>
+        <div class="col-sm-6 ">
+            <div class="card text-center ">
+                <div class="card-header"> 
+                <button  id="propietario-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoriaModal">Registrar nueva Categoria</button>
+                    
+                </div>
+                
+                <div class="card-body">
+                <table class="table table-light">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">categoria</th>
+                          <th scope="col">Acciones</th>
+    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for object in categorias %}
+                        <tr>
+                            <td>{{object.id}}</td>
+                            <td>{{object.categoria}}</td>
+    
+                            <td>
+                            <button onclick="abrir_modal_editCat('{% url 'editarCategoria' object.id %}')" class="btn btn-primary"> Editar <i class="fa-solid fa-file-pen"></i> </button>
+                            <button onclick="abrir_modal_eliminarCat('{% url 'eliminarCategoria' object.id %}')" class="btn btn-danger"> Eliminar <i class="fa-solid fa-box-archive"></i></button>
+                            
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>  
+        </div>
+        <div class="col-sm-3">
+            
+        </div>
+    </div>
+    
+    <div class="modal fade contenedor" id="editarCategoria_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+    <div class="modal fade contenedor" id="eliminarCategoria_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+   </div>
+   <br><br>
+
+{%  endblock    %}
+
+{% block javascript %}
+        <script type="text/javascript">
+            var $ = jQuery.noConflict();
+            function abrir_modal_editCat(url){
+                $('#editarCategoria_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_eliminarCat(url){
+                $('#eliminarCategoria_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            
+        </script>
+{% endblock %}
+
+    

@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+    
+    <link href="{% static 'lib/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet"/><!-- autocomplete -->
+    <link href="{% static 'lib/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'lib/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
+    
+
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    
+    <link href="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}" rel="stylesheet"/>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'lib/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script><!-- autocomplete -->
+    <script src="{% static 'lib/select2-4.0.13/js/select2.full.min.js' %}"></script>
+    <script src="{% static 'lib/select2-4.0.13/js/i18n/es.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/moment-2.25.3/moment-with-locales.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script src="{% static 'lib/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
+
+    
+    <script src="{% static 'js/form.js' %}"></script>
+
+{% endblock %}
+{% block title %}
+    Ventas
+{% endblock %}
+{% block content %}
+    <form action="" method="POST">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">
+                    {% if action == 'add' %}
+                        <i class="fas fa-plus"></i>
+                    {% else %}
+                        <i class="fas fa-edit"></i>
+                    {% endif %}
+                    {{ title }}
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-boxes"></i> Detalle de productos</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Buscador de productos:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="search"
+                                               placeholder="Ingrese una descripción de producto" autocomplete="off">
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-danger btn-flat btnClearSearch"><i
+                                                    class="fas fa-times"></i></button>
+                                          </span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <button type="button" class="btn btn-danger btn-xs " id="btnRemoveAll">
+                                <i class="fas fa-trash"></i>Eliminar todos los productos
+                                </button>
+                                <hr>
+                                <table class="table table-bordered" id="tblProducts">
+                                    <thead>
+                                    <tr>
+                                        <th>Eliminar</th>
+                                        <th>Producto</th>
+                                        <th>Categoría</th>
+                                        <th>PVP</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-shopping-cart"></i> Datos de la factura</h3>
+                            </div>
+                            <div class="card-body">
+                                <input type="hidden" name="action" value="{{ action }}">
+                                <div class="form-group">
+                                    <label>Fecha de venta:</label>
+                                    {{ form.fecha_compra }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Cliente:</label>
+                                    {{ form.cliente }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Metodo de Pago:</label>
+                                    {{ form.metodoPago }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Subtotal:</label>
+                                    {{ form.subtotal }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Descuento:</label>
+                                    {{ form.descuento }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Total a pagar:</label>
+                                    {{ form.total }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary btn-flat">
+                    <i class="fas fa-save"></i> Guardar registro
+                </button>
+                <a href="{% url 'venta_list' %}" class="btn btn-danger btn-flat">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+            </div>
+        </div>
+    </form>
+    <script>        
+        vents.items.productos = {{ detalle|safe }}
+    </script>
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+    function alert_action( title, content, callback) {
+    $.confirm({
+        theme: 'material',
+        title: title,
+        icon: 'fa fa-info',
+        content: content,
+        columnClass: 'small',
+        typeAnimated: true,
+        cancelButtonClass: 'btn-primary',
+        draggable: true,
+        dragWindowBorder: false,
+        buttons: {
+            info: {
+                text: "Si",
+                btnClass: 'btn-primary',
+                action: function () {
+                    callback();
+                }
+            },
+            danger: {
+                text: "No",
+                btnClass: 'btn-red',
+                action: function () {
+  
+                }
+            },
+        }
+    })
+  }
+</script>
+{% endblock %}

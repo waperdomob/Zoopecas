@@ -1,0 +1,68 @@
+{%  extends "base.html" %}
+{%  block title %}
+    Detalle Historia Clinica
+{%  endblock    %}
+{% load static %}
+{%  block styles %}
+<link rel="stylesheet" href="{% static 'css/formularioHC.css' %}">
+  {%  endblock  %}
+{%  block content   %}
+        
+          <div class="card">
+              <div class="card-body">
+                <h1 style="color: rgb(9, 132, 240);"><center>Mascota: {{ object.mascotas }}</center></h1>
+                <br>
+                <div class="row ">            
+                    <div class="col-4 ocultar">
+                        
+                        <h5 class="ocultar">id# : <small>{{ object.id }}</small></h5>
+                        <h5 class="ocultar">Fecha Registro: <small> {{ object.fecha }}</small></h5>
+                        <h5 class="ocultar">Propietario: <small>{{ object.mascotas.propietario }}</small></h5>
+                        <h5 class="ocultar">Queja Principal: <small>{{ object.quejaPrincipal }}</small></h5>
+                        <h5 class="ocultar">Tratamientos previos: <small>{{ object.tratamientosPrevios }}</small></h5>
+                        <h5 class="ocultar">Enfermedades Anteriores : <small>{{ object.enfermedadesAnteriores }}</small></h5>
+                        <h5 class="ocultar">Dieta:  <small>{{ object.dieta }}</small></h5>
+                        <h5 class="ocultar">Medicina Preventiva: <small>{{ object.medicinaPreventiva }}</small></h5>
+                        <h5 class="ocultar">Temperatura: <small>{{ object.temperatura }}</small></h5>
+                        <h5 class="ocultar">Pulso: <small>{{ object.pulso }}</small></h5>
+                        <h5 class="ocultar">Respiracion: <small>{{ object.respiracion }}</small></h5>
+                        <h5 class="ocultar">Inspeccion: <small>{{ object.inspeccion }}</small></h5>
+                    </div>
+                    <div class="col-4 ">
+                        <h5 class="ocultar">TLIC:  <small>{{ object.TLIC }}</small></h5>
+                        <h5 class="ocultar">Hidratacion: <small>{{ object.hidratacion }}</small></h5>
+                        <h5 class="ocultar">Peso: <small>{{ object.peso }}</small></h5>
+                        <h5 class="ocultar">Ganglios: <small>{{ object.ganglios }}</small></h5>
+                        <h5 class="ocultar">Sistema Digestivo: <small>{{ object.sistDigestivo }}</small></h5>
+                        <h5 class="ocultar">Sistema Respiratorio: <small>{{ object.sistRespiratorio }}</small></h5> 
+                        <h5 class="ocultar">Sistema Cardiovascular:  <small>{{ object.sistCardiovascular }}</small></h5>
+                        <h5 class="ocultar">Sistema Urinario: <small>{{ object.sistUrinario }}</small></h5>
+                        <h5 class="ocultar">Sistema Genital: <small>{{ object.sistGenital }}</small></h5>
+                        <h5 class="ocultar">Sistema Nervioso: <small>{{ object.sistNervioso }}</small></h5>
+                        <h5 class="ocultar">Sistema Locomotor: <small>{{ object.sistLocomotor }}</small></h5>
+                        <h5 class="ocultar">Piel Anexos: <small>{{ object.pielAnexos }}</small></h5> 
+                    </div>
+                    <div class="col-4 ocultar">
+                        <h5 class="ocultar">Hallazgos:  <small>{{ object.hallazgos }}</small></h5>
+                        <h5 class="ocultar">Exámenes Solicitados: <small>{{ object.examenesSolicitados }}</small></h5>
+                        <h5 class="ocultar">Exámenes Autorizados: <small>{{ object.examenesAutorizados }}</small></h5>
+                        <h5 class="ocultar">Impresion Diagnostica: <small>{{ object.impresionDiagnostica }}</small></h5>
+                        <h5 class="ocultar">Sistema tratamiento Ideal: <small>{{ object.tratamientoIdeal }}</small></h5>
+                        <h5 class="ocultar">Cotizacion 1: <small>{{ object.cotizacion1 }}</small></h5>   
+                        <h5 class="ocultar">Tratamiento Instaurado: <small>{{ object.tratamientoInstaurado }}</small> </h5>
+                        <h5 class="ocultar">Cotizacion 2: <small>{{ object.cotizacion2 }}</small></h5>  
+                        <h5 class="ocultar">Observaciones: <small>{{ object.observaciones }}</small></h5>
+                        {% for object in object.veterinario.all %}
+                            <h5 class="ocultar">Veterinario: <small>{{ object}}</small></h5>
+                        {% endfor %}                         
+                    </div>
+                </div>
+              </div>
+          </div>
+            <div class="d-grid gap-2 col-4 mx-auto">
+                <a href="#" class="btn btn-info"> Seguimientos </a>
+
+                <a href="{% url 'editarHC' object.id %}" class="btn btn-warning"> EDITAR </a>
+            </div>
+            <br><br>
+{%  endblock  %}

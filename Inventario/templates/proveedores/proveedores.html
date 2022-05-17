@@ -1,0 +1,104 @@
+{%  extends "base.html" %}
+{%  block title %}
+    Proveedores
+{%  endblock    %}
+{%  load static %}
+{%  block styles %}
+    <link rel="stylesheet" href="{% static 'css/indexProducto.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+  {%  endblock  %} 
+{%  block scripts %}
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+  {%  endblock  %} 
+
+{%  block content   %}
+
+    <div class="container">
+        <br>
+        <h1 style="color: rgb(9, 132, 240);"><center>{{title}}</center></h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="textLabel">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error:
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}¡Bien!:
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}Advertencia:
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}Aviso: {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <br>
+        <div class="d-grid gap-2 col-4 mx-auto">
+            <button onclick="abrir_modal_createProv('{% url 'crearProveedor' %}')" class="btn btn-success">Agregar Proveedor</button>
+        </div>
+        <br> 
+        
+        <table class="table table-light" id="productos">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Proveedor</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Empleado</th>
+                  
+                  <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acciones</th>
+             </tr>
+            </thead>
+            <tbody>
+                {% for object in proveedores %}
+                <tr>
+                    <td>{{object.id}}</td>
+                    <td>{{object.proveedor}}</td>
+                    <td>{{object.telefono}}</td>
+                    <td>{{object.nombreEmpleado}}</td>
+                    <td>                        
+                        <button onclick="abrir_modal_editProv('{% url 'editarProveedor' object.id %}')" class="btn btn-primary">Editar<i class="fa-solid fa-file-pen"></i></button>
+                        <button onclick="abrir_modal_eliminarProv('{% url 'eliminarProveedor' object.id %}')" class="btn btn-danger">Eliminar<i class="fa-solid fa-box-archive"></i></button>                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            <div class="modal fade contenedor" id="editProveed_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            </div>
+            <div class="modal fade contenedor" id="crearProveed_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            </div>
+            <div class="modal fade contenedor" id="eliminarProveed_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            </div>
+
+    </div>
+
+{%  endblock    %}
+
+{% block javascript %}
+        <script type="text/javascript">
+
+                $('#productos').DataTable({
+                    responsive: true,
+                    autoWidth: false
+                });
+
+            var $ = jQuery.noConflict();
+            function abrir_modal_editProv(url){
+                $('#editProveed_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_createProv(url){
+                $('#crearProveed_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_eliminarProv(url){
+                $('#eliminarProveed_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+        </script>
+{% endblock %}

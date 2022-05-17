@@ -1,0 +1,104 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="{%  static 'img/logo1mejorado.png' %}">
+  
+    <title>
+      {%  block title %}
+      Zoopecas
+      {%  endblock    %}
+    </title>  
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="{% static 'lib/AdminLTE/plugins/jquery/jquery.min.js'  %}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{% static 'lib/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js'  %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'lib/AdminLTE/js/adminlte.min.js'  %}"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{% static 'lib/AdminLTE/css/adminlte.min.css' %}">
+  <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'lib/AdminLTE/plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- jQuery -->
+  <!-- Jquery Confirm -->
+  <link rel="stylesheet" href="{% static 'lib/jquery-confirm-v3.3.4/jquery-confirm.min.css' %}">
+  <script src="{% static 'lib/jquery-confirm-v3.3.4/jquery-confirm.min.js' %}"></script>
+  <script src="{% static 'js/funciones2.js' %}"></script>
+  
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <!-- Theme style -->
+  {%  block styles %}
+  {%  endblock  %} 
+  {%  block scripts %}
+  {%  endblock  %}  
+</head>
+<body class="hold-transition sidebar-mini layout-fixed" id="main">
+  <div class="wrapper">
+        <!-- Header -->
+        {% include 'header.html' %}
+        <!-- Sidebar -->
+        {% if user.is_superuser %}
+          {% include 'sidebar.html' %} 
+        {% else %}
+        {% endif %}       
+        <!-- Content -->
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark"> Bienvenido <small>Veterinaria Zoopecas</small></h1>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        {% include 'footer.html' %}
+    </div>
+    <!-- Block javascript -->
+    {% block javascript %}
+
+    {% endblock %}
+  <!-- ./wrapper -->
+
+  <!-- REQUIRED SCRIPTS -->
+    {% if not user.is_superuser %}
+    <script>
+      document.getElementById("main").style.marginLeft= "-230px";
+    </script>
+    
+    {% else %}
+    <script>
+      function openNav() {        
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "0";
+      }
+      
+      function closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft= "-230px";
+      }
+    </script>
+    {% endif %}
+    
+
+  
+  
+</body>
+</html>

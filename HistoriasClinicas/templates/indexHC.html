@@ -1,0 +1,90 @@
+{%  extends "base.html" %}
+{%  block title %}
+    Historia Clinica
+{%  endblock    %}
+
+{%  load static %}
+
+{%  block styles %}
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+  {%  endblock  %} 
+{%  block scripts %}
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+  {%  endblock  %} 
+   
+</head>
+{%  block content   %}
+
+   <div class="container ">
+        <br>
+        <h1 style="color: rgb(9, 132, 240);"><center>Historias Clinicas. </center></h1> 
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="textLabel">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error:
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}¡Bien!:
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}Advertencia:
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}Aviso: {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <br><br>
+        <div class="d-grid gap-2 col-4 mx-auto">
+            <a href="{% url 'nuevaHistoriaClinica'  %}" class="btn btn-success ">Nueva Historia Clínica</a>
+        </div>
+    <br><br>
+        <div class="container">
+            <table class="table table-light" id="data">
+                <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Propietario</th>
+                      <th scope="col">Mascota</th>
+                      <th scope="col">Tratamiento</th>
+                      <th scope="col">Observaciones</th>
+                      <th scope="col">Fecha</th>
+                      <th scope="col"><center>Acciones</center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in datos %}
+                    <tr>
+                        <td>{{object.id}}</td>
+                        <td>{{object.mascotas.propietario}}</td>
+                        <td>{{object.mascotas}}</td>
+                        <td>{{object.tratamientoInstaurado}}</td>
+                        <td>{{object.observaciones}}</td>
+                        <td>{{object.fecha}}</td>
+                        <td>
+                            <a href="{% url 'detalleHC' object.id %}" class="btn btn-primary">Ver</a>&nbsp;|&nbsp;
+                            <a href="{% url 'editarHC' object.id %}" class="btn btn-warning"> Editar </a>&nbsp;|&nbsp;
+                            <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#seguimientoModal{{object.id}}"><span class="glyphicon glyphicon-trash"></span > Agregar Seguimiento </a>
+                            <!-- Modal Structure -->
+                            {% include 'seguimientoM.html' %}
+                            
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+   </div>
+
+
+{%  endblock    %}
+
+{% block javascript %}
+   <script type="application/javascript">
+    $('#data').DataTable({
+        responsive: true,
+        autoWidth: false
+    });
+   </script>
+{% endblock %}

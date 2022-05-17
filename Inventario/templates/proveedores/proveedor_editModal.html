@@ -1,0 +1,24 @@
+
+    <div class="modal-dialog">
+      <div class="modal-content contenedor2" >
+        <div class="modal-header contenedorModal" >
+          <h5 class="modal-title" id="exampleModalLabel">Editar Proveedor "{{object}}"</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body contenedorModal" id="modal-body" >
+            <div id="alert-box"></div>
+            <div class="container" >
+          
+              <form action="{% url 'editarProveedor' object.id %}" method="post" >{% csrf_token %}
+                {{form}}
+                <br>
+                <div class="modal-footer contenedorModal">
+                    <button class="btn btn-success" type="submit" value="Update"> Actualizar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>

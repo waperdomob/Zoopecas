@@ -1,0 +1,17 @@
+.cajaCheck{
+    display: flex;
+    align-items:flex-end;
+    justify-content: space-around;
+}  
+
+.radio-checkbox{
+
+    transform: scale(1.1); /* Safari y Chrome */
+
+    padding: 1px;
+    background-size: cover;
+}
+
+.textLabel{
+    font-size: 1.2rem;    
+}

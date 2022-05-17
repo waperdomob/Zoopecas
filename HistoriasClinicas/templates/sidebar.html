@@ -1,0 +1,74 @@
+{% load static %}
+<aside class="main-sidebar sidebar-light-primary elevation-4 " id="mySidebar">
+    
+    <div class="sidebar" >  
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{% static 'img/imagen1.png' %}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            {% if user.is_authenticated %}
+            <div class="info">
+                <a href="#" class="d-block">{{  user.first_name }}</a>
+            </div>
+            {% endif %}
+            <div class="info">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">
+                </a>    
+
+            </div>
+        </div>
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header">Mantenimientos</li>
+                <li class="nav-item">
+                    <a href="{% url 'categoria'  %}" class="nav-link">
+                        <i class="nav-icon fas fa-cubes"></i>
+                        <p>
+                            Categorías
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'inventario'  %}" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Productos
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'proveedores'  %}" class="nav-link">
+                        <i class="nav-icon fas fa-truck-loading"></i>
+                        <p>
+                            Proveedores
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'clientes'  %}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Clientes
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'venta_create'  %}" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Ventas
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'reporte_ventas'  %}" class="nav-link">
+                        <i class="nav-icon fas fa-chart-bar"></i>
+                        <p>
+                            Reporte de Ventas
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

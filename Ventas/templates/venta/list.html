@@ -1,0 +1,94 @@
+{%  extends "base2.html" %}
+{%  block title %}
+    Ventas
+{%  endblock    %}
+{% load static %}
+{%  block styles %}
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    
+  {%  endblock  %} 
+{% block scripts %}
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'js/list.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <h1 style="color: rgb(9, 132, 240);"><center>{{title}}</center></h1>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="textLabel">
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}¡Bien!:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}Advertencia:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}Aviso: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <br>
+    <div class="d-grid gap-2 col-4 mx-auto">
+        <a href="{% url 'venta_create' %}" class="btn btn-success">Nueva Venta</a>
+    </div>
+    <br> 
+    <table class="table table-light" id="data">
+        <thead>
+            <tr>
+                <th scope="col">Nro</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Fecha de registro</th>
+                <th scope="col">Metodo de pago</th>
+                <th scope="col">Subtotal</th>
+                <th scope="col">Descuento</th>
+                <th scope="col">Total</th>
+                <th scope="col">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in ventas %}
+            <tr>
+                <td >{{data.id}}</td>
+                <td>{{data.cliente}}</td>
+                <td>{{data.fecha_compra}}</td>
+                <td>{{data.metodoPago}}</td>
+                <td>{{data.subtotal}}</td>
+                <td>{{data.descuento}}</td>
+                <td>{{data.total}}</td>
+                <td>
+                    <button onclick="abrir_modal_eliminarVenta('{% url 'venta_eliminar' data.id %}')"  class="btn btn-danger"> <i class="fas fa-trash-alt"></i></button>
+                    <a href="{% url 'venta_editar' data.id %}" class="btn btn-warning"> <i class="fa-solid fa-edit"></i></a>
+                    <button id= "{{data.id}}" onclick="enviarid(this)" rel="details"  class="btn btn-success"> <i class="fa-solid fa-search"></i></button>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <div class="modal fade contenedor" id="eliminarVenta_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+       {%  include 'venta/detalleV.html'  %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+         $('#data').DataTable({
+                responsive: true,
+                autoWidth: false
+        });
+        var $ = jQuery.noConflict();
+        function abrir_modal_eliminarVenta(url){
+                $('#eliminarVenta_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+    </script>
+{% endblock %}

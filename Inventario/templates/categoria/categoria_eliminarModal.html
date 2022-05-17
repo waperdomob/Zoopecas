@@ -1,0 +1,26 @@
+<div class="modal-dialog">
+    <div class="modal-content contenedor2" >
+      <div class="modal-header contenedorModal" >
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Categoria </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body contenedorModal" id="modal-body" >
+          <div class="alert alert-danger alert-dismissible">            
+            <h2><i class="icon fas fa-ban"></i><center>Notificación</center></h2>
+            <h5><center>Está seguro de eliminar: "{{ object }}"?</center></h5>
+          </div>
+         
+            <form action="{% url 'eliminarCategoria' object.id %}" method="post">{% csrf_token %}
+               
+                {{ form }}
+              <br>
+              <div class="modal-footer contenedorModal">
+                  <button class="btn btn-danger" type="submit" value="Update"> Eliminar</button>
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
+
+              </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>

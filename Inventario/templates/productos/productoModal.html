@@ -1,0 +1,21 @@
+
+    <div class="modal-dialog">
+      <div class="modal-content contenedor2" >
+        <div class="modal-header contenedorModal" >
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body contenedorModal" id="modal-body" >
+            <div id="alert-box"></div>
+            <form action="{% url 'crearProducto' %}" id="producto_form" method="POST" enctype="multipart/form-data">
+              {%  csrf_token  %}
+                {{form}}
+                <div class="modal-footer contenedorModal">
+                  <button type="submit" class="btn btn-primary" >Guardar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+        
+      </div>
+    </div>

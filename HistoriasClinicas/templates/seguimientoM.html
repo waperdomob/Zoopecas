@@ -1,0 +1,29 @@
+<div class="modal fade" id="seguimientoModal{{object.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header contenedorModal">
+          <h5 class="modal-title" id="exampleModalLabel">Registrar Seguimiento de Historia Clinica</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body contenedorModal" id="modal-body">
+            <div id="alert-box"></div>
+            <form action="{% url 'create_seguimiento' object.id %}">
+              {% csrf_token %}
+              {% for object in form2 %}
+                <div class="container">
+                  {{ object.label_tag }}
+                  {{object}}
+                </div>
+              {% endfor %}
+              <div class="modal-footer contenedorModal">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+
+            </form>
+        </div>
+          
+      </div>
+    </div>
+</div>
