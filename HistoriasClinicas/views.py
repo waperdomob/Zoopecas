@@ -3,10 +3,16 @@ import datetime
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.middleware import *
+from django.views import View
 from django.views.generic import CreateView,ListView, DetailView,UpdateView
 from django.views.decorators.csrf import csrf_exempt
-from django.http import  JsonResponse
-
+from django.http import  HttpResponseRedirect, JsonResponse
+import os
+from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
 from django.contrib import messages
 from django.shortcuts import  redirect, render
 
@@ -81,6 +87,7 @@ class HCDetailView(DetailView):
 
     model = HistoriasClinicas
     template_name='detalleHC.html'
+
     def get_queryset(self):
         qs = super(HCDetailView, self).get_queryset()
         return qs.filter(pk=self.kwargs['pk'])
@@ -90,6 +97,49 @@ class HCDetailView(DetailView):
         
         return context
    
+class HistoriaClinicaPDF(View):
+    def link_callback(self, uri, rel):
+            """
+            Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+            resources
+            """
+            result = finders.find(uri)
+            if result:
+                    if not isinstance(result, (list, tuple)):
+                            result = [result]
+                    result = list(os.path.realpath(path) for path in result)
+                    path=result[0]
+            else:
+                    sUrl = settings.STATIC_URL        # Typically /static/
+                    sRoot = settings.STATIC_ROOT      # Typically /home/userX/project_static/
+                    mUrl = settings.MEDIA_URL         # Typically /media/
+                    mRoot = settings.MEDIA_ROOT       # Typically /home/userX/project_static/media/
+
+                    if uri.startswith(mUrl):
+                            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+                    elif uri.startswith(sUrl):
+                            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+                    else:
+                            return uri
+
+            # make sure that file exists
+            if not os.path.isfile(path):
+                    raise Exception(
+                            'media URI must start with %s or %s' % (sUrl, mUrl)
+                    )
+            return path
+    def get(self, request, *args, **kwargs):
+        try:
+            template = get_template('hcPDF.html')
+            context = {'object': HistoriasClinicas.objects.get(pk=self.kwargs['pk'])}
+            html = template.render(context)
+            response = HttpResponse(content_type= 'application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="hisoriaClinica.pdf"'
+            pisa_status = pisa.CreatePDF(
+                html, dest=response)
+            return response
+        except:
+            return HttpResponseRedirect(reverse_lazy('HistoriasClinicas:inicio'))
 
 @login_required
 def create_Propietario(request):

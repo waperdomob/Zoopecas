@@ -1,0 +1,93 @@
+.headerColor{
+    background-color: rgb(9, 132, 240);
+}
+.footerColor{
+    background-color: rgb(9, 132, 240);
+}
+.textColor{
+    color: aliceblue;
+    font-size: x-large;
+}
+.centrado {
+
+    width: 140px; /* Para que no se rompa en dos líneas, y lo translade tal cual. */
+    margin-left: 40%;
+    transform: translateX(-50%);
+    transform: translateY(30%);
+    border: 2px solid #f8f6f4f6; 
+    border-radius: 10px 10px 10px 10px;
+    background-color: rgb(9, 132, 240);
+    color: azure;
+
+}
+
+.centrado2 {
+
+    width: 140px; /* Para que no se rompa en dos líneas, y lo translade tal cual. */
+    margin-left: 40%;
+    transform: translateX(-50%);
+    transform: translateY(40%);
+    border: 2px solid #f8f6f4f6; 
+    border-radius: 10px 10px 10px 10px;
+    background-color: rgb(9, 132, 240);
+    color: azure;
+
+}
+  .ocultar {
+    width: 300px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+.contenedor{
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 4px 4px 4px 0px #5a28e550;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: rgb(9, 132, 240);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+  }
+
+  .closebtn {
+    position: absolute;
+    right: 25px;
+    top: 2px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+  }
+  .closebtn:hover {
+    opacity: 1;
+  }
+  .closebtn:before, .closebtn:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+  .closebtn:before {
+    transform: rotate(45deg);
+  }
+  .closebtn:after {
+    transform: rotate(-45deg);
+  }
+  .custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  
+  .custom-toggler.navbar-toggler {
+    border-color: rgb(255,102,203);
+  } 
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }

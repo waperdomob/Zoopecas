@@ -63,9 +63,9 @@
                         <td>{{object.observaciones}}</td>
                         <td>{{object.fecha}}</td>
                         <td>
-                            <a href="{% url 'detalleHC' object.id %}" class="btn btn-primary">Ver</a>&nbsp;|&nbsp;
-                            <a href="{% url 'editarHC' object.id %}" class="btn btn-warning"> Editar </a>&nbsp;|&nbsp;
-                            <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#seguimientoModal{{object.id}}"><span class="glyphicon glyphicon-trash"></span > Agregar Seguimiento </a>
+                            <a href="{% url 'detalleHC' object.id %}" class="btn btn-primary">Ver</a>
+                            <a href="{% url 'editarHC' object.id %}" class="btn btn-warning"> Editar </a>
+                            <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#seguimientoModal{{object.id}}"><span class="glyphicon glyphicon-trash">+</span ></a>
                             <!-- Modal Structure -->
                             {% include 'seguimientoM.html' %}
                             

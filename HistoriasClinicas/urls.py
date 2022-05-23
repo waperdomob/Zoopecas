@@ -12,7 +12,6 @@ urlpatterns = [
        
     path('',views.index, name='inicio'),
     re_path('^ajax_search/$', views.ajax_search, name='ajax_search'),
-    path('accounts/', include('django.contrib.auth.urls')),
     path('historiaClinica/',login_required(views.crearHistoriaC.as_view()), name='historiaClinica'),
     path('historiaClinica/edit/<int:pk>/',login_required(views.HCUpdate.as_view()), name='editarHC'),
     path('historiaClinica/Detalle/<int:pk>/',login_required(views.HCDetailView.as_view()), name='detalleHC'),
@@ -21,5 +20,6 @@ urlpatterns = [
     path('saveSeguimiento/<int:pk>', create_seguimiento, name='create_seguimiento'),
     path('saveHistoriaClinica/', create_HC, name='saveHistoriaClinica'),
     path('nuevaHistoriaClinica/', new_HC, name='nuevaHistoriaClinica'),
+    path('historiaClinica/HCPDF/<int:pk>/', login_required(views.HistoriaClinicaPDF.as_view()), name='HCPDF'),
 
 ]

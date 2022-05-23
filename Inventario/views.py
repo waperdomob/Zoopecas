@@ -76,7 +76,7 @@ def create_categoria(request):
         if categoria.is_valid():
             nombre = categoria.cleaned_data['categoria']
             consulta = Categorias.objects.filter(categoria=nombre)
-            if consulta[0]:
+            if consulta:
                 categorias = Categorias.objects.all()
                 formulario = CategoriasForm()
                 context = {'categorias':categorias,'form':formulario}

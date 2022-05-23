@@ -51,9 +51,11 @@ class Propietarios(models.Model):
 class Mascotas(models.Model):
     nombreMas=models.CharField(max_length=45)
     color=models.CharField(max_length=45)
+    edad = models.CharField(max_length=45,null=True)
     especie=models.ForeignKey(Especies,null=False, on_delete=models.CASCADE)
     raza=models.ForeignKey(Razas,null=False, on_delete=models.CASCADE)
     sexo=models.ForeignKey(Sexos,null=False, on_delete=models.CASCADE)
+    caracteristicas = models.CharField(max_length=100,null=True)
     propietario=models.ForeignKey(Propietarios,null=False, on_delete=models.CASCADE)
     def __str__(self):
         return self.nombreMas
@@ -71,7 +73,7 @@ class HistoriasClinicas(models.Model):
     temperatura = models.FloatField(help_text='(°C)')
     pulso = models.FloatField(help_text='(X minuto)')
     respiracion = models.FloatField(help_text='(X minuto)')
-    inspeccion = models.CharField(max_length=45)
+    inspeccion = models.CharField(max_length=100)
     TLIC = models.FloatField(help_text='(seg)')
     hidratacion = models.FloatField(help_text='(seg)')
     peso = models.FloatField(help_text='(Kg)')

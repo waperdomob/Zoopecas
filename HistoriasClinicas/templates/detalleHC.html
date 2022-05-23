@@ -7,62 +7,122 @@
 <link rel="stylesheet" href="{% static 'css/formularioHC.css' %}">
   {%  endblock  %}
 {%  block content   %}
-        
-          <div class="card">
-              <div class="card-body">
-                <h1 style="color: rgb(9, 132, 240);"><center>Mascota: {{ object.mascotas }}</center></h1>
-                <br>
+        <div class="container">
+            <div class="row ">            
+                <div class="col-4 ">
+                    <br><br>
+                    <h4>SALUD Y BIENESTAR PARA TU MASCOTA</h4>
+                </div>
+                <div class="col-4 ">
+                    <img src="{%  static 'img/veterinariaHC.jpg' %}" alt="">
+                </div>
+                <div class="col-4 ">
+                    <h1 style="font-family: Algerian; font-weight:normal;"><center>ZOOPECAS</center></h1>
+                    <h2 style="font-weight:bold;"><center>CONSULTORIO VETERINARIO</center></h2>
+                    <h5><center>CALLE 61A # 87N-39 SUR</center></h5>
+                    <h5><center>3143972399 - 3118566551</center></h5>
+                </div>
+            </div><br>
+            <div class="container">
                 <div class="row ">            
-                    <div class="col-4 ocultar">
-                        
-                        <h5 class="ocultar">id# : <small>{{ object.id }}</small></h5>
-                        <h5 class="ocultar">Fecha Registro: <small> {{ object.fecha }}</small></h5>
-                        <h5 class="ocultar">Propietario: <small>{{ object.mascotas.propietario }}</small></h5>
-                        <h5 class="ocultar">Queja Principal: <small>{{ object.quejaPrincipal }}</small></h5>
-                        <h5 class="ocultar">Tratamientos previos: <small>{{ object.tratamientosPrevios }}</small></h5>
-                        <h5 class="ocultar">Enfermedades Anteriores : <small>{{ object.enfermedadesAnteriores }}</small></h5>
-                        <h5 class="ocultar">Dieta:  <small>{{ object.dieta }}</small></h5>
-                        <h5 class="ocultar">Medicina Preventiva: <small>{{ object.medicinaPreventiva }}</small></h5>
-                        <h5 class="ocultar">Temperatura: <small>{{ object.temperatura }}</small></h5>
-                        <h5 class="ocultar">Pulso: <small>{{ object.pulso }}</small></h5>
-                        <h5 class="ocultar">Respiracion: <small>{{ object.respiracion }}</small></h5>
-                        <h5 class="ocultar">Inspeccion: <small>{{ object.inspeccion }}</small></h5>
-                    </div>
                     <div class="col-4 ">
-                        <h5 class="ocultar">TLIC:  <small>{{ object.TLIC }}</small></h5>
-                        <h5 class="ocultar">Hidratacion: <small>{{ object.hidratacion }}</small></h5>
-                        <h5 class="ocultar">Peso: <small>{{ object.peso }}</small></h5>
-                        <h5 class="ocultar">Ganglios: <small>{{ object.ganglios }}</small></h5>
-                        <h5 class="ocultar">Sistema Digestivo: <small>{{ object.sistDigestivo }}</small></h5>
-                        <h5 class="ocultar">Sistema Respiratorio: <small>{{ object.sistRespiratorio }}</small></h5> 
-                        <h5 class="ocultar">Sistema Cardiovascular:  <small>{{ object.sistCardiovascular }}</small></h5>
-                        <h5 class="ocultar">Sistema Urinario: <small>{{ object.sistUrinario }}</small></h5>
-                        <h5 class="ocultar">Sistema Genital: <small>{{ object.sistGenital }}</small></h5>
-                        <h5 class="ocultar">Sistema Nervioso: <small>{{ object.sistNervioso }}</small></h5>
-                        <h5 class="ocultar">Sistema Locomotor: <small>{{ object.sistLocomotor }}</small></h5>
-                        <h5 class="ocultar">Piel Anexos: <small>{{ object.pielAnexos }}</small></h5> 
+                        <h5 >HOJA CLINICA No. {{ object.id|safe }}</h5>
                     </div>
-                    <div class="col-4 ocultar">
-                        <h5 class="ocultar">Hallazgos:  <small>{{ object.hallazgos }}</small></h5>
-                        <h5 class="ocultar">Exámenes Solicitados: <small>{{ object.examenesSolicitados }}</small></h5>
-                        <h5 class="ocultar">Exámenes Autorizados: <small>{{ object.examenesAutorizados }}</small></h5>
-                        <h5 class="ocultar">Impresion Diagnostica: <small>{{ object.impresionDiagnostica }}</small></h5>
-                        <h5 class="ocultar">Sistema tratamiento Ideal: <small>{{ object.tratamientoIdeal }}</small></h5>
-                        <h5 class="ocultar">Cotizacion 1: <small>{{ object.cotizacion1 }}</small></h5>   
-                        <h5 class="ocultar">Tratamiento Instaurado: <small>{{ object.tratamientoInstaurado }}</small> </h5>
-                        <h5 class="ocultar">Cotizacion 2: <small>{{ object.cotizacion2 }}</small></h5>  
-                        <h5 class="ocultar">Observaciones: <small>{{ object.observaciones }}</small></h5>
-                        {% for object in object.veterinario.all %}
-                            <h5 class="ocultar">Veterinario: <small>{{ object}}</small></h5>
-                        {% endfor %}                         
+                    <div class="col-6 ">
+                        <h5 >Fecha Registro: {{ object.fecha|safe }}  Hora: {{ object.hora|safe }}</h5>
                     </div>
                 </div>
-              </div>
-          </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <h3 style="font-weight:bold;">1. RESEÑA:</h3>            
+            <div class="row ">            
+                <div class="col-6 ">
+                    <h5 >Propietario: {{ object.mascotas.propietario|safe }}</h5>
+                    <h5 >Dirección: <small>{{ object.mascotas.propietario.direccion |safe}}</small></h5>
+
+                </div>
+                <div class="col-6 ">
+                    <h5 >Identificación: <small>{{ object.mascotas.propietario.documentoid |safe}}</small></h5>
+                    <h5 >Telefonos: <small>{{ object.mascotas.propietario.telefonos |safe}}</small></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h5 >Nombre del animal: {{ object.mascotas |safe}}</h5>
+                    <h5 >Color: <small>{{ object.mascotas.color |safe}}</small></h5>
+                </div>
+                <div class="col-4">
+                    <h5 >Especie: <small>{{ object.mascotas.especie |safe}}</small></h5>
+                    <h5 >Sexo: <small>{{ object.mascotas.sexo |safe}}</small></h5>
+                </div>
+                <div class="col-4">
+                    <h5 >Raza: <small>{{ object.mascotas.raza |safe}}</small></h5>
+                    <h5 >Edad: <small>{{ object.mascotas.edad |safe}}</small></h5>
+                </div>
+            </div>
+            <h5 >Caracteristicas especiales: <small>{{ object.mascotas.caracteristicas |safe}}</small></h5>
+            <br>
+            <h3 style="font-weight:bold;">2. ANAMNESICOS:</h3>            
+            <h5 class="">A. Queja Principal: <small>{{ object.quejaPrincipal |safe}}</small></h5>
+            <h5 class="">B. Tratamientos previos: <small>{{ object.tratamientosPrevios |safe}}</small></h5>
+            <h5 class="">C. Enfermedades Anteriores : <small>{{ object.enfermedadesAnteriores |safe}}</small></h5>
+            <h5 class="">D.  Cirugías anteriores:  <small>{{ object.cirugiasAnteriores |safe}}</small></h5>
+            <h5 class="">E. Dieta: <small>{{ object.dieta }}</small></h5>
+            <h5 class="">F. Medicina Preventiva : <small>{{ object.medicinaPreventiva|safe }}</small></h5>
+            <h5 style="font-weight:bold;">3. INSPECCION:  <small>{{ object.inspeccion|safe }}</small></h5>
+            <h5 style="font-weight:bold;">4. PALPACION - PERCUSION - AUSCULTACION:  <small></small></h5>
+            <div class="row">
+                <div class="col-3">
+                    <h5 >Temperatura: <small>{{ object.temperatura |safe}} °C </small></h5>
+                    <h5 >Hidratación: <small>{{ object.hidratacion |safe}} Seg </small></h5>                    
+                </div>
+                <div class="col-3">
+                    <h5 >Pulso: <small>{{ object.pulso |safe}} X minuto</small></h5>
+                    <h5 >Peso: <small>{{ object.peso |safe}} Kg </small></h5>                    
+                </div>
+                <div class="col-3">
+                    <h5 >Respiracion: <small>{{ object.respiracion |safe}} X minuto</small></h5>   
+                    <h5 >Ganglios: <small>{{ object.ganglios |safe}}</small></h5>                    
+                </div>
+                <div class="col-3">
+                    <h5 >TLIC:  <small>{{ object.TLIC |safe}} Seg</small></h5>
+                </div>
+            </div>
+            <h5>A. Sistema Digestivo (Gusto): <small>{{ object.sistDigestivo |safe}}</small></h5>
+            <h5>B. Sistema Respiratorio (Olfato): <small>{{ object.sistRespiratorio |safe}}</small></h5> 
+            <h5>C. Sistema Cardiovascular:  <small>{{ object.sistCardiovascular|safe }}</small></h5>
+            <h5>D. Sistema Urinario: <small>{{ object.sistUrinario|safe }}</small></h5>
+            <h5>E. Sistema Genital: <small>{{ object.sistGenital|safe }}</small></h5>
+            <h5>F. Sistema Nervioso (Visión - Audición): <small>{{ object.sistNervioso|safe }}</small></h5>
+            <h5>G. Sistema Locomotor: <small>{{ object.sistLocomotor|safe }}</small></h5>
+            <h5>H. Piel Anexos: <small>{{ object.pielAnexos|safe }}</small></h5> 
+            <h5>I. Hallazgos:  <small>{{ object.hallazgos|safe }}</small></h5>
+            <h5 style="font-weight:bold;">5. EXÁMENES SOLICITADOS: <small>{{ object.examenesSolicitados|safe }}</small></h5>
+            <h5 style="font-weight:bold;">6. EXÁMENES AUTORIZADOS: <small>{{ object.examenesAutorizados|safe }}</small></h5>
+            <h5 style="font-weight:bold;">7. IMPRESIÓN DIAGNOSTICA: <small>{{ object.impresionDiagnostica|safe }}</small></h5>
+            <h5 style="font-weight:bold;">8. PRONOSTICO: <small>{{ object.pronostico }}</small></h5>
+            <div class="row">
+                <div class="col-8">
+                    <h5 style="font-weight:bold;">9. TRATAMIENTO IDEAL: <small>{{ object.tratamientoIdeal|safe }}</small></h5>
+                    <h5 style="font-weight:bold;">10. TRATAMIENTO INSTAURADO: <small>{{ object.tratamientoInstaurado|safe }}</small> </h5>
+                </div>
+                <div class="col-4">
+                    <h5>Cotizacion 1: <small>{{ object.cotizacion1|safe }}</small></h5>   
+                    <h5>Cotizacion 2: <small>{{ object.cotizacion2|safe }}</small></h5> 
+                </div>
+            </div>
+            <h5 style="font-weight:bold;">11. OBSERVACIONES: <small>{{ object.observaciones |safe}}</small></h5>
+            {% for object in object.veterinario.all %}
+                <h5 style="font-weight:bold;">MEDICO VETERINARIO: <small>{{ object|safe}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  AUXILIAR: _____________________</small></h5>
+            {% endfor %}
+        </div>
+          
             <div class="d-grid gap-2 col-4 mx-auto">
                 <a href="#" class="btn btn-info"> Seguimientos </a>
 
-                <a href="{% url 'editarHC' object.id %}" class="btn btn-warning"> EDITAR </a>
+                <a href="{% url 'HCPDF' object.id %}" class="btn btn-warning"> Generar PDF </a>
             </div>
             <br><br>
 {%  endblock  %}

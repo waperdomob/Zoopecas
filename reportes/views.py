@@ -8,6 +8,7 @@ from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from django.db.models import FloatField, F
 
+from reportes.funciones.funciones import *
 from reportes.forms import reportForm
 from Ventas.models import Venta, DetVenta
 
@@ -28,13 +29,24 @@ class ReportVentasView(TemplateView):
                 start_date= request.POST.get('start_date','')
                 end_date= request.POST.get('end_date','')
                 metodo_pago = request.POST.get('metodo_pago','')
+                categoria = request.POST.get('categoria','')
 
                 search = Venta.objects.all()
+                search2 = DetVenta.objects.all()
+               
                 if metodo_pago:
                     if metodo_pago != "0":
                         consulta = search.filter(fecha_compra__range=[start_date,end_date]).filter(metodoPago=metodo_pago)
                     elif metodo_pago == "0":
-                        print(metodo_pago)
+                        consulta = search.filter(fecha_compra__range=[start_date,end_date])
+                elif categoria:
+                    if categoria != "0":
+                        consulta2 = search2.select_related('venta').filter(producto__categoria = categoria).filter(venta__fecha_compra__range=[start_date,end_date]) 
+                       
+                        data = agregarData(consulta2)    
+                        return JsonResponse(data, safe=False)
+
+                    elif categoria == "0":
                         consulta = search.filter(fecha_compra__range=[start_date,end_date])
                 else:
                     consulta = search.filter(fecha_compra__range=[start_date,end_date])   
