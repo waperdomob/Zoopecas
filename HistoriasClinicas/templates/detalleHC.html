@@ -5,6 +5,8 @@
 {% load static %}
 {%  block styles %}
 <link rel="stylesheet" href="{% static 'css/formularioHC.css' %}">
+<link rel="shortcut icon" href="#">
+
   {%  endblock  %}
 {%  block content   %}
         <div class="container">
@@ -122,7 +124,7 @@
             <div class="d-grid gap-2 col-4 mx-auto">
                 <a href="#" class="btn btn-info"> Seguimientos </a>
 
-                <a href="{% url 'HCPDF' object.id %}" class="btn btn-warning"> Generar PDF </a>
+                <a href="{% url 'HCPDF' object.id %}" class="btn btn-warning" target="_blank"> Generar PDF </a>
             </div>
             <br><br>
 {%  endblock  %}

@@ -1,4 +1,3 @@
-{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,119 +5,200 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Historia Clinica</title>
 </head>
+<style>
+    @page {
+    size: Letter; /* Change from the default size of A4 */
+    margin: 3cm; /* Set margin on each page */
+    }
+    @font-face {
+        font-family: "Roboto Medium";
+        font-style: normal;
+        font-weight: 500;
+        src: url(fonts/Roboto-Medium.otf) format("opentype");
+    }
+    .titulos{
+        font-family: 'Arial Rounded MT Bold';
+        font-weight: 500;
+    }
+    .medium {
+        font-family: 'Roboto Medium';
+        font-weight: 500;
+    }
+    .img-invoice {
+        width: 200px;
+        text-align: center;
+        margin: 0 auto;
+    }    
+    #titulo {
+        font-family: Algerian;
+        text-align: center;
+    }
+    
+    
+</style>
 <body>
-    <div class="container">
-        <div class="row ">            
-            <div class="col-4 ">
+<div class="container-fluid">
+    <p>
+        <div class="row">            
+            <div class="col -4 ">
                 <br><br>
-                <h4>SALUD Y BIENESTAR PARA TU MASCOTA</h4>
+                <h4 class="text-center fw-bold" >SALUD Y BIENESTAR PARA TU MASCOTA</h4>
             </div>
-            <div class="col-4 ">
-                <img src="{%  static 'img/veterinariaHC.jpg' %}" alt="">
+            <div class="col -4 ">
+                <img src="{{ icon }}" class="img-invoice" alt="">
+            
             </div>
-            <div class="col-4 ">
-                <h1 style="font-family: Algerian; font-weight:normal;"><center>ZOOPECAS</center></h1>
-                <h2 style="font-weight:bold;"><center>CONSULTORIO VETERINARIO</center></h2>
+            <div class="col -4  ">
+                <h1 id="titulo">ZOOPECAS</h1>
+                <h2 class="medium"> <center>CONSULTORIO VETERINARIO</center> </h2>
                 <h5><center>CALLE 61A # 87N-39 SUR</center></h5>
-                <h5><center>3143972399 - 3118566551</center></h5>
+                <h5><center>3143972399-3118566551</center></h5>
             </div>
         </div><br>
-        <div class="container">
             <div class="row ">            
                 <div class="col-4 ">
-                    <h5 >HOJA CLINICA No. {{ object.id|safe }}</h5>
+                    <h5 >HOJA CLINICA No.{{ object.id  }}</h5>
                 </div>
-                <div class="col-6 ">
-                    <h5 >Fecha Registro: {{ object.fecha|safe }}  Hora: {{ object.hora|safe }}</h5>
+                <div class="col-8 ">
+                    <h5 >Fecha: {{ object.fecha  }} Hora: {{ object.hora }}</h5>
                 </div>
+            </div>
+        <hr>
+    </p>
+    <p>
+        <h3 class="titulos">1. RESEÑA:</h3>            
+        <div class="row ">            
+            <div class="col-6 " >
+                <h5 >Propietario: {{ object.mascotas.propietario }}</h5>
+                <h5 >Dirección: <small>{{ object.mascotas.propietario.direccion }}</small></h5>
+    
+            </div>
+            <div class="col-6 ">
+                <h4 >Identificación: <small>{{ object.mascotas.propietario.documentoid }}</small></h4>
+                <h4 >Telefonos: <small>{{ object.mascotas.propietario.telefonos }}</small></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <h5 >Nombre del animal: {{ object.mascotas }}</h5>
+                <h5 >Color: <small>{{ object.mascotas.color }}</small></h5>
+            </div>
+            <div class="col-3">
+                <h5 >Especie: <small>{{ object.mascotas.especie }}</small></h5>
+                <h5 >Sexo: <small>{{ object.mascotas.sexo }}</small></h5>
+            </div>
+            <div class="col-3">
+                <h5 >Raza: <small>{{ object.mascotas.raza }}</small></h5>
+                <h5 >Edad: <small>{{ object.mascotas.edad }}</small></h5>
+            </div>
+            <h5 >Caracteristicas especiales: <small>{{ object.mascotas.caracteristicas }}</small></h5>
+
+        </div>
+    </p>
+    <hr>
+    <p>
+        <h3 class="titulos">2. ANAMNESICOS:</h3>            
+        <h5 class="">A. Queja Principal: <small>{{ object.quejaPrincipal }}</small></h5>
+        <h5 class="">B. Tratamientos previos: <small>{{ object.tratamientosPrevios }}</small></h5>
+        <h5 class="">C. Enfermedades Anteriores : <small>{{ object.enfermedadesAnteriores }}</small></h5>
+        <h5 class="">D.  Cirugías anteriores:  <small>{{ object.cirugiasAnteriores }}</small></h5>
+        <h5 class="">E. Dieta: <small>
+            {% if  object.dieta  ==   "['Concentrado']" %}
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked >
+            <label class="form-check-label" for="flexCheckDisabled">Concentrado</label>
+            {% elif object.dieta  ==   "['Barf']" %}
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked >
+            <label class="form-check-label" for="flexCheckDisabled">Barf</label>
+            {% elif object.dieta  ==   "['Cacera']" %}
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked >
+            <label class="form-check-label" for="flexCheckDisabled">Cacera</label>
+            {% elif object.dieta  ==   "['Mixta']" %}
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked >
+            <label class="form-check-label" for="flexCheckDisabled">Mixta</label>
+            {% else %}
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked >
+            <label class="form-check-label" for="flexCheckDisabled">Otra</label>
+            {% endif %}
+            </small></h5>
+        <h5 class="">F. Medicina Preventiva : <small>{{ object.medicinaPreventiva }}</small></h5>
+        <h5 class="titulos">3. INSPECCION:  <small>{{ object.inspeccion }}</small></h5>
+    </p>
+    <hr>
+    <p>
+        <h5 class="titulos">4. PALPACION - PERCUSION - AUSCULTACION:  <small></small></h5>
+        <div class="row">
+            <div class="col-3">
+                <h5 >Temperatura: <small>{{ object.temperatura }} °C </small></h5>
+                <h5 >Hidratación: <small>{{ object.hidratacion }} Seg </small></h5>                    
+            </div>
+            <div class="col-3">
+                <h5 >Pulso: <small>{{ object.pulso }} X minuto</small></h5>
+                <h5 >Peso: <small>{{ object.peso }} Kg </small></h5>                    
+            </div>
+            <div class="col-3">
+                <h5 >Respiracion: <small>{{ object.respiracion }} X minuto</small></h5>   
+                <h5 >Ganglios: <small>{{ object.ganglios }}</small></h5>                    
+            </div>
+            <div class="col-3">
+                <h5 >TLIC:  <small>{{ object.TLIC }} Seg</small></h5>
+            </div>
+        </div>
+    </p>
+    <p>
+        <h5>A. Sistema Digestivo (Gusto): <small>{{ object.sistDigestivo }}</small></h5>
+        <h5>B. Sistema Respiratorio (Olfato): <small>{{ object.sistRespiratorio }}</small></h5> 
+        <h5>C. Sistema Cardiovascular:  <small>{{ object.sistCardiovascular }}</small></h5>
+        <h5>D. Sistema Urinario: <small>{{ object.sistUrinario }}</small></h5>
+        <h5>E. Sistema Genital: <small>{{ object.sistGenital }}</small></h5>
+        <h5>F. Sistema Nervioso (Visión - Audición): <small>{{ object.sistNervioso }}</small></h5>
+        <h5>G. Sistema Locomotor: <small>{{ object.sistLocomotor }}</small></h5>
+        <h5>H. Piel Anexos: <small>{{ object.pielAnexos }}</small></h5> 
+        <h5>I. Hallazgos:  <small>{{ object.hallazgos }}</small></h5>
+        <hr>
+        <h5 class="titulos">5. EXÁMENES SOLICITADOS: </h5>{{ object.examenesSolicitados }}
+        <h5 class="titulos">6. EXÁMENES AUTORIZADOS: </h5>{{ object.examenesAutorizados }}
+        <h5 class="titulos">7. IMPRESIÓN DIAGNOSTICA: </h5> {{ object.impresionDiagnostica }}
+        <h5 class="titulos">8. PRONOSTICO: <small>
+            {% if  object.pronostico  ==   "['Favorable']" %}
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked >
+            <label class="form-check-label" for="flexCheckDisabled">Favorable</label>
+            {% elif object.pronostico  ==   "['Desfavorable']" %}
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked >
+            <label class="form-check-label" for="flexCheckDisabled">Desfavorable</label>
+           
+            {% else %}
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" checked >
+            <label class="form-check-label" for="flexCheckDisabled">Reservado</label>
+            {% endif %}
+        </small></h5>
+    </p>
+    <hr>
+    <p>
+        <div class="row">
+            <div class="col-8">
+                <h5 class="titulos">9. TRATAMIENTO IDEAL: </h5>{{ object.tratamientoIdeal }}
+                <h5 class="titulos">10. TRATAMIENTO INSTAURADO:  </h5>{{ object.tratamientoInstaurado }}
+            </div>
+            <div class="col-4">
+                <h5>Cotizacion 1: <small>{{ object.cotizacion1 }}</small></h5>   
+                <h5>Cotizacion 2: <small>{{ object.cotizacion2 }}</small></h5> 
             </div>
         </div>
         <hr>
-    </div>
-    <div class="container">
-        <h3 style="font-weight:bold;">1. RESEÑA:</h3>            
-        <div class="row ">            
-            <div class="col-6 ">
-                <h5 >Propietario: {{ object.mascotas.propietario|safe }}</h5>
-                <h5 >Dirección: <small>{{ object.mascotas.propietario.direccion |safe}}</small></h5>
-
-            </div>
-            <div class="col-6 ">
-                <h5 >Identificación: <small>{{ object.mascotas.propietario.documentoid |safe}}</small></h5>
-                <h5 >Telefonos: <small>{{ object.mascotas.propietario.telefonos |safe}}</small></h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4">
-                <h5 >Nombre del animal: {{ object.mascotas |safe}}</h5>
-                <h5 >Color: <small>{{ object.mascotas.color |safe}}</small></h5>
-            </div>
-            <div class="col-4">
-                <h5 >Especie: <small>{{ object.mascotas.especie |safe}}</small></h5>
-                <h5 >Sexo: <small>{{ object.mascotas.sexo |safe}}</small></h5>
-            </div>
-            <div class="col-4">
-                <h5 >Raza: <small>{{ object.mascotas.raza |safe}}</small></h5>
-                <h5 >Edad: <small>{{ object.mascotas.edad |safe}}</small></h5>
-            </div>
-        </div>
-        <h5 >Caracteristicas especiales: <small>{{ object.mascotas.caracteristicas |safe}}</small></h5>
         <br>
-        <h3 style="font-weight:bold;">2. ANAMNESICOS:</h3>            
-        <h5 class="">A. Queja Principal: <small>{{ object.quejaPrincipal |safe}}</small></h5>
-        <h5 class="">B. Tratamientos previos: <small>{{ object.tratamientosPrevios |safe}}</small></h5>
-        <h5 class="">C. Enfermedades Anteriores : <small>{{ object.enfermedadesAnteriores |safe}}</small></h5>
-        <h5 class="">D.  Cirugías anteriores:  <small>{{ object.cirugiasAnteriores |safe}}</small></h5>
-        <h5 class="">E. Dieta: <small>{{ object.dieta }}</small></h5>
-        <h5 class="">F. Medicina Preventiva : <small>{{ object.medicinaPreventiva|safe }}</small></h5>
-        <h5 style="font-weight:bold;">3. INSPECCION:  <small>{{ object.inspeccion|safe }}</small></h5>
-        <h5 style="font-weight:bold;">4. PALPACION - PERCUSION - AUSCULTACION:  <small></small></h5>
-        <div class="row">
-            <div class="col-3">
-                <h5 >Temperatura: <small>{{ object.temperatura |safe}} °C </small></h5>
-                <h5 >Hidratación: <small>{{ object.hidratacion |safe}} Seg </small></h5>                    
-            </div>
-            <div class="col-3">
-                <h5 >Pulso: <small>{{ object.pulso |safe}} X minuto</small></h5>
-                <h5 >Peso: <small>{{ object.peso |safe}} Kg </small></h5>                    
-            </div>
-            <div class="col-3">
-                <h5 >Respiracion: <small>{{ object.respiracion |safe}} X minuto</small></h5>   
-                <h5 >Ganglios: <small>{{ object.ganglios |safe}}</small></h5>                    
-            </div>
-            <div class="col-3">
-                <h5 >TLIC:  <small>{{ object.TLIC |safe}} Seg</small></h5>
-            </div>
-        </div>
-        <h5>A. Sistema Digestivo (Gusto): <small>{{ object.sistDigestivo |safe}}</small></h5>
-        <h5>B. Sistema Respiratorio (Olfato): <small>{{ object.sistRespiratorio |safe}}</small></h5> 
-        <h5>C. Sistema Cardiovascular:  <small>{{ object.sistCardiovascular|safe }}</small></h5>
-        <h5>D. Sistema Urinario: <small>{{ object.sistUrinario|safe }}</small></h5>
-        <h5>E. Sistema Genital: <small>{{ object.sistGenital|safe }}</small></h5>
-        <h5>F. Sistema Nervioso (Visión - Audición): <small>{{ object.sistNervioso|safe }}</small></h5>
-        <h5>G. Sistema Locomotor: <small>{{ object.sistLocomotor|safe }}</small></h5>
-        <h5>H. Piel Anexos: <small>{{ object.pielAnexos|safe }}</small></h5> 
-        <h5>I. Hallazgos:  <small>{{ object.hallazgos|safe }}</small></h5>
-        <h5 style="font-weight:bold;">5. EXÁMENES SOLICITADOS: <small>{{ object.examenesSolicitados|safe }}</small></h5>
-        <h5 style="font-weight:bold;">6. EXÁMENES AUTORIZADOS: <small>{{ object.examenesAutorizados|safe }}</small></h5>
-        <h5 style="font-weight:bold;">7. IMPRESIÓN DIAGNOSTICA: <small>{{ object.impresionDiagnostica|safe }}</small></h5>
-        <h5 style="font-weight:bold;">8. PRONOSTICO: <small>{{ object.pronostico }}</small></h5>
-        <div class="row">
-            <div class="col-8">
-                <h5 style="font-weight:bold;">9. TRATAMIENTO IDEAL: <small>{{ object.tratamientoIdeal|safe }}</small></h5>
-                <h5 style="font-weight:bold;">10. TRATAMIENTO INSTAURADO: <small>{{ object.tratamientoInstaurado|safe }}</small> </h5>
-            </div>
-            <div class="col-4">
-                <h5>Cotizacion 1: <small>{{ object.cotizacion1|safe }}</small></h5>   
-                <h5>Cotizacion 2: <small>{{ object.cotizacion2|safe }}</small></h5> 
-            </div>
-        </div>
-        <h5 style="font-weight:bold;">11. OBSERVACIONES: <small>{{ object.observaciones |safe}}</small></h5>
+        <h5 class="titulos">11. OBSERVACIONES: </h5>{{ object.observaciones }}
+        <hr>
         {% for object in object.veterinario.all %}
-            <h5 style="font-weight:bold;">MEDICO VETERINARIO: <small>{{ object|safe}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  AUXILIAR: _____________________</small></h5>
+            <h5 class="titulos">MEDICO VETERINARIO: <small>{{ object}} </small></h5>
         {% endfor %}
-    </div>
+            <h5>AUXILIAR: _____________________</h5>
+      
+    </p>
+    
+</div>
 </body>
 </html>

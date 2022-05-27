@@ -60,7 +60,15 @@
                     <td><img src="{{ object.imagen.url }}" alt="" width="50px"></td>
                     <td>{{object.producto}}</td>
                     <td>{{object.descripcion}}</td>
-                    <td>{{object.cantidad_total}}</td>
+                    <td>
+                        {% if object.cantidad_total == 0 %}
+                        <h5 class="badge badge-danger">{{object.cantidad_total}}</h5>
+                        {% elif object.cantidad_total >= 10 %}
+                        <h5 class="badge badge-success">{{object.cantidad_total}}</h5>
+                        {% else %}
+                        <h5 class="badge badge-warning">{{object.cantidad_total}}</h5>
+                        {% endif %}
+                    </td>
                     <td>{{object.precio_compra}}</td>
                     <td>{{object.precio_venta}}</td>
                     <td>{{object.categoria}}</td>

@@ -80,6 +80,16 @@ class SaleCreateView(LoginRequiredMixin, CreateView):
                     item = i.toJSON()
                     item['value'] = i.producto
                     data.append(item)
+            elif action == 'search_autocomplete':
+                data = []
+                ids_exclude = json.loads(request.POST['ids'])
+                term = request.POST['term'].strip()
+                data.append({'id': term, 'text': term})
+                products = Productos.objects.filter(producto__icontains=term, cantidad_total__gt=0)
+                for i in products.exclude(id__in=ids_exclude)[0:10]:
+                    item = i.toJSON()
+                    item['text'] = i.producto
+                    data.append(item)
             elif action == 'add':
                 with transaction.atomic():
                     vents = json.loads(request.POST['vents'])
@@ -102,8 +112,7 @@ class SaleCreateView(LoginRequiredMixin, CreateView):
                         detalle.save()
                         cantidad_ActualP = Productos.objects.filter(pk = i['id']).values_list('cantidad_total',flat=True)
                         cantidad_ActualP = int(cantidad_ActualP[0])
-                        cantidad_compra = int(i['cant'])
-                        cantidad_ActualP = cantidad_ActualP - cantidad_compra
+                        cantidad_ActualP = cantidad_ActualP - detalle.cant
                         Productos.objects.filter(id = i['id']).update(cantidad_total = cantidad_ActualP)
             
             else:

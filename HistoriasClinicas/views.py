@@ -8,17 +8,17 @@ from django.views.generic import CreateView,ListView, DetailView,UpdateView
 from django.views.decorators.csrf import csrf_exempt
 from django.http import  HttpResponseRedirect, JsonResponse
 import os
+from Veterinaria.wsgi import *
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import get_template
-from xhtml2pdf import pisa
-from django.contrib.staticfiles import finders
+from weasyprint import HTML
 from django.contrib import messages
 from django.shortcuts import  redirect, render
 
 from HistoriasClinicas.forms import HistoriasCForm, MascotasForm, PropietariosForm, SearchForm, SeguimientoForm
 from HistoriasClinicas.models import Propietarios, HistoriasClinicas, Seguimiento
-
+from Veterinaria.settings import STATIC_URL
 # Create your views here.
 
 def index(request):   
@@ -98,49 +98,24 @@ class HCDetailView(DetailView):
         return context
    
 class HistoriaClinicaPDF(View):
-    def link_callback(self, uri, rel):
-            """
-            Convert HTML URIs to absolute system paths so xhtml2pdf can access those
-            resources
-            """
-            result = finders.find(uri)
-            if result:
-                    if not isinstance(result, (list, tuple)):
-                            result = [result]
-                    result = list(os.path.realpath(path) for path in result)
-                    path=result[0]
-            else:
-                    sUrl = settings.STATIC_URL        # Typically /static/
-                    sRoot = settings.STATIC_ROOT      # Typically /home/userX/project_static/
-                    mUrl = settings.MEDIA_URL         # Typically /media/
-                    mRoot = settings.MEDIA_ROOT       # Typically /home/userX/project_static/media/
-
-                    if uri.startswith(mUrl):
-                            path = os.path.join(mRoot, uri.replace(mUrl, ""))
-                    elif uri.startswith(sUrl):
-                            path = os.path.join(sRoot, uri.replace(sUrl, ""))
-                    else:
-                            return uri
-
-            # make sure that file exists
-            if not os.path.isfile(path):
-                    raise Exception(
-                            'media URI must start with %s or %s' % (sUrl, mUrl)
-                    )
-            return path
+    
     def get(self, request, *args, **kwargs):
         try:
             template = get_template('hcPDF.html')
-            context = {'object': HistoriasClinicas.objects.get(pk=self.kwargs['pk'])}
-            html = template.render(context)
-            response = HttpResponse(content_type= 'application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="hisoriaClinica.pdf"'
-            pisa_status = pisa.CreatePDF(
-                html, dest=response)
-            return response
+            context = {
+                'object': HistoriasClinicas.objects.get(pk=self.kwargs['pk']),
+                'icon' : '{}{}'.format(STATIC_URL, 'img/veterinariaHC.jpg')
+            }
+            html_template = template.render(context)
+            pdf = HTML(string=html_template, base_url= request.build_absolute_uri('/')).write_pdf()
+            return HttpResponse(pdf, content_type= 'application/pdf')
+            
         except:
-            return HttpResponseRedirect(reverse_lazy('HistoriasClinicas:inicio'))
+            pass
+        return HttpResponseRedirect(reverse_lazy('historiaClinica'))
 
+
+        
 @login_required
 def create_Propietario(request):
     mascota = MascotasForm()
