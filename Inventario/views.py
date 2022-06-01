@@ -5,7 +5,8 @@ from django.urls import reverse, reverse_lazy
 
 from django.views.generic import CreateView,ListView, UpdateView,DeleteView
 from Inventario.models import Productos, Categorias, Proveedores
-from Inventario.forms import ProductosForm, CategoriasForm, ProveedoresForm
+from Inventario.forms import ProductosForm, CategoriasForm, ProveedoresForm, VacunasForm
+from mascotas.models import Vacunas
 
 # Create your views here.
 class crearProductos(CreateView):
@@ -41,6 +42,7 @@ class listaProductos(ListView):
         context = {}
         context['title'] = 'INVENTARIO DE PRODUCTOS'
         context['productos'] = self.get_queryset()
+        context['vacunas'] = Vacunas.objects.all()
         context['form'] = self.form_class
         return context
 
@@ -177,4 +179,45 @@ class deleteProovedor(DeleteView):
         object = Proveedores.objects.get(id=pk)
         object.delete()
         return redirect('proveedores')
-  
+
+class registrarVacunas(CreateView):
+    model = Vacunas    
+    form_class= VacunasForm
+    template_name = 'productos/vacunaModal.html'
+    paginate_by = 2
+    success_url = reverse_lazy('inventario')
+
+    def get_queryset(self):
+        return self.model.objects.all()
+
+    def get_context_data(self, **kwargs):        
+        context = {}
+        context['vacunas'] = self.get_queryset()
+        context['form'] = self.form_class
+        return context
+
+    def get(self, request, *args, **kwargs):        
+        return render(request,self.template_name,self.get_context_data())
+
+class VacunaUpdate(UpdateView):
+    model = Vacunas
+    form_class = VacunasForm
+    template_name = 'productos/vacuna_editModal.html'
+    success_url = reverse_lazy('inventario')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)        
+        context['title'] = 'Editar Vacuna'
+        context['vacunas'] = Vacunas.objects.all()        
+
+        return context
+
+class deleteVacuna(DeleteView):
+    model = Vacunas
+    template_name = 'productos/vacuna_eliminarModal.html'
+
+    def post(self, request,pk, *args, **kwargs):        
+        object = Vacunas.objects.get(id=pk)
+        object.delete()
+        return redirect('inventario')
+ 

@@ -122,9 +122,10 @@
         </div>
           
             <div class="d-grid gap-2 col-4 mx-auto">
-                <a href="#" class="btn btn-info"> Seguimientos </a>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#seguimientoModal"> Seguimientos </button>
 
                 <a href="{% url 'HCPDF' object.id %}" class="btn btn-warning" target="_blank"> Generar PDF </a>
             </div>
             <br><br>
+            {% include "seguimientosList.html"  %}
 {%  endblock  %}

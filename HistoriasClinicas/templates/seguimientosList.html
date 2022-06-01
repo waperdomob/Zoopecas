@@ -1,0 +1,43 @@
+<div class="modal fade" id="seguimientoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Seguimientos Historia Clinica</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-light">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Hora</th>
+                  <th scope="col">Observaciones</th>
+                  <th scope="col">responsable</th>
+                  <th scope="col"><center>Acciones</center></th>
+                </tr>
+            </thead>
+              <tbody>
+                {% for obj in seguimientos %}
+                  <tr>
+                    <td>{{ obj.id }}</td>
+                    <td>{{ obj.fecha }}</td>
+                    <td>{{ obj.hora }}</td>
+                    <td>{{ obj.observaciones }}</td>
+                    <td>{{ obj.responsable }}</td>
+                    <td>
+                      <a href="{% url 'detalleHC' obj.id %}" class="btn btn-warning">Editar</a>
+                      <a href="{% url 'editarHC' obj.id %}" class="btn btn-danger"> Eliminar </a></td>
+                </tr>
+                {% endfor %}
+                 
+              </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>

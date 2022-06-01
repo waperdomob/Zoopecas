@@ -1,5 +1,7 @@
 from django import forms
 
+from mascotas.models import Vacunas
+
 from .models import *
 
 class CategoriasForm(forms.ModelForm):
@@ -48,4 +50,21 @@ class ProductosForm(forms.ModelForm):
             'imagen':forms.FileInput(attrs={'class':'form-control'}),
             'categoria':forms.Select(attrs={'class':'form-control'}),
             'proveedor':forms.Select(attrs={'class':'form-control'}),
+        }
+
+class VacunasForm(forms.ModelForm):
+     class Meta:
+        model= Vacunas
+        fields = '__all__'
+        labels = {
+            'vacuna': 'Vacuna',
+            'cantidad': 'Cantidad total',
+            'dosis': 'Dosis de aplicación',
+
+        }
+        widgets = {
+	        'vacuna':forms.TextInput(attrs={'class':'form-control'}),           
+            'cantidad':forms.NumberInput(attrs={'class':'form-control'}),
+            'dosis':forms.NumberInput(attrs={'class':'form-control'}),
+
         }

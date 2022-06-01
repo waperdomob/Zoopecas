@@ -1,8 +1,5 @@
-from unicodedata import name
-from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
-from django.conf.urls.static import static
 from django.urls import path,include
 from django.urls import re_path
 from HistoriasClinicas import views

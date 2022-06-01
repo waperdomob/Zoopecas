@@ -94,7 +94,8 @@ class HCDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+        context['seguimientos'] = Seguimiento.objects.filter(historiaClinica_id=self.kwargs['pk'])
+                
         return context
    
 class HistoriaClinicaPDF(View):
@@ -104,6 +105,7 @@ class HistoriaClinicaPDF(View):
             template = get_template('hcPDF.html')
             context = {
                 'object': HistoriasClinicas.objects.get(pk=self.kwargs['pk']),
+                'seguimientos':Seguimiento.objects.filter(historiaClinica_id=self.kwargs['pk']),
                 'icon' : '{}{}'.format(STATIC_URL, 'img/veterinariaHC.jpg')
             }
             html_template = template.render(context)
@@ -159,12 +161,6 @@ def create_seguimiento(request,pk):
         seguimiento = SeguimientoForm()
         context = {'datos': historiasClinicas,'form2':seguimiento, 'fecha_actual':datetime.date.today()}
         return render(request,'indexHC.html',context)
-
-@login_required
-def ver_seguimientos(request,pk):   
-
-    seguimiento = Seguimiento.objects.filter(historiaClinica_id = pk)    
-    return redirect('historiaClinica')#redirigue a donde deseas
 
     
 @login_required

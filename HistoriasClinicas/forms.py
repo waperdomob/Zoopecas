@@ -48,10 +48,12 @@ class MascotasForm(forms.ModelForm):
         }
         widgets = {
 	        'nombreMas':forms.TextInput(attrs={'class':'form-control'}),
+            'edad':forms.TextInput(attrs={'class':'form-control'}),
             'color':forms.TextInput(attrs={'class':'form-control'}),           
             'especie':forms.Select(attrs={'class':'form-control'}),
             'raza':forms.Select(attrs={'class':'form-control'}),
             'sexo':forms.Select(attrs={'class':'form-control'}),
+            'caracteristicas':forms.TextInput(attrs={'class':'form-control'}),
             'propietario':forms.Select(attrs={'class':'form-control'}),
         }
 class HistoriasCForm(forms.ModelForm):

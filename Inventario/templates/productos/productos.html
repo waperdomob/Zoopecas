@@ -90,7 +90,58 @@
             </div>
 
     </div>
-
+    <hr>
+    <div class="container">
+        <h1 style="color: rgb(9, 132, 240);"><center>VACUNAS</center></h1>
+        <br>
+        <div class="d-grid gap-2 col-4 mx-auto">
+            <button onclick="abrir_modal_createVacuna('{% url 'registrarVacuna' %}')" class="btn btn-success">Agregar Vacuna</button> 
+        </div>
+        <br> 
+        
+        <table class="table table-light" id="vacunas">
+            <thead>
+                <tr>
+                  <th style="width: 10%;">#</th>
+                  <th style="width: 30%;">Vacuna</th>
+                  <th style="width: 15%;">Cantidad</th>
+                  <th style="width: 15%;">Dosis a Aplicar</th>
+                  <th style="width: 25%;"><center>Acciones</center></th>
+             </tr>
+            </thead>
+            <tbody>
+                {% for obj in vacunas %}
+                <tr>
+                    <td>{{obj.id}}</td>
+                   
+                    <td>{{obj.vacuna}}</td>
+                    <td>
+                        {% if obj.cantidad == 0 %}
+                        <h5 class="badge badge-danger">{{obj.cantidad}}</h5>
+                        {% elif obj.cantidad >= 10 %}
+                        <h5 class="badge badge-success">{{obj.cantidad}}</h5>
+                        {% else %}
+                        <h5 class="badge badge-warning">{{obj.cantidad}}</h5>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">{{obj.dosis}}</td>
+                    <td>
+                        
+                       <button onclick="abrir_modal_editVacuna('{% url 'editarVacuna' obj.id %}')" class="btn btn-primary">Editar<i class="fa-solid fa-file-pen"></i></button>
+                        <button onclick="abrir_modal_eliminarVacuna('{% url 'eliminarVacuna' obj.id %}')" class="btn btn-danger">Eliminar<i class="fa-solid fa-box-archive"></i></button>
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="modal fade contenedor" id="editVacuna_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+        <div class="modal fade contenedor" id="crearVacuna_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+        <div class="modal fade contenedor" id="eliminarVacuna_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+    </div>
 {%  endblock    %}
 
 {% block javascript %}
@@ -114,6 +165,21 @@
             }
             function abrir_modal_eliminarProd(url){
                 $('#eliminarProduct_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_editVacuna(url){
+                $('#editVacuna_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_createVacuna(url){
+                $('#crearVacuna_Modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_eliminarVacuna(url){
+                $('#eliminarVacuna_Modal').load(url, function (){
                     $(this).modal('show');
                 });
             }

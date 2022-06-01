@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Clientes',
     'Ventas',
     'reportes',
+    'mascotas',
     'django_cleanup.apps.CleanupConfig',
 
 ]

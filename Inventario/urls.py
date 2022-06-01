@@ -15,11 +15,14 @@ urlpatterns = [
     path('inventario/edit/<int:pk>/',login_required(views.ProductoUpdate.as_view()), name='editarProducto'),
     path('categorias/',views.create_categoria, name='categoria'),
     path('categorias/eliminar/<int:pk>/',login_required(views.deleteCategoria.as_view()), name='eliminarCategoria'),
-    path('categorias/edit/<int:pk>/',login_required(views.CategoriaUpdate.as_view()), name='editarCategoria'),path('crear_proveedor/',login_required(views.crearProveedor.as_view()), name='crearProveedor'),
+    path('categorias/edit/<int:pk>/',login_required(views.CategoriaUpdate.as_view()), name='editarCategoria'),
+    path('crear_proveedor/',login_required(views.crearProveedor.as_view()), name='crearProveedor'),
     path('proveedores/',login_required(views.listaProveedores.as_view()), name='proveedores'),
     path('proveedor/eliminar/<int:pk>/',login_required(views.deleteProovedor.as_view()), name='eliminarProveedor'),
     path('proveedor/edit/<int:pk>/',login_required(views.ProovedorUpdate.as_view()), name='editarProveedor'),
-
+    path('registrar_vacuna/',login_required(views.registrarVacunas.as_view()), name='registrarVacuna'),
+    path('Vacuna/eliminar/<int:pk>/',login_required(views.deleteVacuna.as_view()), name='eliminarVacuna'),
+    path('Vacuna/edit/<int:pk>/',login_required(views.VacunaUpdate.as_view()), name='editarVacuna'),
 ]
 
 if settings.DEBUG:

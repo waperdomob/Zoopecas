@@ -1,0 +1,114 @@
+{%  extends "base.html" %}
+{%  block title %}
+    Mascotas
+{%  endblock    %}
+
+{%  load static %}
+
+{%  block styles %}
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+  {%  endblock  %} 
+{%  block scripts %}
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+  {%  endblock  %} 
+   
+</head>
+
+{%  block content   %}
+   <div class="container ">
+        <br>
+        <h1 style="color: rgb(9, 132, 240);"><center>MASCOTAS. </center></h1> 
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="textLabel">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error:
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}¡Bien!:
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}Advertencia:
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}Aviso: {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <br><br>
+        <div class="d-grid gap-2 col-4 mx-auto">
+            <button  type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registrarMascotaModal" >Registrar nueva Mascota</button>
+        </div>
+        
+    {% include 'crear_mascotaModal.html' %}
+
+    <br><br>
+        <div class="container">
+            <table class="table table-light" id="data">
+                <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Propietario</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Edad</th>
+                      <th scope="col">Color</th>
+                      <th scope="col">Especie</th>
+                      <th scope="col">Raza</th>
+                      <th scope="col">Sexo</th>
+                      <th scope="col"><center>Acciones</center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in datos %}
+                    <tr>
+                        <td>{{object.id}}</td>
+                        <td>{{object.propietario}}</td>
+                        <td>{{object.nombreMas}}</td>
+                        <td>{{object.edad}}</td>
+                        <td>{{object.color}}</td>
+                        <td>{{object.especie}}</td>
+                        <td>{{object.raza}}</td>
+                        <td>{{object.sexo}}</td>
+
+                        <td>
+                            <button onclick="abrir_modal_editMascota('{% url 'editar_mascota' object.id %}')" class="btn btn-primary">Editar<i class="fa-solid fa-file-pen"></i></button>
+                            <button onclick="abrir_modal_eliminarMascota('{% url 'eliminar_mascota' object.id %}')" class="btn btn-danger">Eliminar<i class="fa-solid fa-box-archive"></i></button> 
+                            
+                        </td>
+                    </tr>
+                    
+                    {% endfor %}
+
+                </tbody>
+            </table>
+            <div class="modal fade contenedor" id="editarMascotaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            </div>
+            <div class="modal fade contenedor" id="eliminarMascotaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            </div>
+
+        </div>
+   </div>
+
+
+{%  endblock    %}
+
+{% block javascript %}
+   <script type="application/javascript">
+    $('#data').DataTable({
+        responsive: true,
+        autoWidth: false
+    });
+    var $ = jQuery.noConflict();
+    function abrir_modal_editMascota(url){
+        $('#editarMascotaModal').load(url, function (){
+            $(this).modal('show');
+        });
+    }
+    
+    function abrir_modal_eliminarMascota(url){
+        $('#eliminarMascotaModal').load(url, function (){
+            $(this).modal('show');
+        });
+    }
+   </script>
+{% endblock %}

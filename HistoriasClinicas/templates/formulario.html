@@ -144,7 +144,7 @@
             {% for row in form %}
             {% if "Diagnostica" in row.label_tag  %}
                 <div class=" container" >                                 
-                        {{ row }}{{ row.label_tag }}                              
+                        {{ row }}                         
                     <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>                       
                 </div>
             {%  endif %}

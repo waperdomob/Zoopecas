@@ -197,8 +197,34 @@
         {% endfor %}
             <h5>AUXILIAR: _____________________</h5>
       
+        
     </p>
-    
+    <br>
+    <h5 class="titulos"><center>SEGUIMIENTOS</center></h5>
+    <table class="table table-light">
+        <thead>
+            <tr style="border: 1px solid black;">
+              <th style="width: 5%;">#</th>
+              <th style="width: 25%;">Fecha</th>
+              <th style="width: 10%;">Hora</th>
+              <th style="width: 30%;">Observaciones</th>
+              <th style="width: 20%;">Responsable</th>
+            </tr>    
+        </thead>
+          <tbody>
+            {% for obj in seguimientos %}
+              <tr>
+                <td >{{ obj.id }}</td>
+                <td >{{ obj.fecha }}</td>
+                <td >{{ obj.hora }}</td>
+                <td >{{ obj.observaciones }}</td>
+                <td class="text-center">{{ obj.responsable }}</td>
+               
+            </tr>
+            {% endfor %}
+             
+          </tbody>
+      </table>
 </div>
 </body>
 </html>

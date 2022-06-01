@@ -102,13 +102,14 @@ class HistoriasClinicas(models.Model):
         return self.quejaPrincipal
 
 class Seguimiento(models.Model):
-    fecha= fecha = models.DateField(auto_now_add=True)
+    fecha = models.DateField(auto_now_add=True)
     hora = models.TimeField(auto_now_add=True)
     observaciones = models.CharField(max_length=100)
     responsable = models.ForeignKey(Empleados,null=False, on_delete=models.CASCADE)
     historiaClinica = models.ForeignKey(HistoriasClinicas,null=False, on_delete=models.CASCADE)
 
-
+    def __str__(self):
+        return self.observaciones
 
 
     
