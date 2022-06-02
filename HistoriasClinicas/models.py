@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import model_to_dict
+from django.conf import settings
 
 # Create your models here.
 
@@ -49,6 +50,7 @@ class Propietarios(models.Model):
         return item
 
 class Mascotas(models.Model):
+    foto = models.ImageField(upload_to='mascotas/', null= True)
     nombreMas=models.CharField(max_length=45)
     color=models.CharField(max_length=45)
     edad = models.CharField(max_length=45,null=True)
@@ -59,7 +61,21 @@ class Mascotas(models.Model):
     propietario=models.ForeignKey(Propietarios,null=False, on_delete=models.CASCADE)
     def __str__(self):
         return self.nombreMas
-        
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['especie'] = self.especie.toJSON()
+        item['raza'] = self.raza.toJSON()
+        item['foto'] = self.get_image()        
+        item['sexo'] = self.sexo.toJSON()
+        item['propietario'] = self.propietario.toJSON()
+        return item
+    
+    def get_image(self):
+        if self.foto:
+            return '{}{}'.format(settings.MEDIA_URL, self.foto)
+        return '{}{}'.format(settings.STATIC_URL, 'img/veterinariaHC.jpg')  
+
 class HistoriasClinicas(models.Model):
     mascotas=models.ForeignKey(Mascotas,null=False, on_delete=models.CASCADE)
     fecha = models.DateField(auto_now_add=True)

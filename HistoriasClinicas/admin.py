@@ -19,7 +19,7 @@ class historiasClinicasAdmin(admin.ModelAdmin):
 
 
 class mascotasAdmin(admin.ModelAdmin):
-    list_display=("nombreMas","color","especie")
+    list_display=("id","foto","nombreMas","color","especie")
 
 class propietariosAdmin(admin.ModelAdmin):
     list_display=("nombrePr","direccion","telefonos","documentoid","correo",)

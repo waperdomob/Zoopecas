@@ -20,6 +20,7 @@ urlpatterns = [
     path('proveedores/',login_required(views.listaProveedores.as_view()), name='proveedores'),
     path('proveedor/eliminar/<int:pk>/',login_required(views.deleteProovedor.as_view()), name='eliminarProveedor'),
     path('proveedor/edit/<int:pk>/',login_required(views.ProovedorUpdate.as_view()), name='editarProveedor'),
+    path('vacunas/',login_required(views.listaVacunas.as_view()), name='vacunas'),
     path('registrar_vacuna/',login_required(views.registrarVacunas.as_view()), name='registrarVacuna'),
     path('Vacuna/eliminar/<int:pk>/',login_required(views.deleteVacuna.as_view()), name='eliminarVacuna'),
     path('Vacuna/edit/<int:pk>/',login_required(views.VacunaUpdate.as_view()), name='editarVacuna'),

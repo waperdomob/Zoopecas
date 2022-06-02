@@ -1,0 +1,22 @@
+<div class="modal fade contenedor" id="vacunaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content " >
+        <div class="modal-header " >
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Vacuna</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body " id="modal-body" >
+            <div id="alert-box"></div>
+            <form action="{% url 'vacunacion' object.id %}" id="vacuna_form" method="POST" >
+              {%  csrf_token  %}
+                {{  formVacuna  }}
+                <div class="modal-footer contenedorModal">
+                  <button type="submit" class="btn btn-primary" >Guardar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+        
+      </div>
+    </div>
+</div>

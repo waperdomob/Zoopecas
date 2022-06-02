@@ -4,7 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.middleware import *
 from django.views import View
-from django.views.generic import CreateView,ListView, DeleteView,UpdateView
+from django.views.generic import DetailView,ListView, DeleteView,UpdateView
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -12,9 +12,10 @@ from weasyprint import HTML
 from django.contrib import messages
 from django.shortcuts import  redirect, render
 
-from HistoriasClinicas.models import Mascotas
+from HistoriasClinicas.models import Mascotas,HistoriasClinicas
 from HistoriasClinicas.forms import MascotasForm
-
+from .models import Vacunas,dosisVacunas
+from .forms import dosisVacunasForm
 
 class listaMascotas(ListView):
     model = Mascotas
@@ -29,6 +30,23 @@ class listaMascotas(ListView):
     def get_success_url(self):
         return reverse('HistoriasClinicas:inicio')
 
+
+class mascotaDetailView(DetailView):
+
+    model = Mascotas
+    template_name='detalleMascota.html'
+
+    def get_queryset(self):
+        qs = super(mascotaDetailView, self).get_queryset()
+        return qs.filter(pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['vacunas'] = dosisVacunas.objects.filter(mascota_id=self.kwargs['pk'])
+        context['historiaClinica'] = HistoriasClinicas.objects.filter(mascotas_id=self.kwargs['pk'])
+        context['formVacuna']  = dosisVacunasForm()  
+        return context
+   
 @login_required
 def crear_Mascota(request):
     mascotas = Mascotas.objects.all()
@@ -41,7 +59,21 @@ def crear_Mascota(request):
 
         context = {'datos': mascotas,'form2':mascota, 'fecha_actual':datetime.date.today()}
         return render(request,'list_mascotas.html',context)
+@login_required
+def registrarVacuna(request, pk):
+    mascota = Mascotas.objects.filter(id = pk)
 
+    if request.method=="POST":
+        vacunaAplicada = dosisVacunasForm(request.POST or None)
+        if vacunaAplicada.is_valid():            
+            newdosis = vacunaAplicada.save(commit=False)
+            newdosis.mascota_id = pk
+            vacunaAplicada.save()
+        return redirect('detalleMascota',pk)
+
+    else:
+        return redirect('detalleMascota',pk)
+        
 class UpdateMascota(UpdateView):
     model = Mascotas    
     form_class= MascotasForm

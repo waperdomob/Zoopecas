@@ -15,6 +15,7 @@ class Vacunas(models.Model):
     
 class dosisVacunas(models.Model):
     dosis_aplicada = models.IntegerField()
+    fecha_aplicacion = models.DateField(auto_now_add=True)
     mascota = models.ForeignKey(Mascotas,null=True, on_delete=models.CASCADE)
     vacuna = models.ForeignKey(Vacunas,null=True, on_delete=models.CASCADE)
 

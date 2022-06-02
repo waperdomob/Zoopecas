@@ -51,4 +51,4 @@ class Productos(models.Model):
     def get_image(self):
         if self.imagen:
             return '{}{}'.format(settings.MEDIA_URL, self.imagen)
-        return '{}{}'.format(settings.STATIC_URL, 'img/empty.png')
+        return '{}{}'.format(settings.STATIC_URL, 'img/gatos.png')

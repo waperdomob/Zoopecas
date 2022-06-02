@@ -42,7 +42,6 @@ class listaProductos(ListView):
         context = {}
         context['title'] = 'INVENTARIO DE PRODUCTOS'
         context['productos'] = self.get_queryset()
-        context['vacunas'] = Vacunas.objects.all()
         context['form'] = self.form_class
         return context
 
@@ -180,10 +179,29 @@ class deleteProovedor(DeleteView):
         object.delete()
         return redirect('proveedores')
 
+class listaVacunas(ListView):
+    model = Vacunas    
+    form_class= VacunasForm
+    template_name = 'vacunas/vacunas.html'
+    
+
+    def get_queryset(self):
+        return self.model.objects.get_queryset().order_by('id')
+
+    def get_context_data(self,*args, **kwargs):        
+        context = {}
+        context['title'] = 'INVENTARIO DE VACUNAS'
+        context['vacunas'] = self.get_queryset()
+        context['form'] = self.form_class
+        return context
+
+    def get(self, request, *args, **kwargs):              
+        return render(request,self.template_name,self.get_context_data())
+
 class registrarVacunas(CreateView):
     model = Vacunas    
     form_class= VacunasForm
-    template_name = 'productos/vacunaModal.html'
+    template_name = 'vacunas/vacunaModal.html'
     paginate_by = 2
     success_url = reverse_lazy('inventario')
 
@@ -202,7 +220,7 @@ class registrarVacunas(CreateView):
 class VacunaUpdate(UpdateView):
     model = Vacunas
     form_class = VacunasForm
-    template_name = 'productos/vacuna_editModal.html'
+    template_name = 'vacunas/vacuna_editModal.html'
     success_url = reverse_lazy('inventario')
 
     def get_context_data(self, **kwargs):
@@ -214,10 +232,10 @@ class VacunaUpdate(UpdateView):
 
 class deleteVacuna(DeleteView):
     model = Vacunas
-    template_name = 'productos/vacuna_eliminarModal.html'
+    template_name = 'vacunas/vacuna_eliminarModal.html'
 
     def post(self, request,pk, *args, **kwargs):        
         object = Vacunas.objects.get(id=pk)
         object.delete()
-        return redirect('inventario')
+        return redirect('vacunas')
  

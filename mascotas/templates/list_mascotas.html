@@ -16,7 +16,7 @@
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
   {%  endblock  %} 
    
-</head>
+
 
 {%  block content   %}
    <div class="container ">
@@ -47,32 +47,26 @@
             <table class="table table-light" id="data">
                 <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Propietario</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Edad</th>
-                      <th scope="col">Color</th>
-                      <th scope="col">Especie</th>
-                      <th scope="col">Raza</th>
-                      <th scope="col">Sexo</th>
-                      <th scope="col"><center>Acciones</center></th>
+                      <th style="width: 10%;">#</th>
+                      <th style="width: 20%;">Nombre</th>
+                      <th style="width: 20%;">Propietario</th>                      
+                      <th style="width: 10%;">Edad</th>
+                      <th style="width: 30%;"><center>Acciones</center></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for object in datos %}
                     <tr>
                         <td>{{object.id}}</td>
-                        <td>{{object.propietario}}</td>
                         <td>{{object.nombreMas}}</td>
+                        <td>{{object.propietario}}</td>                        
                         <td>{{object.edad}}</td>
-                        <td>{{object.color}}</td>
-                        <td>{{object.especie}}</td>
-                        <td>{{object.raza}}</td>
-                        <td>{{object.sexo}}</td>
+                        
 
                         <td>
-                            <button onclick="abrir_modal_editMascota('{% url 'editar_mascota' object.id %}')" class="btn btn-primary">Editar<i class="fa-solid fa-file-pen"></i></button>
-                            <button onclick="abrir_modal_eliminarMascota('{% url 'eliminar_mascota' object.id %}')" class="btn btn-danger">Eliminar<i class="fa-solid fa-box-archive"></i></button> 
+                            <a href="{% url 'detalleMascota' object.id %}" class="btn btn-primary" >Ver Mascota <i class="fa-solid fa-paw"></i></a>
+                            <button onclick="abrir_modal_editMascota('{% url 'editar_mascota' object.id %}')" class="btn btn-warning">Editar <i class="fa-solid fa-file-pen"></i></button>
+                            <button onclick="abrir_modal_eliminarMascota('{% url 'eliminar_mascota' object.id %}')" class="btn btn-danger">Eliminar <i class="fa-solid fa-box-archive"></i></button> 
                             
                         </td>
                     </tr>
@@ -110,5 +104,6 @@
             $(this).modal('show');
         });
     }
+    
    </script>
 {% endblock %}
