@@ -7,7 +7,7 @@
         </div>
         <div class="modal-body ">
           <div id="alert-box"></div>
-            <form action="{% url 'crear_Mascota' %}" method="POST">
+            <form action="{% url 'crear_Mascota' %}" method="POST" enctype="multipart/form-data">
               {%  csrf_token  %}
                 {{ form2 }}
                 <div class="modal-footer">

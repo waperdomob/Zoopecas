@@ -4,6 +4,7 @@
 {%  endblock    %}
 {%  load static %}
 {%  block styles %}
+    <link rel="stylesheet" href="{% static 'css/mascotas.css' %}">
     
   {%  endblock  %} 
 
@@ -13,17 +14,18 @@
 {% include 'vacunaModal.html' %}
 
 <div class="row">
-    <div class="col-sm-3">
-        <div class="card">
+    <div class="col-sm-3 " >
+        <div class="card"><br>
             {% if  object.foto %}
-            <img class="img-fluid" src="{{ object.foto.url }}" alt="" width="100%">
-            
+            <div class="d-grid gap-2 col-8 mx-auto">
+                <img class="img-fluid redonda" src="{{ object.foto.url }}" alt="" >
+            </div>
             {% else %}
             <img src="#" alt="" width="100%">
             {% endif %}
         
             <div class="card-body">
-                <h2 class=""><center>{{object.nombreMas}}</center></h2>
+                <h2 class="" style="color: rgb(9, 132, 240);"><center>{{object.nombreMas}}</center></h2>
                 <h5 class="card-text">Propietario: {{object.propietario}}</h5>
                 <p class="card-text">Especie: {{object.especie}}</p>
                 <p class="card-text">Raza: {{object.raza}}</p>
@@ -37,26 +39,47 @@
         </div>
     </div>
     <div class="col-md-5 contenedor" >
-        <h2><center>Vacunas</center></h2>
+        <br>
+        <h2 style="color: rgb(9, 132, 240);"><center>Vacunas</center></h2>
+        <br>
+        <div class="d-grid gap-2 col-8 mx-auto">
+            <button  id="propietario-btn" type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#vacunaModal"> Nueva vacuna <i class="fa-solid fa-syringe"></i></button>
+        </div>
+        <br>
         <div class="row">
-            <div class="col-6">
-                <br>
+            
+            <div class="col-2">
+            </div> 
+            <div class="col-8">
+                <br>                
                 {% if  vacunas %}
                     {% for vacuna in vacunas %}
-                    <h4>Vacuna Aplicada: {{vacuna.vacuna}}</h4>
+                    <div class="card">
+                        <h4>Vacuna Aplicada: <small>{{vacuna.vacuna}}</small> <a class="btn btn-success" data-bs-toggle="collapse" href="#demo{{vacuna.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-plus-circle"></i></a></h4>
+                        
+                        <div class="collapse" id="demo{{vacuna.id}}">
+                            <h4>Fecha de Aplicación: </h4>{{vacuna.fecha_aplicacion}}
+                            <h4>Dosis aplicada: <small>{{vacuna.dosis_aplicada}}</small></h4>
+                            <h4>Fecha de la siguiente dosis: </h4>{{vacuna.fecha_sgt_dosis}}
+                        </div>
+                        <div class="d-grid gap-2 " > 
+                            <button onclick="abrir_modal_editVacuna('{% url 'editarVacuna' vacuna.id %}')" class="btn btn-info btn-lg" >Editar <i class="fa-solid fa-file-medical"></i></button>
+                        </div> 
+                    </div>
                     {% endfor %}
                 {% else %}
-                    <h5>No hay vacunas aplicadas</h5>
+                    <h5><center>No hay vacunas aplicadas</center></h5>
                 {% endif %}
+                <br>              
             </div>
-            <div class="col-6">
-                <br>
-                Nueva vacuna: <button  id="propietario-btn" type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#vacunaModal"><i class="fa-solid fa-syringe"></i></button>
-            </div>
-        </div>            
+            <div class="col-2">
+            </div>            
+        </div> 
+                   
     </div>
     <div class="col-md-4 contenedor">
-        <h2><center>Historias Clinicas</center></h2>
+        <br>
+        <h2 style="color: rgb(9, 132, 240);"><center>Historias Clinicas</center></h2>
         <br>
         <div class="row">
             {% for obj in historiaClinica %}
@@ -81,5 +104,18 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="vacunaEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
 {%  endblock  %} 
+{% block javascript %}
+        <script type="text/javascript">
+            var $ = jQuery.noConflict();
+
+            function abrir_modal_editVacuna(url){
+                $('#vacunaEditModal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            
+        </script>
+{% endblock %}

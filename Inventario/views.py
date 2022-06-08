@@ -203,7 +203,7 @@ class registrarVacunas(CreateView):
     form_class= VacunasForm
     template_name = 'vacunas/vacunaModal.html'
     paginate_by = 2
-    success_url = reverse_lazy('inventario')
+    success_url = reverse_lazy('vacunas')
 
     def get_queryset(self):
         return self.model.objects.all()

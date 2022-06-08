@@ -50,7 +50,7 @@ class Propietarios(models.Model):
         return item
 
 class Mascotas(models.Model):
-    foto = models.ImageField(upload_to='mascotas/', null= True)
+    foto = models.ImageField(upload_to='mascotas/', null= True, blank = True)
     nombreMas=models.CharField(max_length=45)
     color=models.CharField(max_length=45)
     edad = models.CharField(max_length=45,null=True)

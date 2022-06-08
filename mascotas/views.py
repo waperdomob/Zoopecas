@@ -73,7 +73,17 @@ def registrarVacuna(request, pk):
 
     else:
         return redirect('detalleMascota',pk)
-        
+
+class vacunaUpdate(UpdateView):
+    model = dosisVacunas
+    form_class = dosisVacunasForm
+    template_name = 'vacunaEditModal.html'
+    success_url = reverse_lazy('mascotas_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)        
+        return context
+
 class UpdateMascota(UpdateView):
     model = Mascotas    
     form_class= MascotasForm

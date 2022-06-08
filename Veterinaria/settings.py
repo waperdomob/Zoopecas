@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Ventas',
     'reportes',
     'mascotas',
+    'notificaciones',
     'django_cleanup.apps.CleanupConfig',
 
 ]
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            
         },
     },
 ]
@@ -135,6 +137,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'HistoriasClinicas' / 'static',
     BASE_DIR / 'Inventario' / 'static',    
     BASE_DIR / 'Ventas' / 'static',
+    BASE_DIR / 'mascotas' / 'static',
     BASE_DIR / 'static',
 ] 
 

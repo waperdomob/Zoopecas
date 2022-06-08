@@ -48,6 +48,7 @@ class MascotasForm(forms.ModelForm):
         }
         widgets = {
 	        'nombreMas':forms.TextInput(attrs={'class':'form-control'}),
+	        'foto':forms.FileInput(attrs={'class':'form-control'}),
             'edad':forms.TextInput(attrs={'class':'form-control'}),
             'color':forms.TextInput(attrs={'class':'form-control'}),           
             'especie':forms.Select(attrs={'class':'form-control'}),
@@ -56,6 +57,8 @@ class MascotasForm(forms.ModelForm):
             'caracteristicas':forms.TextInput(attrs={'class':'form-control'}),
             'propietario':forms.Select(attrs={'class':'form-control'}),
         }
+        def clean_rowname(self):
+            return self.cleaned_data['foto'] or None
 class HistoriasCForm(forms.ModelForm):
 
     class Meta:

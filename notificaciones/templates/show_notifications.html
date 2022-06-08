@@ -1,0 +1,26 @@
+<span class="badge badge-warning navbar-badge" id="cantNotifications">{{ notificaciones.count }}</span>
+<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+    <span class="dropdown-header">{{ notificaciones.count }} Notifications</span>
+    {% for notificacion in notificaciones %}
+        {% if notificacion.notificacion_type == 2 %}
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+                <h5><center>{{notificacion.vacuna.mascota}}</center></h5>
+                <i class="fas fa-envelope mr-2"></i> Vacuna:
+                <span class="float-right text-muted text-sm">{{notificacion.vacuna.vacuna}}</span>
+                <p>Siguiente Dosis: <span class="float-right text-muted text-sm">{{notificacion.vacuna.fecha_sgt_dosis}}</span></p>
+                
+            </a>            
+            
+        {% else %}
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+            <i class="fas fa-envelope mr-2"></i> 4 new messages
+            <span class="float-right text-muted text-sm">3 mins</span>
+            </a>
+        {% endif %}
+       
+    {% endfor %}
+
+    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+</div>
