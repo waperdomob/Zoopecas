@@ -1,26 +1,72 @@
+{% load static %}
 <span class="badge badge-warning navbar-badge" id="cantNotifications">{{ notificaciones.count }}</span>
 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
-    <span class="dropdown-header">{{ notificaciones.count }} Notifications</span>
-    {% for notificacion in notificaciones %}
-        {% if notificacion.notificacion_type == 2 %}
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-                <h5><center>{{notificacion.vacuna.mascota}}</center></h5>
-                <i class="fas fa-envelope mr-2"></i> Vacuna:
-                <span class="float-right text-muted text-sm">{{notificacion.vacuna.vacuna}}</span>
-                <p>Siguiente Dosis: <span class="float-right text-muted text-sm">{{notificacion.vacuna.fecha_sgt_dosis}}</span></p>
-                
-            </a>            
-            
-        {% else %}
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-            </a>
-        {% endif %}
-       
-    {% endfor %}
+    {% if notificaciones %}    
+        <span class="dropdown-header">{{ notificaciones.count }} Notifications</span>
+        {% for notificacion in notificaciones %}
+            {% if notificacion.notificacion_type == 2 %}
+                <div class="dropdown-divider"></div>
+                <a href="https://api.whatsapp.com/send?phone=+57{{notificacion.vacuna.mascota.propietario.telefonos}}&text=Hola!&nbsp;Te&nbsp;informo&nbsp;que&nbsp;tu&nbsp;mascota&nbsp;está&nbsp;proxima&nbsp;a&nbsp;su&nbsp;Siguiente&nbsp;vacuna:{{notificacion.vacuna.fecha_sgt_dosis}}" class="dropdown-item">
+                    <h5><center>{{notificacion.vacuna.mascota}}</center></h5>
+                    <i class="fas fa-envelope mr-2"></i> Vacuna:
+                    <span class="float-right text-muted text-sm">{{notificacion.vacuna.vacuna}}</span>
+                    <p>Siguiente Dosis: <span class="float-right text-muted text-sm">{{notificacion.vacuna.fecha_sgt_dosis}}</span></p>
+                </a>
+                <div class="d-grid gap-2 col-md-2 mx-auto">
+                    <span class="dropdown-item-close" onclick="removeNotification(`{% url 'notification-delete' notificacion.pk %}`,`{{ request.path }}`)">&times;</span>
+                </div>
+            {% else %}
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i> 4 new messages
+                <span class="float-right text-muted text-sm">3 mins</span>
+                </a>
+            {% endif %}
+        
+        {% endfor %}
+    {% else %} 
+        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
 
-    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+    {% endif %}
+    
 </div>
+<script type="application/javascript">
+    
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') 
+        {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++)
+            {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function removeNotification(removeNotificationURL, redirectURL)
+    {
+        const csrftoken = getCookie('csrftoken');
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                if (xmlhttp.status == 200) {
+                    window.location.replace(redirectURL);
+                }
+                else{
+                    alert("Hubo un error!");
+                }
+            }
+        };
+        xmlhttp.open("DELETE", removeNotificationURL, true);
+        xmlhttp.setRequestHeader("X-CSRFToken", csrftoken);
+        xmlhttp.send();
+    }    
+    
+</script>

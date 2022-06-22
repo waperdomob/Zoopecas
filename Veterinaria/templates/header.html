@@ -41,7 +41,9 @@
               <a class="nav-link  textColor" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="notifications">
                 <i class="fas fa-bell"></i>
                 </i>
-                {% show_notifications %}
+                {% if user.is_authenticated %}
+                  {% show_notifications %}
+                {% endif %}
               </a>
               
             </li>

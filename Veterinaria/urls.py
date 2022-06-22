@@ -26,5 +26,6 @@ urlpatterns = [
     path('',include('Ventas.urls')),
     path('',include('reportes.urls')),
     path('',include('mascotas.urls')),
+    path('',include('notificaciones.urls')),
 
 ]

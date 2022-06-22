@@ -6,14 +6,12 @@ from django.contrib.auth.middleware import *
 from django.views import View
 from django.views.generic import DetailView,ListView, DeleteView,UpdateView
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
-from django.template.loader import get_template
-from weasyprint import HTML
-from django.contrib import messages
+
 from django.shortcuts import  redirect, render
 
 from HistoriasClinicas.models import Mascotas,HistoriasClinicas
 from HistoriasClinicas.forms import MascotasForm
+from notificaciones.models import Notificaciones
 from .models import Vacunas,dosisVacunas
 from .forms import dosisVacunasForm
 
@@ -69,6 +67,8 @@ def registrarVacuna(request, pk):
             newdosis = vacunaAplicada.save(commit=False)
             newdosis.mascota_id = pk
             vacunaAplicada.save()
+        
+        Notificaciones.objects.create(notificacion_type=2, vacuna = request.dosis_aplicada)
         return redirect('detalleMascota',pk)
 
     else:
@@ -81,7 +81,8 @@ class vacunaUpdate(UpdateView):
     success_url = reverse_lazy('mascotas_list')
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)        
+        context = super().get_context_data(**kwargs)
+        Notificaciones.objects.create(notificacion_type=2, vacuna = context['dosisvacunas'])
         return context
 
 class UpdateMascota(UpdateView):

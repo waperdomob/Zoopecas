@@ -1,0 +1,15 @@
+.dropdown-item-close {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    font-size: 1.8rem;
+    transition: 0.3s;
+    padding-right: 5px;
+
+}
+
+.dropdown-item-close:hover {
+    color: rgb(red, green, blue);
+    transition: 0.3s;
+    cursor: pointer;
+}

@@ -127,7 +127,7 @@ TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -138,7 +138,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'Inventario' / 'static',    
     BASE_DIR / 'Ventas' / 'static',
     BASE_DIR / 'mascotas' / 'static',
-    BASE_DIR / 'static',
+    BASE_DIR / 'notificaciones' / 'static',
+    BASE_DIR / 'Veterinaria' / 'static',
 ] 
 
 
