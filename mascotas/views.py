@@ -57,6 +57,7 @@ def crear_Mascota(request):
 
         context = {'datos': mascotas,'form2':mascota, 'fecha_actual':datetime.date.today()}
         return render(request,'list_mascotas.html',context)
+        
 @login_required
 def registrarVacuna(request, pk):
     mascota = Mascotas.objects.filter(id = pk)
@@ -66,9 +67,9 @@ def registrarVacuna(request, pk):
         if vacunaAplicada.is_valid():            
             newdosis = vacunaAplicada.save(commit=False)
             newdosis.mascota_id = pk
-            vacunaAplicada.save()
-        
-        Notificaciones.objects.create(notificacion_type=2, vacuna = request.dosis_aplicada)
+            vacunaAplicada.save()        
+            Notificaciones.objects.create(notificacion_type=2, vacuna = newdosis, fecha = newdosis.fecha_sgt_dosis)
+
         return redirect('detalleMascota',pk)
 
     else:

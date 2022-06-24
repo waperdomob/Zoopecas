@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'reportes',
     'mascotas',
     'notificaciones',
+    'citas',
     'django_cleanup.apps.CleanupConfig',
 
 ]

@@ -1,12 +1,31 @@
 from django.shortcuts import redirect, render
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView,ListView, UpdateView,DeleteView
+from django.views.generic import CreateView,ListView, UpdateView,DeleteView,DetailView
 
-from HistoriasClinicas.models import Propietarios
+from HistoriasClinicas.models import  Mascotas, Propietarios
 from Clientes.forms import ClientesForm
+from HistoriasClinicas.forms import MascotasForm
+
+
 
 # Create your views here.
+
+class clienteDetailView(DetailView):
+
+    model = Propietarios
+    template_name='detalleCliente.html'
+
+    def get_queryset(self):
+        qs = super(clienteDetailView, self).get_queryset()
+        return qs.filter(pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['mascotas'] = Mascotas.objects.filter(propietario_id=self.kwargs['pk'])
+        context['mascota_form']  = MascotasForm(initial={'propietario': self.kwargs['pk'] }) 
+        return context
+   
 class registrarCliente(CreateView):
     model = Propietarios    
     form_class= ClientesForm
@@ -66,3 +85,15 @@ class deleteCliente(DeleteView):
         object.delete()
         return redirect('clientes')
  
+
+@login_required
+def agregar_Mascota(request):
+   
+    if request.method=="POST":
+        mascota = MascotasForm(request.POST or None)
+        
+        if mascota.is_valid():            
+            mascota.save()
+
+        return redirect('clientes')
+        

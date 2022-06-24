@@ -65,8 +65,8 @@
 
                         <td>
                             <a href="{% url 'detalleMascota' object.id %}" class="btn btn-primary" >Ver Mascota <i class="fa-solid fa-paw"></i></a>
-                            <button onclick="abrir_modal_editMascota('{% url 'editar_mascota' object.id %}')" class="btn btn-warning">Editar <i class="fa-solid fa-file-pen"></i></button>
-                            <button onclick="abrir_modal_eliminarMascota('{% url 'eliminar_mascota' object.id %}')" class="btn btn-danger">Eliminar <i class="fa-solid fa-box-archive"></i></button> 
+                            <button onclick="abrir_modal_editMascota(`{% url 'editar_mascota' object.id %}`)" class="btn btn-warning">Editar <i class="fa-solid fa-file-pen"></i></button>
+                            <button onclick="abrir_modal_eliminarMascota(`{% url 'eliminar_mascota' object.id %}`)" class="btn btn-danger">Eliminar <i class="fa-solid fa-box-archive"></i></button> 
                             
                         </td>
                     </tr>

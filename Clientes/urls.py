@@ -9,10 +9,12 @@ from HistoriasClinicas import views
 from Clientes import views
 
 urlpatterns = [
+    path('clientes/detalleCliente/<int:pk>/',login_required(views.clienteDetailView.as_view()), name='detalleCliente'),
     path('registrarCliente/',login_required(views.registrarCliente.as_view()), name='registrarCliente'),
     path('clientes/',login_required(views.listaClientes.as_view()), name='clientes'),
     path('clientes/eliminar/<int:pk>/',login_required(views.deleteCliente.as_view()), name='eliminarCliente'),
     path('clientes/edit/<int:pk>/',login_required(views.ClienteUpdate.as_view()), name='editarCliente'),
+    path('clientes/agregarMascota',views.agregar_Mascota, name='agregarMascota')
    
 
 ]

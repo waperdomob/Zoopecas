@@ -7,7 +7,7 @@
             {% if notificacion.notificacion_type == 2 %}
                 <div class="dropdown-divider"></div>
                 <a href="https://api.whatsapp.com/send?phone=+57{{notificacion.vacuna.mascota.propietario.telefonos}}&text=Hola!&nbsp;Te&nbsp;informo&nbsp;que&nbsp;tu&nbsp;mascota&nbsp;está&nbsp;proxima&nbsp;a&nbsp;su&nbsp;Siguiente&nbsp;vacuna:{{notificacion.vacuna.fecha_sgt_dosis}}" class="dropdown-item">
-                    <h5><center>{{notificacion.vacuna.mascota}}</center></h5>
+                    <h5><center>Vacuna para: {{notificacion.vacuna.mascota}}</center></h5>
                     <i class="fas fa-envelope mr-2"></i> Vacuna:
                     <span class="float-right text-muted text-sm">{{notificacion.vacuna.vacuna}}</span>
                     <p>Siguiente Dosis: <span class="float-right text-muted text-sm">{{notificacion.vacuna.fecha_sgt_dosis}}</span></p>
@@ -15,18 +15,26 @@
                 <div class="d-grid gap-2 col-md-2 mx-auto">
                     <span class="dropdown-item-close" onclick="removeNotification(`{% url 'notification-delete' notificacion.pk %}`,`{{ request.path }}`)">&times;</span>
                 </div>
-            {% else %}
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                <span class="float-right text-muted text-sm">3 mins</span>
+            {% elif notificacion.notificacion_type == 1 %}
+
+                <div class="dropdown-divider"> </div>
+                <a href="https://api.whatsapp.com/send?phone=+57{{notificacion.vacuna.mascota.propietario.telefonos}}&text=Hola!&nbsp;Te&nbsp;informo&nbsp;que&nbsp;tu&nbsp;mascota&nbsp;está&nbsp;proxima&nbsp;a&nbsp;su&nbsp;Siguiente&nbsp;vacuna:{{notificacion.vacuna.fecha_sgt_dosis}}" class="dropdown-item">
+                    <h5><center>Cita para: {{notificacion.cita.mascota}}</center></h5>
+                </i> Fecha:
+                <span class="float-right text-muted text-sm">{{notificacion.cita.fecha}}</span>
+                <p>Hora: <span class="float-right text-muted text-sm">{{notificacion.cita.hora}}</span></p>
+                <p>Tipo de cita: <span class="float-right text-muted text-sm">{{notificacion.cita.tipo}}</span></p>
                 </a>
+                <div class="d-grid gap-2 col-md-2 mx-auto">
+                    <span class="dropdown-item-close2" onclick="removeNotification(`{% url 'notification-delete' notificacion.pk %}`,`{{ request.path }}`)">&times;</span>
+                </div>
             {% endif %}
         
         {% endfor %}
     {% else %} 
-        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-
+        <hr>
+        <p><center>No hay notificaciones</center></p>
+        <hr>
     {% endif %}
     
 </div>

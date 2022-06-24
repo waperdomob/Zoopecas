@@ -35,7 +35,7 @@
         {% endif %}
         <br>
         <div class="d-grid gap-2 col-4 mx-auto">
-            <button onclick="abrir_modal_createProd('{% url 'registrarCliente' %}')" class="btn btn-success">Registrar Cliente</button>
+            <button onclick="abrir_modal_createProd(`{% url 'registrarCliente' %}`)" class="btn btn-success">Registrar Cliente</button>
         </div>
         <br> 
         
@@ -45,7 +45,7 @@
                   <th scope="col">#</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Dirección</th>
-                  <th scope="col">Telefonos</th>
+                  <th scope="col">Telefono</th>
                   <th scope="col">documento iD</th>
                   <th scope="col">correo</th>
                   <th scope="col"><center>Acciones</center></th>
@@ -61,8 +61,9 @@
                     <td>{{object.documentoid}}</td>
                     <td>{{object.correo}}</td>
                     <td>
-                        <button onclick="abrir_modal_editCliente('{% url 'editarCliente' object.id %}')" class="btn btn-primary">Edit<i class="fa-solid fa-file-pen"></i></button>
-                        <button onclick="abrir_modal_eliminarCliente('{% url 'eliminarCliente' object.id %}')" class="btn btn-danger">Delete<i class="fa-solid fa-box-archive"></i></button></td>
+                        <a href="{% url 'detalleCliente' object.id %}" class="btn btn-primary" >Ver Cliente <i class="fa-solid fa-user"></i></a>
+                        <button onclick="abrir_modal_editCliente(`{% url 'editarCliente' object.id %}`)" class="btn btn-warning">Edit<i class="fa-solid fa-file-pen"></i></button>
+                        <button onclick="abrir_modal_eliminarCliente(`{% url 'eliminarCliente' object.id %}`)" class="btn btn-danger">Delete<i class="fa-solid fa-box-archive"></i></button></td>
                 </tr>
                 {% endfor %}
             </tbody>

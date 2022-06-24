@@ -1,3 +1,4 @@
+from logging import PlaceHolder
 from django import forms
 
 from .models import *
@@ -29,11 +30,13 @@ class PropietariosForm(forms.ModelForm):
         labels = {
             'documentoid' : 'Número de identificación',
             'nombrePr':'Nombre',
+            'telefonos':'Telefono',
+
         }
         widgets = {
 	        'nombrePr':forms.TextInput(attrs={'class':'form-control'}),
             'direccion':forms.TextInput(attrs={'class':'form-control'}),            
-            'telefonos':forms.TextInput(attrs={'class':'form-control'}),
+            'telefonos':forms.TextInput(attrs={'class':'form-control','placeholder':'3001010123'}),
             'documentoid':forms.TextInput(attrs={'class':'form-control'}),
             'correo':forms.TextInput(attrs={'class':'form-control'}),
         }
@@ -49,7 +52,7 @@ class MascotasForm(forms.ModelForm):
         widgets = {
 	        'nombreMas':forms.TextInput(attrs={'class':'form-control'}),
 	        'foto':forms.FileInput(attrs={'class':'form-control'}),
-            'edad':forms.TextInput(attrs={'class':'form-control'}),
+            'edad':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
             'color':forms.TextInput(attrs={'class':'form-control'}),           
             'especie':forms.Select(attrs={'class':'form-control'}),
             'raza':forms.Select(attrs={'class':'form-control'}),

@@ -8,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.middleware import *
 from django.views import View
-from django.views.generic import CreateView,ListView, DetailView,UpdateView
+from django.views.generic import ListView, DetailView,UpdateView
 from django.views.decorators.csrf import csrf_exempt
 from django.http import  HttpResponseRedirect, JsonResponse
 import os
@@ -22,8 +22,9 @@ from django.shortcuts import  redirect, render
 
 from HistoriasClinicas.forms import HistoriasCForm, MascotasForm, PropietariosForm, SearchForm, SeguimientoForm
 from HistoriasClinicas.models import Propietarios, HistoriasClinicas, Seguimiento
-from mascotas.models import dosisVacunas
 from Veterinaria.settings import STATIC_URL
+from citas.forms import CitasForm
+from citas.models import Citas
 from notificaciones.models import Notificaciones
 # Create your views here.
 
@@ -68,23 +69,27 @@ def ejecutar():
             print(notificacion.user_has_seen)
             notificacion.user_has_seen = False
             notificacion.save()
+        if notificacion.cita.fecha <= dtime.date.today():
+            print(notificacion.user_has_seen)
+            notificacion.user_has_seen = False
+            notificacion.save()
 
 def index(request):
     if request.user.is_authenticated:
         hora = datetime.now()
-        if str(hora.time()) >="14:50:00" and str(hora.time())<="14:57:00":
-            t = Temporizador('14:57:00',1,ejecutar)# Instanciamos nuestra clase Temporizador
+        if str(hora.time()) >="09:00:00" and str(hora.time())<="09:10:00":
+            t = Temporizador('09:05',1,ejecutar)# Instanciamos nuestra clase Temporizador
             t.start() #Iniciamos el hilo
             print(hora.time())
              # Si en cualquier momento queremos detener el hilo desde la aplicacion simplemete usamos el método stop()
             sleep(60) # Simulamos un tiempo de espera durante el cual el programa principal puede seguir funcionando. 
             t.stop()   # Detenemos el hilo.
         mascota = MascotasForm()
-        propietario = PropietariosForm()        
+        propietario = PropietariosForm() 
+        datos = Citas.objects.all()
         form = SearchForm()
-        
-       
-        return render(request, 'consultarProp.html', {'form': form, 'form2':mascota,'form3':propietario,'cliente': False, })
+        formCita = CitasForm()       
+        return render(request, 'consultarProp.html', {'datos':datos,'form': form, 'form2':mascota,'form3':propietario,'formCita':formCita,'cliente': False, })
     else:    
         response = redirect('/accounts/login')
         return response
@@ -174,7 +179,6 @@ class HistoriaClinicaPDF(View):
         return HttpResponseRedirect(reverse_lazy('historiaClinica'))
 
 
-        
 @login_required
 def create_Propietario(request):
     mascota = MascotasForm()

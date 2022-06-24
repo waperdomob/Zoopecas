@@ -1,4 +1,3 @@
-from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.urls import path,include
 from django.urls import re_path
@@ -18,5 +17,6 @@ urlpatterns = [
     path('saveHistoriaClinica/', create_HC, name='saveHistoriaClinica'),
     path('nuevaHistoriaClinica/', new_HC, name='nuevaHistoriaClinica'),
     path('historiaClinica/HCPDF/<int:pk>/', login_required(views.HistoriaClinicaPDF.as_view()), name='HCPDF'),
+
 
 ]

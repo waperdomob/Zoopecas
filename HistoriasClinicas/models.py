@@ -53,7 +53,7 @@ class Mascotas(models.Model):
     foto = models.ImageField(upload_to='mascotas/', null= True, blank = True)
     nombreMas=models.CharField(max_length=45)
     color=models.CharField(max_length=45)
-    edad = models.CharField(max_length=45,null=True)
+    edad = models.DateField(null=True)
     especie=models.ForeignKey(Especies,null=False, on_delete=models.CASCADE)
     raza=models.ForeignKey(Razas,null=False, on_delete=models.CASCADE)
     sexo=models.ForeignKey(Sexos,null=False, on_delete=models.CASCADE)

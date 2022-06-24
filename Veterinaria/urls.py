@@ -27,5 +27,7 @@ urlpatterns = [
     path('',include('reportes.urls')),
     path('',include('mascotas.urls')),
     path('',include('notificaciones.urls')),
+    path('',include('citas.urls')),
+
 
 ]

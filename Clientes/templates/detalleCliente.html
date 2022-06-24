@@ -1,0 +1,98 @@
+{%  extends "base.html" %}
+{%  block title %}
+    Detalle Cliente
+{%  endblock    %}
+{%  load static %}
+{%  block styles %}
+    <link rel="stylesheet" href="{% static 'css/mascotas.css' %}">
+    
+  {%  endblock  %} 
+
+{%  block content   %}
+<br>
+<div class="row">
+    <div class="col-sm-6 contenedor" >
+        <div class="row">
+            <div class="col-3">
+            </div> 
+            <div class="col-6"><br>
+                     
+                <h2 class="" style="color: rgb(9, 132, 240);"><center>{{object.nombrePr}}</center></h2><br>
+                <h5 class="card-text">Direccion: {{object.direccion}}</h5>
+                <h5 class="card-text">Telefono: {{object.telefonos}}</h5>
+                <h5 class="card-text">Documento: {{object.documentoid}}</>
+                <h5 class="card-text">Correo: {{object.correo}}</>
+    
+            </div>
+            <div class="col-3">
+            </div> 
+        </div>
+        <br>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button onclick="abrir_modal_editCliente(`{% url 'editarCliente' object.id %}`)" class="btn btn-warning btn-lg">Editar cliente<i class="fa-solid fa-file-pen"></i></button>
+        </div>
+        <br>
+    </div>
+    <div class="col-md-6 contenedor" >
+        <br>
+        <h2 style="color: rgb(9, 132, 240);"><center>Mascotas</center></h2>
+
+        <div class="row">
+            
+            <div class="col-3">
+            </div> 
+            <div class="col-6">
+                <br>                
+                {% if  mascotas %}
+                    {% for mascota in mascotas %}
+                    <div class="card">
+                        <h4>Nombre: <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{mascota.nombreMas}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small> <a class="btn btn-danger" data-bs-toggle="collapse" href="#demo{{mascota.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-paw"></i></a> </h4>
+                        <div class="collapse" id="demo{{mascota.id}}">
+                            <h4>Color: <small>{{mascota.color}}</small> </h4>
+                            <h4>Edad: <small>{{mascota.edad}}</small></h4>
+                            <h4>Sexo: <small>{{mascota.sexo}}</small></h4>
+                            <h4>Especie: <small>{{mascota.especie}}</small></h4>
+                            <h4>Caracteristicas: <small>{{mascota.caracteristicas}}</small></h4>
+
+                            {% if  mascota.foto %}
+                            <div class="d-grid gap-2 col-8 mx-auto">
+                                <img class="img-fluid redonda" src="{{ mascota.foto.url }}" alt="" >
+                            </div><br>
+                            {% else %}
+                            <img src="#" alt="" width="100%">
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'detalleMascota' mascota.id %}" class="btn btn-primary" >Ver Mascota <i class="fa-solid fa-paw"></i></a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <h5><center>No hay vacunas aplicadas</center></h5>
+                {% endif %}
+                <br>              
+            </div>
+            <div class="col-3">
+            </div>            
+        </div> 
+        <div class="d-grid gap-2 col-8 mx-auto">
+            <button  type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#agregarMascotaModal"> Nueva Mascota <i class="fa-solid fa-paw"></i></button>
+        </div>
+        <br>
+        {% include 'agregar_mascotaModal.html' %}
+    </div>
+    
+</div>
+<div class="modal fade contenedor" id="editCliente_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+{%  endblock  %} 
+
+{% block javascript %}
+<script type="text/javascript">
+var $ = jQuery.noConflict();
+function abrir_modal_editCliente(url){
+    $('#editCliente_Modal').load(url, function (){
+        $(this).modal('show');
+    });
+}
+
+</script>
+{% endblock %}
