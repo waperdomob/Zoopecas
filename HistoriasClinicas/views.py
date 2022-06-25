@@ -65,12 +65,10 @@ def ejecutar():
     d = dtime.date.today() - timedelta(days=3)
     notificaciones = Notificaciones.objects.filter(Q(user_has_seen=True),fecha__range=[d,dtime.date.today()])
     for notificacion in notificaciones:
-        if notificacion.vacuna.fecha_sgt_dosis <= dtime.date.today():
-            print(notificacion.user_has_seen)
+        if notificacion.vacuna.fecha_sgt_dosis >= dtime.date.today():
             notificacion.user_has_seen = False
             notificacion.save()
-        if notificacion.cita.fecha <= dtime.date.today():
-            print(notificacion.user_has_seen)
+        if notificacion.cita.fecha >= dtime.date.today():
             notificacion.user_has_seen = False
             notificacion.save()
 
@@ -89,7 +87,7 @@ def index(request):
         datos = Citas.objects.all()
         form = SearchForm()
         formCita = CitasForm()       
-        return render(request, 'consultarProp.html', {'datos':datos,'form': form, 'form2':mascota,'form3':propietario,'formCita':formCita,'cliente': False, })
+        return render(request, 'consultarProp.html', {'citas':datos,'form': form, 'form2':mascota,'form3':propietario,'formCita':formCita,'cliente': False, })
     else:    
         response = redirect('/accounts/login')
         return response

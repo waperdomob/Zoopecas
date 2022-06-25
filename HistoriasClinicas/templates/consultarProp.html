@@ -4,7 +4,16 @@
     Consultar Registro
 {%  endblock    %}
 {% load static %}
-
+{%  block styles %}
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+  {%  endblock  %} 
+{%  block scripts %}
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+  {%  endblock  %} 
 
 
 {% block content %}
@@ -16,34 +25,34 @@
 <div class="container">
     <div class="container">
         <div class="row">
-            <div class="col col-6 ">
+            <div class="col col-6 contenedor">
               <div class="d-grid gap-2 col-8 mx-auto">
                 <button  id="" type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#asignarCita_Modal"> Asignar cita <i class="fa-solid fa-syringe"></i></button>
               </div>
               <br><br>
               <h2 style="color: #06baf6;"><center>Citas médicas</center></h2><br>
                 <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                    <table class="table table-light">
+                    <table class="table table-light" >
                       <thead>
                         <tr>
-                          <th scope="col">Fecha</th>
-                          <th scope="col">Hora</th>
-                          <th scope="col">Mascota</th>
-                          <th scope="col">Tipo</th>
-                          <th scope="col">Asistencia</th>
-                          <th scope="col"><center>Accion</center></th>
+                          <th style="width: 30%;">Fecha</th>
+                          <th style="width: 10%;">Hora</th>
+                          <th style="width: 20%;">Mascota</th>
+                          <th style="width: 20%;">Tipo</th>
+                          <th style="width: 20%;">Asistencia</th>
+                          <th style="width: 10%;"><center>Accion</center></th>
                         </tr>
                     </thead>
                       <tbody>
-                        {% for object in datos %}
+                        {% for object in citas %}
                         <tr>                          
-                            <td>{{object.fecha}}</td>
+                            <td>{{object.fecha|date:'d-m-Y'}}</td>
                             <td>{{object.hora}}</td>
                             <td>{{object.mascota}} </td>
                             <td>{{object.tipo}}</td>
                             <td>{{object.asistencia}}</td>
                             <td>
-                              <a href="{% url 'detalleHC' object.id %}" class="btn btn-primary"><i class="fa-solid fa-file-pen"></i></a>
+                              <button onclick="abrir_modal_editCita(`{% url 'editarCita' object.id %}`)" class="btn btn-warning"> <i class="fa-solid fa-file-pen"></i></button>
                             </td>
                         </tr>
                         {% endfor %}
@@ -54,7 +63,10 @@
                 <br><br>
                 </div>
             </div> 
-            <div class="col col-6 contenedor">
+            <div class="col col-1">
+              
+            </div>
+            <div class="col col-5 contenedor">
                 <br>
               <h1 style="color:#0275d8"><center>Registro</center></h1>
               <br>
@@ -84,13 +96,25 @@
             </div>
           </div>
     </div>
- 
+    <div class="modal fade contenedor" id="editarCitaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
 </div>
   <br><br>
 {% endblock %}
 
 {%  block javascript   %}
-  
+    <script type="application/javascript">
+      $('#data').DataTable({
+        responsive: true,
+        autoWidth: false
+    });
+    var $ = jQuery.noConflict();
+    function abrir_modal_editCita(url){
+        $('#editarCitaModal').load(url, function (){
+            $(this).modal('show');
+        });
+    }
+    </script>
     <script src="{% static 'js/funcions.js' %}">
 
     </script>

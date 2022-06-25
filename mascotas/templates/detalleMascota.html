@@ -12,6 +12,8 @@
 
 {%  block content   %}
 {% include 'vacunaModal.html' %}
+{% include 'asignarCita_Modal.html' %}
+
 
 <div class="row">
     <div class="col-sm-3 " >
@@ -38,33 +40,32 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5 contenedor" >
+    <div class="col-md-6 contenedor" >
         <br>
-        <h2 style="color: rgb(9, 132, 240);"><center>Vacunas</center></h2>
+        <h2 style="color: rgb(9, 132, 240);"><center>Vacunas y Citas</center></h2>
         <br>
-        <div class="d-grid gap-2 col-8 mx-auto">
-            <button  id="propietario-btn" type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#vacunaModal"> Nueva vacuna <i class="fa-solid fa-syringe"></i></button>
-        </div>
-        <br>
-        <div class="row">
-            
-            <div class="col-2">
+        
+        <div class="row">           
+            <div class="col-1">
             </div> 
-            <div class="col-8">
-                <br>                
+            <div class="col-5">
+                <div class="d-grid gap-2 col-12 mx-auto">
+                    <button  id="propietario-btn" type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#vacunaModal"> Nueva vacuna <i class="fa-solid fa-syringe"></i></button>                    
+                </div> <br>               
                 {% if  vacunas %}
                     {% for vacuna in vacunas %}
                     <div class="card">
-                        <h4>Vacuna Aplicada: <small>{{vacuna.vacuna}}</small> <a class="btn btn-success" data-bs-toggle="collapse" href="#demo{{vacuna.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-plus-circle"></i></a></h4>
+                        <h4>Vacuna Aplicada: <small>{{vacuna.vacuna}}</small></h4> <a class="btn btn-warning" data-bs-toggle="collapse" href="#demo{{vacuna.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-plus-circle"></i></a>
                         
                         <div class="collapse" id="demo{{vacuna.id}}">
-                            <h4>Fecha de Aplicación: </h4>{{vacuna.fecha_aplicacion}}
+                            <h4>Fecha de Aplicación: </h4>{{vacuna.fecha_aplicacion|date:'d-m-Y'}}
                             <h4>Dosis aplicada: <small>{{vacuna.dosis_aplicada}}</small></h4>
-                            <h4>Fecha de la siguiente dosis: </h4>{{vacuna.fecha_sgt_dosis}}
+                            <h4>Fecha de la siguiente dosis: </h4>{{vacuna.fecha_sgt_dosis|date:'d-m-Y'}}
+                            <div class="d-grid gap-2 " > 
+                                <button onclick="abrir_modal_editVacuna(`{% url 'editarVacuna' vacuna.id %}`)" class="btn btn-info btn-lg" >Editar <i class="fa-solid fa-file-medical"></i></button>
+                            </div> 
                         </div>
-                        <div class="d-grid gap-2 " > 
-                            <button onclick="abrir_modal_editVacuna(`{% url 'editarVacuna' vacuna.id %}`)" class="btn btn-info btn-lg" >Editar <i class="fa-solid fa-file-medical"></i></button>
-                        </div> 
+                        
                     </div>
                     {% endfor %}
                 {% else %}
@@ -72,39 +73,57 @@
                 {% endif %}
                 <br>              
             </div>
-            <div class="col-2">
+            <div class="col-5">
+                <div class="d-grid gap-2 col-12 mx-auto">
+                    <button  id="propietario-btn" type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#asignarCita_Modal"> Nueva Cita <i class="fa-solid fa-book-medical"></i></button>                    
+                </div> <br>                
+                {% if  citas %}
+                    {% for cita in citas %}
+                    <div class="card">
+                        <h4>Fecha la cita: <small>{{cita.fecha|date:'d-m-Y'}}</small> </h4><a class="btn btn-warning" data-bs-toggle="collapse" href="#demo{{cita.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-plus-circle"></i></a>
+                        
+                        <div class="collapse" id="demo{{cita.id}}">
+                            <h4>Hora la cita: <small>{{cita.hora}}</small></h4>
+                            <h4>Tipo de cita: <small>{{cita.tipo}}</small></h4>
+                            <div class="d-grid gap-2 " > 
+                                <button onclick="abrir_modal_editCita(`{% url 'editarCita' cita.id %}`)" class="btn btn-info btn-lg" >Editar <i class="fa-solid fa-file-medical"></i></button>
+                            </div> 
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <h5><center>No hay citas asignadas</center></h5>
+                {% endif %}
+                <br>              
+            </div>
+            <div class="col-1">
             </div>            
         </div> 
                    
     </div>
-    <div class="col-md-4 contenedor">
+    <div class="col-md-3 contenedor">
         <br>
         <h2 style="color: rgb(9, 132, 240);"><center>Historias Clinicas</center></h2>
         <br>
-        <div class="row">
             {% for obj in historiaClinica %}
-            <div class="col-4">
-                <div class="d-grid gap-2 " style="margin-top: 70%;" > 
-                    <a href="{% url 'detalleHC' obj.id %}" class="btn btn-primary btn-lg" ><i class="fa-solid fa-folder"></i></a>
-                </div>                
-            </div>
-        
-            <div class="col-sm-8">
                 <div class="card">
+                    <div class="d-grid"  > 
+                        <a href="{% url 'detalleHC' obj.id %}" class="btn btn-primary btn-lg" ><i class="fa-solid fa-folder"></i></a>
+                    </div> 
                     <div class="card-body">
                         <p>ID # {{obj.id}}</p>
                         <p>{{obj.fecha}}</p>
                         <p>{{obj.tratamientoInstaurado}}</p>
-                        <p>{{obj.observaciones}}</p>
-                    
+                        <p>{{obj.observaciones}}</p>                    
                     </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+                </div> <br>
+            {% endfor %}        
     </div>
 </div>
 <div class="modal fade" id="vacunaEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+<div class="modal fade contenedor" id="editarCitaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 </div>
 {%  endblock  %} 
 {% block javascript %}
@@ -113,6 +132,12 @@
 
             function abrir_modal_editVacuna(url){
                 $('#vacunaEditModal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+
+            function abrir_modal_editCita(url){
+                $('#editarCitaModal').load(url, function (){
                     $(this).modal('show');
                 });
             }

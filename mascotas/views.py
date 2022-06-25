@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 import datetime
 from django.urls import reverse, reverse_lazy
@@ -11,6 +12,8 @@ from django.shortcuts import  redirect, render
 
 from HistoriasClinicas.models import Mascotas,HistoriasClinicas
 from HistoriasClinicas.forms import MascotasForm
+from citas.forms import CitasForm
+from citas.models import Citas
 from notificaciones.models import Notificaciones
 from .models import Vacunas,dosisVacunas
 from .forms import dosisVacunasForm
@@ -41,8 +44,10 @@ class mascotaDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['vacunas'] = dosisVacunas.objects.filter(mascota_id=self.kwargs['pk'])
+        context['citas'] =Citas.objects.filter(mascota_id=self.kwargs['pk'])
         context['historiaClinica'] = HistoriasClinicas.objects.filter(mascotas_id=self.kwargs['pk'])
         context['formVacuna']  = dosisVacunasForm()  
+        context['formCita'] = CitasForm(initial={'mascota': self.kwargs['pk']})
         return context
    
 @login_required
@@ -81,10 +86,20 @@ class vacunaUpdate(UpdateView):
     template_name = 'vacunaEditModal.html'
     success_url = reverse_lazy('mascotas_list')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        Notificaciones.objects.create(notificacion_type=2, vacuna = context['dosisvacunas'])
-        return context
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        fechaN =form['fecha_sgt_dosis'].value()
+        if (form.is_valid() ):
+            Notificaciones.objects.create(notificacion_type=2, vacuna = self.object, fecha = fechaN)
+
+            return self.form_valid(form)
+        return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = form.save()        
+        return HttpResponseRedirect(self.get_success_url())
 
 class UpdateMascota(UpdateView):
     model = Mascotas    
