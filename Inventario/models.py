@@ -27,6 +27,7 @@ class Proveedores(models.Model):
         return item        
         
 class Productos(models.Model):
+    codigo=models.CharField(max_length=45,null=True, blank=True)
     producto=models.CharField(max_length=45)
     descripcion = models.CharField(max_length=100)
     cantidad_total=models.IntegerField()

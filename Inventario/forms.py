@@ -34,6 +34,7 @@ class ProductosForm(forms.ModelForm):
         model= Productos
         fields = '__all__'
         labels = {
+            'codigo':'Código',
             'producto': 'Producto',
             'descripcion': 'Descripcion',
             'cantidad_total': 'Cantidad total',
@@ -42,6 +43,7 @@ class ProductosForm(forms.ModelForm):
 
         }
         widgets = {
+	        'codigo':forms.TextInput(attrs={'class':'form-control'}),
 	        'producto':forms.TextInput(attrs={'class':'form-control'}),
             'descripcion':forms.TextInput(attrs={'class':'form-control'}),            
             'cantidad_total':forms.NumberInput(attrs={'class':'form-control'}),

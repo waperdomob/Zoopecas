@@ -1,5 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView,ListView, UpdateView,DeleteView,DetailView
 
@@ -11,8 +13,8 @@ from HistoriasClinicas.forms import MascotasForm
 
 # Create your views here.
 
-class clienteDetailView(DetailView):
-
+class clienteDetailView(PermissionRequiredMixin,DetailView):
+    permission_required = 'HistoriasClinicas.view_propietarios'
     model = Propietarios
     template_name='detalleCliente.html'
 
@@ -45,7 +47,8 @@ class registrarCliente(CreateView):
     def get(self, request, *args, **kwargs):        
         return render(request,self.template_name,self.get_context_data())
 
-class listaClientes(ListView):
+class listaClientes(PermissionRequiredMixin,ListView):
+    permission_required = 'HistoriasClinicas.view_propietarios'
     model = Propietarios    
     form_class= ClientesForm
     template_name = 'clientes.html'
@@ -64,7 +67,8 @@ class listaClientes(ListView):
     def get(self, request, *args, **kwargs):              
         return render(request,self.template_name,self.get_context_data())
 
-class ClienteUpdate(UpdateView):
+class ClienteUpdate(PermissionRequiredMixin,UpdateView):
+    permission_required = 'HistoriasClinicas.change_propietarios'
     model = Propietarios
     form_class = ClientesForm
     template_name = 'cliente_editModal.html'
@@ -76,7 +80,8 @@ class ClienteUpdate(UpdateView):
         context['clientes'] = Propietarios.objects.all()        
         return context
 
-class deleteCliente(DeleteView):
+class deleteCliente(PermissionRequiredMixin,DeleteView):
+    permission_required = 'HistoriasClinicas.delete_propietarios'
     model = Propietarios
     template_name = 'cliente_eliminarModal.html'
 

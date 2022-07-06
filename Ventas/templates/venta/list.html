@@ -13,6 +13,7 @@
     <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
     <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'js/funciones2.js' %}"></script>
     <script src="{% static 'js/list.js' %}"></script>
 
 {% endblock %}
@@ -63,7 +64,7 @@
                 <td>{{data.descuento}}</td>
                 <td>{{data.total}}</td>
                 <td>
-                    <button onclick="abrir_modal_eliminarVenta('{% url 'venta_eliminar' data.id %}')"  class="btn btn-danger"> <i class="fas fa-trash-alt"></i></button>
+                    <button onclick="abrir_modal_eliminarVenta(`{% url 'venta_eliminar' data.id %}`)"  class="btn btn-danger"> <i class="fas fa-trash-alt"></i></button>
                     <a href="{% url 'venta_editar' data.id %}" class="btn btn-warning"> <i class="fa-solid fa-edit"></i></a>
                     <button id= "{{data.id}}" onclick="enviarid(this)" rel="details"  class="btn btn-success"> <i class="fa-solid fa-search"></i></button>
                     

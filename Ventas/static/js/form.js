@@ -115,6 +115,7 @@ function formatRepo(repo) {
         '<div class="col-lg-11 text-left shadow-sm">' +
         //'<br>' +
         '<p style="margin-bottom: 0;">' +
+        '<b>Codigo:</b> ' + repo.codigo + '<br>' +
         '<b>Nombre:</b> ' + repo.producto + '<br>' +
         '<b>Descripción:</b> ' + repo.descripcion + '<br>' +
         '<b>PVP:</b> <span class="badge badge-warning">$' + repo.precio_venta + '</span>' +

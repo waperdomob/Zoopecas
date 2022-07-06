@@ -35,7 +35,7 @@
         {% endif %}
         <br>
         <div class="d-grid gap-2 col-4 mx-auto">
-            <button onclick="abrir_modal_createProd('{% url 'crearProducto' %}')" class="btn btn-success">Agregar Producto</button>
+            <button onclick="abrir_modal_createProd(`{% url 'crearProducto' %}`)" class="btn btn-success">Agregar Producto</button>
         </div>
         <br> 
         
@@ -56,7 +56,7 @@
             <tbody>
                 {% for object in productos %}
                 <tr>
-                    <td>{{object.id}}</td>
+                    <td>{{object.codigo}}</td>
                     <td><img src="{{ object.imagen.url }}" alt="" width="50px"></td>
                     <td>{{object.producto}}</td>
                     <td>{{object.descripcion}}</td>
@@ -74,8 +74,8 @@
                     <td>{{object.categoria}}</td>
                     <td>
                         <div class="d-grid gap-1 col-12 mx-auto">
-                        <button onclick="abrir_modal_editProd('{% url 'editarProducto' object.id %}')" class="btn btn-primary">Editar<i class="fa-solid fa-file-pen"></i></button>
-                        <button onclick="abrir_modal_eliminarProd('{% url 'eliminarProducto' object.id %}')" class="btn btn-danger">Eliminar<i class="fa-solid fa-box-archive"></i></button>
+                        <button onclick="abrir_modal_editProd(`{% url 'editarProducto' object.id %}`)" class="btn btn-primary">Editar<i class="fa-solid fa-file-pen"></i></button>
+                        <button onclick="abrir_modal_eliminarProd(`{% url 'eliminarProducto' object.id %}`)" class="btn btn-danger">Eliminar<i class="fa-solid fa-box-archive"></i></button>
                         </div>
                     </td>
                 </tr>

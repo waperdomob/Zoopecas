@@ -1,7 +1,6 @@
 import json
 from django.db import transaction
 from django.shortcuts import redirect, render
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from django.http import JsonResponse
@@ -15,7 +14,8 @@ from Ventas.models import Venta, DetVenta
 from Inventario.models import Productos
 # Create your views here.
 
-class SaleListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class SaleListView(PermissionRequiredMixin, ListView):
+    permission_required = 'Ventas.view_venta'
     model = Venta
     template_name = 'venta/list.html'
     permission_required = 'venta.view_sale'
@@ -23,10 +23,6 @@ class SaleListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
     def get_queryset(self):
         return self.model.objects.get_queryset().order_by('id')
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -58,7 +54,8 @@ class SaleListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return render(request,self.template_name,self.get_context_data())
 
 
-class SaleCreateView(LoginRequiredMixin, CreateView):
+class SaleCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'Ventas.add_venta'
     model = Venta
     form_class = VentasForm
     template_name = 'venta/create.html'
@@ -130,7 +127,8 @@ class SaleCreateView(LoginRequiredMixin, CreateView):
 
         return context
 
-class SaleEditView(UpdateView):
+class SaleEditView(PermissionRequiredMixin,UpdateView):
+    permission_required = 'Ventas.change_venta'
     model = Venta    
     form_class= VentasForm
     template_name = 'venta/create.html'
@@ -203,7 +201,8 @@ class SaleEditView(UpdateView):
         context['detalle'] = json.dumps(self.get_details_product())
         return context
 
-class SaleDeleteView(DeleteView):
+class SaleDeleteView(PermissionRequiredMixin,DeleteView):
+    permission_required = 'Ventas.delete_venta'
     model = Venta
     template_name = 'venta/delete.html'
     success_url = reverse_lazy('venta_list')

@@ -1,7 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,permission_required
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
+
 
 from django.views.generic import CreateView,ListView, UpdateView,DeleteView
 from Inventario.models import Productos, Categorias, Proveedores
@@ -9,7 +12,8 @@ from Inventario.forms import ProductosForm, CategoriasForm, ProveedoresForm, Vac
 from mascotas.models import Vacunas
 
 # Create your views here.
-class crearProductos(CreateView):
+class crearProductos(PermissionRequiredMixin,CreateView):
+    permission_required = 'Inventario.add_productos'
     model = Productos    
     form_class= ProductosForm
     template_name = 'productos/productoModal.html'
@@ -29,7 +33,8 @@ class crearProductos(CreateView):
     def get(self, request, *args, **kwargs):        
         return render(request,self.template_name,self.get_context_data())
 
-class listaProductos(ListView):
+class listaProductos(PermissionRequiredMixin,ListView):
+    permission_required = 'Inventario.view_productos'
     model = Productos    
     form_class= ProductosForm
     template_name = 'productos/productos.html'
@@ -48,7 +53,8 @@ class listaProductos(ListView):
     def get(self, request, *args, **kwargs):              
         return render(request,self.template_name,self.get_context_data())
 
-class ProductoUpdate(UpdateView):
+class ProductoUpdate(PermissionRequiredMixin,UpdateView):
+    permission_required = 'Inventario.change_productos'
     model = Productos
     form_class = ProductosForm
     template_name = 'productos/producto_editModal.html'
@@ -60,7 +66,8 @@ class ProductoUpdate(UpdateView):
         context['productos'] = Productos.objects.all()        
         return context
 
-class deleteProducto(DeleteView):
+class deleteProducto(PermissionRequiredMixin,DeleteView):
+    permission_required = 'Inventario.delete_productos'
     model = Productos
     template_name = 'productos/producto_eliminarModal.html'
 
@@ -70,6 +77,7 @@ class deleteProducto(DeleteView):
         return redirect('inventario')
     
 @login_required
+@permission_required('Inventario.view_categorias', raise_exception=True)
 def create_categoria(request):
     categorias = Categorias.objects.all()
     if request.method=="POST":
@@ -139,7 +147,8 @@ class crearProveedor(CreateView):
     def get(self, request, *args, **kwargs):        
         return render(request,self.template_name,self.get_context_data())
 
-class listaProveedores(ListView):
+class listaProveedores(PermissionRequiredMixin,ListView):
+    permission_required = 'Inventario.view_proveedores'
     model = Proveedores    
     form_class= ProveedoresForm
     template_name = 'proveedores/proveedores.html'
@@ -179,7 +188,8 @@ class deleteProovedor(DeleteView):
         object.delete()
         return redirect('proveedores')
 
-class listaVacunas(ListView):
+class listaVacunas(PermissionRequiredMixin,ListView):
+    permission_required = 'mascotas.view_vacunas'
     model = Vacunas    
     form_class= VacunasForm
     template_name = 'vacunas/vacunas.html'

@@ -12,7 +12,10 @@ function enviarid(data){
                 'action': 'search_details_prod',
                 'id': data.id
             },
-            dataSrc: ""
+            dataSrc: "",
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
         },
         columns: [
             {"data": "producto.producto"},

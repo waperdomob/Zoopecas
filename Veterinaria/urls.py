@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import path,include
-
+from django.conf.urls import handler404
+from HistoriasClinicas.views import page_not_found404
+ 
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
@@ -29,5 +31,5 @@ urlpatterns = [
     path('',include('notificaciones.urls')),
     path('',include('citas.urls')),
 
-
 ]
+handler404 = page_not_found404

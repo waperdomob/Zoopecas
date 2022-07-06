@@ -243,4 +243,6 @@ def create_HC(request):
         context = {'datos': historiasClinicas, 'fecha_actual':dtime.date.today()}
         return render(request,'indexHC.html',context)
 
-    
+def page_not_found404(request, exception):
+
+    return render(request,'404.html')

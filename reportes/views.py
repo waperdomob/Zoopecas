@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
 from django.views.generic import TemplateView
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
@@ -13,7 +15,8 @@ from reportes.forms import reportForm
 from Ventas.models import Venta, DetVenta
 
 # Create your views here.
-class ReportVentasView(TemplateView):
+class ReportVentasView(PermissionRequiredMixin,TemplateView):
+    permission_required = 'Ventas.view_venta'
     template_name= 'reportes.html'
 
     @method_decorator(csrf_exempt)

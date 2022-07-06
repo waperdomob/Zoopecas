@@ -33,7 +33,6 @@ function generarReporte() {
         parameters['end_date'] = date_range.endDate.format('YYYY-MM-DD');
         parameters['metodo_pago'] = opcion1;
         parameters['categoria'] = opcion2;
-        console.log(parameters['categoria'])
     }   
 
 
