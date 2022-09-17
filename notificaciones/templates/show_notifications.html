@@ -12,7 +12,7 @@
                     <span class="float-right text-muted text-sm">{{notificacion.vacuna.vacuna}}</span>
                     <p>Siguiente Dosis: <span class="float-right text-muted text-sm">{{notificacion.vacuna.fecha_sgt_dosis}}</span></p>
                 </a>
-                <div class="d-grid gap-2 col-md-2 mx-auto">
+                <div class="d-grid gap-2 col-md-4 mx-auto col-2">
                     <span class="dropdown-item-close" onclick="removeNotification(`{% url 'notification-delete' notificacion.pk %}`,`{{ request.path }}`)">&times;</span>
                 </div>
             {% elif notificacion.notificacion_type == 1 %}

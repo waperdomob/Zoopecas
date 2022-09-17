@@ -9,7 +9,8 @@
             <div id="alert-box"></div>
             <div class="container" >
       
-              <form action="{% url 'editarVacuna' object.id %}" method="post">{% csrf_token %}
+              <form action="{% url 'editar_Vacuna' object.id %}" method="post">
+                {% csrf_token %}
                 {{ form }}
                 <br>
                 <div class="modal-footer ">

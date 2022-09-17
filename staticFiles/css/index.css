@@ -103,11 +103,11 @@
 }
 .dropdown-item-close2 {
   position: absolute;
-  bottom: 70px;
-  left: 130px;
+  bottom: 70%;
+  left: 50%;
   font-size: 1.8rem;
   transition: 0.3s;
-  padding-right: 5px;
+  padding-right: 2%;
 
 }
 .dropdown-item-close2:hover {

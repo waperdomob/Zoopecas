@@ -11,7 +11,7 @@
         <img src="{%  static 'img/logo1mejorado.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 " style="opacity: .8; background-color: rgb(255, 255, 255);" height="80px" onclick="openNav()">
       </button>
       {% else %}        
-        <img src="{%  static 'img/logo1mejorado.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 " style="opacity: .8; background-color: rgb(255, 255, 255);" height="80px" >
+        <img src="{%  static 'img/logo1mejorado.png' %}" alt="zoopecas" class="brand-image img-circle elevation-3 " style="opacity: .8; background-color: rgb(255, 255, 255);" height="80px" >
       
       {% endif %}
         <a href="{% url 'inicio'  %}" class="nav-link textColor" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: x-large; font-weight: bold;">ZOOPECAS</a>
@@ -48,42 +48,20 @@
               
             </li>
             <li class="nav-item dropdown">
-              <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle textColor">
+              <a id="dropdown-menu" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle textColor">
                 <i class="fas fa-th-large"></i>
               </a>
-              <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+              <ul aria-labelledby="dropdown-menu" class="dropdown-menu border-3 shadow">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">logout</a>
                 </li>
                 
-              {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}" tabindex="-1" aria-disabled="true">Login</a>
-              </li>
-              {% endif %}
-  
-                <li class="dropdown-divider"></li>
-  
-                <!-- Level two dropdown-->
-                <!-- <li class="dropdown-submenu dropdown-hover">
-                  <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
-                  <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                    <li>
-                      <a tabindex="-1" href="#" class="dropdown-item">level 1</a>
-                    </li>  
-                    <li class="dropdown-submenu">
-                      <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
-                    </li>  
-                    <li>
-                      <a href="#" class="dropdown-item">level 3</a>
-                    </li>
-                    <li>
-                      <a href="#" class="dropdown-item">level 4</a>
-                    </li>
-                  </ul>
-                </li> -->
-
+                {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}" tabindex="-1" aria-disabled="true">Login</a>
+                  </li>
+                {% endif %}
               </ul>
             </li>
           </ul>

@@ -31,7 +31,7 @@ class CitaUpdate(UpdateView):
     model = Citas
     form_class = CitasForm
     template_name = 'cita_editModal.html'
-    success_url = reverse_lazy('mascotas_list')
+    success_url = reverse_lazy('inicio')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()

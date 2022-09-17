@@ -7,7 +7,7 @@
       <div class="modal-body contenedorModal" id="modal-body" >
           <div id="alert-box"></div>
          
-            <form action="{% url 'eliminarVacuna' object.id %}" method="post" >{% csrf_token %}
+            <form action="{% url 'eliminar_Vacuna' object.id %}" method="post" >{% csrf_token %}
               <div class="alert alert-danger alert-dismissible">            
                 <h2><i class="icon fas fa-ban"></i><center>Notificación</center></h2>
                 <h5><center>Está seguro de eliminar: "{{ object }}"?</center></h5>

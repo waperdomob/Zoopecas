@@ -21,9 +21,9 @@ urlpatterns = [
     path('proveedor/eliminar/<int:pk>/',login_required(views.deleteProovedor.as_view()), name='eliminarProveedor'),
     path('proveedor/edit/<int:pk>/',login_required(views.ProovedorUpdate.as_view()), name='editarProveedor'),
     path('vacunas/',login_required(views.listaVacunas.as_view()), name='vacunas'),
-    path('registrar_vacuna/',login_required(views.registrarVacunas.as_view()), name='registrarVacuna'),
-    path('Vacuna/eliminar/<int:pk>/',login_required(views.deleteVacuna.as_view()), name='eliminarVacuna'),
-    path('Vacuna/edit/<int:pk>/',login_required(views.VacunaUpdate.as_view()), name='editarVacuna'),
+    path('registrar_vacuna/',login_required(views.registrarVacunas.as_view()), name='registrar_Vacuna'),
+    path('Vacuna/eliminar/<int:pk>/',login_required(views.deleteVacuna.as_view()), name='eliminar_Vacuna'),
+    path('Vacuna/edit/<int:pk>/',login_required(views.VacunaUpdate.as_view()), name='editar_Vacuna'),
 ]
 
 if settings.DEBUG:

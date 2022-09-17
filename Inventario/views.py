@@ -231,7 +231,7 @@ class VacunaUpdate(UpdateView):
     model = Vacunas
     form_class = VacunasForm
     template_name = 'vacunas/vacuna_editModal.html'
-    success_url = reverse_lazy('inventario')
+    success_url = reverse_lazy('vacunas')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)        

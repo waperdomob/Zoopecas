@@ -15,7 +15,7 @@ class CitasForm(forms.ModelForm):
 
         }
         widgets = {
-	        'fecha':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
+	        'fecha':forms.DateInput(format=('%Y-%m-%d'),attrs={'class':'form-control','type': 'date'}),
             'hora':forms.TimeInput(attrs={'class':'form-control','type': 'time'}),            
             'mascota':forms.Select(attrs={'class':'form-control'}),
             'tipo':forms.Select(attrs={'class':'form-control'}),

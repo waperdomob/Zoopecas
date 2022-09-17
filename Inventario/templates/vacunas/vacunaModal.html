@@ -7,7 +7,7 @@
         </div>
         <div class="modal-body contenedorModal" id="modal-body" >
             <div id="alert-box"></div>
-            <form action="{% url 'registrarVacuna' %}" method="POST">
+            <form action="{% url 'registrar_Vacuna' %}" method="POST">
               {%  csrf_token  %}
                 {{ form }}
                 <div class="modal-footer contenedorModal">

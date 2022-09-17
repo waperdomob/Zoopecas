@@ -15,12 +15,7 @@ class dosisVacunasForm(forms.ModelForm):
         }
         widgets = {
 	        'dosis_aplicada':forms.NumberInput(attrs={'class':'form-control'}), 
-            'fecha_sgt_dosis': forms.DateInput(
-            format=('%Y-%m-%d'),
-            attrs={'class': 'form-control', 
-               'placeholder': 'Select a date',
-               'type': 'date'
-              }),
+            'fecha_sgt_dosis': forms.DateInput(format=('%Y-%m-%d'), attrs={'class': 'form-control', 'type': 'date'}),
             'vacuna':forms.Select(attrs={'class':'form-control'}),
 
         }

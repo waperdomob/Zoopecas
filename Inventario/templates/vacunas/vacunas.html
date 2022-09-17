@@ -21,7 +21,7 @@
     <h1 style="color: rgb(9, 132, 240);"><center>{{title}}</center></h1>
     <br>
     <div class="d-grid gap-2 col-4 mx-auto">
-        <button onclick="abrir_modal_createVacuna('{% url 'registrarVacuna' %}')" class="btn btn-success">Agregar Vacuna</button> 
+        <button onclick="abrir_modal_createVacuna(`{% url 'registrar_Vacuna' %}`)" class="btn btn-success">Agregar Vacuna</button> 
     </div>
     <br> 
     
@@ -53,8 +53,8 @@
                 <td class="text-center">{{obj.dosis}}</td>
                 <td>
                     
-                   <button onclick="abrir_modal_editVacuna('{% url 'editarVacuna' obj.id %}')" class="btn btn-primary">Editar<i class="fa-solid fa-file-pen"></i></button>
-                    <button onclick="abrir_modal_eliminarVacuna('{% url 'eliminarVacuna' obj.id %}')" class="btn btn-danger">Eliminar<i class="fa-solid fa-box-archive"></i></button>
+                   <button onclick="abrir_modal_editVacuna(`{% url 'editar_Vacuna' obj.id %}`)" class="btn btn-primary">Editar<i class="fa-solid fa-file-pen"></i></button>
+                    <button onclick="abrir_modal_eliminarVacuna(`{% url 'eliminar_Vacuna' obj.id %}`)" class="btn btn-danger">Eliminar<i class="fa-solid fa-box-archive"></i></button>
                     
                 </td>
             </tr>
