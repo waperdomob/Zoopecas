@@ -178,7 +178,8 @@ $(function () {
                     'ids': JSON.stringify(vents.get_ids()),
                     'term': $('select[name="search"]').val()
                 },
-                dataSrc: ""
+                dataSrc: "",
+                headers: {'X-CSRFToken': csrftoken},
             },
             columns: [
                 {"data": "full_name"},

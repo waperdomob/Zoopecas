@@ -4,6 +4,8 @@ const doc_consulta = document.getElementById('id_documento')
 const propietarioBtn = document.getElementById('propietario-btn')
 
 
+
+
 consulta_form.addEventListener('submit', e=>{
   
   const csrf2 = document.getElementsByName('csrfmiddlewaretoken')[0].value
@@ -19,6 +21,7 @@ consulta_form.addEventListener('submit', e=>{
     data: {
       'documento': doc_consulta.value
     },
+    headers: {'X-CSRFToken': csrftoken},
     success: function (cliente) {
       if (cliente['cliente']) {
         $("#result").html("<p><center><i class='fa-solid fa-check'></i>Propietario Encontrado: " + cliente['cliente'] + " </center></p>")

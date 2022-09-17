@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h9fd5hpl*kc3^3y5v0=u2&=z@r(=au)rap+=ngkt%w)%v9=xg@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True    
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fontawesomefree',
+    'import_export',
     'Veterinaria',
     'HistoriasClinicas',
     'Inventario',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'notificaciones',
     'citas',
     'django_cleanup.apps.CleanupConfig',
+
 
 ]
 
@@ -134,16 +136,10 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'HistoriasClinicas' / 'static',
-    BASE_DIR / 'Inventario' / 'static',    
-    BASE_DIR / 'Ventas' / 'static',
-    BASE_DIR / 'mascotas' / 'static',
-    BASE_DIR / 'notificaciones' / 'static',
-    BASE_DIR / 'Veterinaria' / 'static',
+    BASE_DIR / 'static/',
 ] 
 
-
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticFiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

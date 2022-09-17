@@ -46,7 +46,8 @@ function generarReporte() {
             url: window.location.pathname,
             type: 'POST',
             data: parameters,
-            dataSrc: ""
+            dataSrc: "",
+            headers: {'X-CSRFToken': csrftoken},
         },
         order : false,
         paging: false,
