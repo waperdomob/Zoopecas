@@ -52,7 +52,7 @@ class MascotasForm(forms.ModelForm):
         widgets = {
 	        'nombreMas':forms.TextInput(attrs={'class':'form-control'}),
 	        'foto':forms.FileInput(attrs={'class':'form-control'}),
-            'edad':forms.DateInput(attrs={'class':'form-control','type': 'date'}),
+            'edad':forms.DateInput(format=('%Y-%m-%d'),attrs={'class':'form-control','type': 'date'}),
             'color':forms.TextInput(attrs={'class':'form-control'}),           
             'especie':forms.Select(attrs={'class':'form-control'}),
             'raza':forms.Select(attrs={'class':'form-control'}),

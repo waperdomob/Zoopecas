@@ -45,7 +45,7 @@
         {% else %}
         {% endif %}       
         <!-- Content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" id="hija">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row">
@@ -77,6 +77,8 @@
     {% if not user.is_superuser %}
     <script>
       document.getElementById("main").style.marginLeft= "-230px";
+      document.getElementById("hija").style.marginLeft= "230px";
+
     </script>
     
     {% else %}

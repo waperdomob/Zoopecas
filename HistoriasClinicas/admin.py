@@ -10,6 +10,7 @@ class empleadosAdmin(admin.ModelAdmin):
     inlines = [
         MembershipInline,
     ]
+    list_display=("id","user")
 
 class historiasClinicasAdmin(admin.ModelAdmin):
     inlines = [
