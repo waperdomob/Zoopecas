@@ -1,16 +1,1 @@
-// sizing icons
-// -------------------------
-
-// literal magnification scale
-@for $i from 1 through 10 {
-  .#{$fa-css-prefix}-#{$i}x {
-    font-size: $i * 1em;
-  }
-}
-
-// step-based scale (with alignment)
-@each $size, $value in $fa-sizes {
-  .#{$fa-css-prefix}-#{$size} {
-     @include fa-size($value);
-  }
-}
+/home/wilmer/Zoopecas/env/lib/python3.10/site-packages/fontawesomefree/static/fontawesomefree/scss/_sizing.scss

@@ -1,18 +1,1 @@
-.botonCentro{
-    width: 140px; 
-    margin-left: -25%;
-    transform: translateX(-50%);
-    transform: translateY(100%);
-    border: 2px solid #f8f6f4f6; 
-    background-color: rgb(9, 132, 240);
-    color: azure;
-  }
-
-  .textPagintator{
-    color: rgb(19, 106, 245);
-    font-size: x-large;
-}
-.textPagintatorSpan{
-  color: rgb(52, 200, 6);
-    font-size: large; 
-}
+/home/wilmer/Zoopecas/Inventario/static/css/indexProducto.css

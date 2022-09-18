@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from pickle import TRUE
 from django.db import models
 from datetime import datetime

@@ -1,3 +1,3 @@
 from Veterinaria.settings import *
-ALLOWED_HOSTS = ['trabajos.sccot.org', 'www.trabajos.sccot.org']
+ALLOWED_HOSTS = ["zoopecas.com", "www.zoopecas.com"]
 DEBUG = False

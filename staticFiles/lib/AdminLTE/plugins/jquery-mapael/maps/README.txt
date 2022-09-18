@@ -1,3 +1,1 @@
-Additional maps are stored in the repository neveldo/mapael-maps
-
-Full link: https://github.com/neveldo/mapael-maps
+/home/wilmer/Zoopecas/Veterinaria/static/lib/AdminLTE/plugins/jquery-mapael/maps/README.txt

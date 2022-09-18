@@ -1,4 +1,3 @@
-from tkinter.tix import Select
 from django import forms
 
 from .models import *
