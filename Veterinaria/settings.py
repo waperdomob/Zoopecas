@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-h9fd5hpl*kc3^3y5v0=u2&=z@r(=au)rap+=ngkt%w)%v9=xg@
 DEBUG = True    
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS=['https://*zoopecas.com']
 # Application definition
 
 INSTALLED_APPS = [
@@ -63,6 +63,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
+
 ROOT_URLCONF = 'Veterinaria.urls'
 
 TEMPLATES = [
@@ -92,9 +96,10 @@ WSGI_APPLICATION = 'Veterinaria.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'zoopecas',
+        #'NAME': 'Zoopecas',#local
+        'NAME': 'zoopecas',#deploy
         'USER': 'postgres',
-       #'PASSWORD': '123456789',#local
+        #'PASSWORD': '123456789',#local
         'PASSWORD': 'perdomopulido30', #deploy
         'HOST': 'localhost',
         #'HOST': '127.0.0.1',
