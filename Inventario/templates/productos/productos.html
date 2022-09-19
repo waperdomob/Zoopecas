@@ -57,7 +57,13 @@
                 {% for object in productos %}
                 <tr>
                     <td>{{object.codigo}}</td>
+                    
+                    {% if {{ object.imagen }} %}
                     <td><img src="{{ object.imagen.url }}" alt="" width="50px"></td>
+                    {% else %}
+                    <td>Null</td>
+                    {% endif %}
+                        
                     <td>{{object.producto}}</td>
                     <td>{{object.descripcion}}</td>
                     <td>
