@@ -29,11 +29,11 @@ class Proveedores(models.Model):
 class Productos(models.Model):
     codigo=models.CharField(max_length=45,null=True, blank=True)
     producto=models.CharField(max_length=45)
-    descripcion = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=100, null=True, blank=True)
     cantidad_total=models.IntegerField()
     precio_compra=models.FloatField(max_length=45)
     precio_venta=models.FloatField(max_length=20)
-    imagen=models.ImageField(upload_to='productos/')
+    imagen=models.ImageField(upload_to='productos/', null=True, blank=True)
     categoria=models.ForeignKey(Categorias,null=False, on_delete=models.CASCADE)
     proveedor=models.ForeignKey(Proveedores,null=True, on_delete=models.CASCADE)
     
