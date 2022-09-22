@@ -179,20 +179,12 @@ $(function () {
             },
             columns: [
                 {"data": "full_name"},
-                {"data": "image"},
                 {"data": "stock"},
                 {"data": "pvp"},
                 {"data": "id"},
             ],
             columnDefs: [
-                {
-                    targets: [-4],
-                    class: 'text-center',
-                    orderable: false,
-                    render: function (data, type, row) {
-                        return '<img src="' + data + '" class="img-fluid d-block mx-auto" style="width: 20px; height: 20px;">';
-                    }
-                },
+               
                 {
                     targets: [-3],
                     class: 'text-center',
