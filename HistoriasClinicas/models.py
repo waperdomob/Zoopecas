@@ -41,7 +41,7 @@ class Propietarios(models.Model):
     direccion=models.CharField(max_length=45)
     telefonos=models.CharField(max_length=45)
     documentoid=models.CharField(max_length=20)
-    correo=models.CharField(max_length=45)
+    correo=models.CharField(max_length=45, null=True, blank=True)
     def __str__(self):
         return self.nombrePr
         
