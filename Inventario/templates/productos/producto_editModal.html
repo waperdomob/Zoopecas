@@ -8,8 +8,7 @@
         <div class="modal-body contenedorModal" id="modal-body" >
             <div id="alert-box"></div>
             <div class="container" >
-              <img src="{{object.imagen.url}}" width="30%" style="display:block;
-                margin:auto;">
+
               </div>
               <form action="{% url 'editarProducto' object.id %}" method="post" enctype="multipart/form-data">{% csrf_token %}
                 {{form}}

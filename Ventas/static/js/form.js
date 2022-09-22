@@ -255,6 +255,9 @@ $(function () {
             delay: 250,
             type: 'POST',
             url: window.location.pathname,
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
             data: function (params) {
                 var queryParameters = {
                     term: params.term,

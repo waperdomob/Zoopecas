@@ -58,8 +58,10 @@
                 <tr>
                     <td>{{object.codigo}}</td>
                     
-                    {% if {{ object.imagen }} %}
-                    <td><img src="{{ object.imagen.url }}" alt="" width="50px"></td>
+                    {% if  object.imagen  %}                    
+                        {% if object.imagen.url %}
+                            <td><img src="{{ object.imagen.url }}" alt="" width="50px"></td>                            
+                        {% endif %}                        
                     {% else %}
                     <td>Null</td>
                     {% endif %}
