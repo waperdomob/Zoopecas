@@ -96,11 +96,11 @@ WSGI_APPLICATION = 'Veterinaria.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Zoopecas',#local
-        #'NAME': 'zoopecas',#deploy
+        #'NAME': 'Zoopecas',#local
+        'NAME': 'zoopecas',#deploy
         'USER': 'postgres',
-        'PASSWORD': '123456789',#local
-        #'PASSWORD': 'perdomopulido30', #deploy
+        #'PASSWORD': '123456789',#local
+        'PASSWORD': 'perdomopulido30', #deploy
         'HOST': 'localhost',
         #'HOST': '127.0.0.1',
         'DATABASE_PORT':'5432',
