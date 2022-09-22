@@ -109,9 +109,6 @@ function formatRepo(repo) {
     var option = $(
         '<div class="wrapper container">' +
         '<div class="row">' +
-        '<div class="col-lg-1">' +
-        '<img src="' + repo.imagen + '" class="img-fluid img-thumbnail d-block mx-auto rounded">' +
-        '</div>' +
         '<div class="col-lg-11 text-left shadow-sm">' +
         //'<br>' +
         '<p style="margin-bottom: 0;">' +
