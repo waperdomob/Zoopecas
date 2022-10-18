@@ -147,3 +147,15 @@ class SeguimientoForm(forms.ModelForm):
 	        'responsable':forms.Select(attrs={'class':'form-control'}),
             'historiaClinica':forms.Select(attrs={'class':'form-control'}),
         }
+
+class docsADForm(forms.ModelForm):
+    class Meta:
+        model= documentosAd
+        exclude = ['titulo','historiaClinica']
+        labels = {
+            'documentoAD' : 'Documentos adicionales',
+        }
+        widgets = {          
+            'documentoAD':forms.FileInput(attrs={'class': 'form-control','multiple':True}),
+            
+        }

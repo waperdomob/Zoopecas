@@ -60,7 +60,7 @@ class Mascotas(models.Model):
     caracteristicas = models.CharField(max_length=100,null=True)
     propietario=models.ForeignKey(Propietarios,null=False, on_delete=models.CASCADE)
     def __str__(self):
-        return self.nombreMas
+        return self.nombreMas+"→"+self.propietario.nombrePr
 
     def toJSON(self):
         item = model_to_dict(self)
@@ -120,15 +120,22 @@ class HistoriasClinicas(models.Model):
 class Seguimiento(models.Model):
     fecha = models.DateField(auto_now_add=True)
     hora = models.TimeField(auto_now_add=True)
-    observaciones = models.CharField(max_length=250)
+    observaciones = models.CharField(max_length=200)
     responsable = models.ForeignKey(Empleados,null=False, on_delete=models.CASCADE)
     historiaClinica = models.ForeignKey(HistoriasClinicas,null=False, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.observaciones
 
-
-    
+class documentosAd(models.Model):
+    """
+    Documentos adicionales de la historia clinica.
+    """
+    titulo = models.CharField(max_length=100)
+    documentoAD  = models.FileField(null=True, blank=True)
+    historiaClinica = models.ForeignKey(HistoriasClinicas, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.titulo
 
 
 

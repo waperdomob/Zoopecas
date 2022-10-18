@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-import datetime
+import datetime as dtime
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.middleware import *
@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import  redirect, render
 
 from HistoriasClinicas.models import Mascotas,HistoriasClinicas
-from HistoriasClinicas.forms import MascotasForm
+from HistoriasClinicas.forms import HistoriasCForm, MascotasForm
 from citas.forms import CitasForm
 from citas.models import Citas
 from notificaciones.models import Notificaciones
@@ -24,7 +24,7 @@ class listaMascotas(ListView):
     def get(self, request, *args, **kwargs):
         mascotas = Mascotas.objects.all()
         mascota_form = MascotasForm()
-        context = {'datos': mascotas,'form2':mascota_form, 'fecha_actual':datetime.date.today()}
+        context = {'datos': mascotas,'form2':mascota_form, 'fecha_actual':dtime.date.today()}
         return render(request,'list_mascotas.html',context)
 
     @csrf_exempt
@@ -60,7 +60,7 @@ def crear_Mascota(request):
         if mascota.is_valid():            
             mascota.save()
 
-        context = {'datos': mascotas,'form2':mascota, 'fecha_actual':datetime.date.today()}
+        context = {'datos': mascotas,'form2':mascota, 'fecha_actual':dtime.date.today()}
         return render(request,'list_mascotas.html',context)
         
 @login_required
@@ -122,4 +122,10 @@ class deleteMascota(DeleteView):
         object.delete()
         return redirect('mascotas_list')
   
+@login_required
+def new_HC_MCT(request,pk):
+    mascota = Mascotas.objects.get(id = pk)
+    historiasClinicas = HistoriasCForm(initial={ 'mascotas': mascota})
 
+    context = {'form':historiasClinicas,'fecha_actual':dtime.date.today(),'Hora_actual': dtime.datetime.now().time()}
+    return  render(request,'formulario.html',context)

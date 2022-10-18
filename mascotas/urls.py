@@ -16,6 +16,8 @@ urlpatterns = [
     path('mascota/edit/<int:pk>/',login_required(views.UpdateMascota.as_view()), name='editar_mascota'),
     path('vacunacion/<int:pk>', registrarVacuna, name='vacunacion'),
     path('mascota/editarVacuna/<int:pk>', login_required(views.vacunaUpdate.as_view()), name='editarVacuna'),
+    path('mascota/nuevaHC/<int:pk>', login_required(views.new_HC_MCT), name='Registrar_HC'),
+
 
 
 ]

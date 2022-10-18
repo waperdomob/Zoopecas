@@ -106,6 +106,10 @@
         <br>
         <h2 style="color: rgb(9, 132, 240);"><center>Historias Clinicas</center></h2>
         <br>
+            <div class="d-grid gap-2 col-8 mx-auto">
+                <a href="{% url 'Registrar_HC' object.id %}" class="btn btn-secondary ">Nueva Historia Clínica</a>
+            </div>
+            <br>
             {% for obj in historiaClinica %}
                 <div class="card">
                     <div class="d-grid"  > 

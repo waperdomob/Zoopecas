@@ -21,7 +21,7 @@ from django.contrib import messages
 from django.shortcuts import  redirect, render
 
 from HistoriasClinicas.forms import HistoriasCForm, MascotasForm, PropietariosForm, SearchForm, SeguimientoForm
-from HistoriasClinicas.models import Propietarios, HistoriasClinicas, Seguimiento
+from HistoriasClinicas.models import Mascotas, Propietarios, HistoriasClinicas, Seguimiento
 from Veterinaria.settings import STATIC_URL
 from citas.forms import CitasForm
 from citas.models import Citas
@@ -130,7 +130,7 @@ class crearHistoriaC(ListView):
 class HCUpdate(UpdateView):
     model = HistoriasClinicas
     form_class = HistoriasCForm
-    template_name = 'editHC.html'
+    template_name = 'editHc.html'
     success_url = reverse_lazy('historiaClinica')
 
     def get_context_data(self, **kwargs):
@@ -192,13 +192,14 @@ def create_Propietario(request):
         
 @login_required
 def create_Mascota(request):
-    historiasClinicas = HistoriasCForm()
 
     if request.method=="POST":
         mascota = MascotasForm(request.POST or None)
         
         if mascota.is_valid():            
             mascota.save()
+        last_mascota = Mascotas.objects.all().last()
+        historiasClinicas = HistoriasCForm(initial={ 'mascotas': last_mascota})
 
         context = {'form':historiasClinicas, 'fecha_actual':dtime.date.today(),'Hora_actual': dtime.datetime.now().time()}
         return  render(request,'formulario.html',context)
