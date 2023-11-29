@@ -14,6 +14,7 @@ from django.http import  HttpResponseRedirect, JsonResponse
 import os
 from Veterinaria.wsgi import *
 from django.conf import settings
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.template.loader import get_template
 from weasyprint import HTML
@@ -84,7 +85,7 @@ def index(request):
             t.stop()   # Detenemos el hilo.
         mascota = MascotasForm()
         propietario = PropietariosForm() 
-        datos = Citas.objects.all()
+        datos = Citas.objects.all().order_by('-id')
         form = SearchForm()
         formCita = CitasForm()       
         return render(request, 'consultarProp.html', {'citas':datos,'form': form, 'form2':mascota,'form3':propietario,'formCita':formCita,'cliente': False, })
@@ -117,7 +118,10 @@ class crearHistoriaC(ListView):
     model = HistoriasClinicas
     
     def get(self, request, *args, **kwargs):
-        historiasClinicas = HistoriasClinicas.objects.all()
+        historiasC = HistoriasClinicas.objects.all()
+        page = request.GET.get('page',1)
+        pag = Paginator(historiasC,10)
+        historiasClinicas = pag.get_page(page)
         seguimiento = SeguimientoForm()
         context = {'datos': historiasClinicas,'form2':seguimiento, 'fecha_actual':dtime.date.today()}
         return render(request,'indexHC.html',context)

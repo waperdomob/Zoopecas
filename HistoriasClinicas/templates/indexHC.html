@@ -75,6 +75,27 @@
                 </tbody>
             </table>
         </div>
+        <div class="d-flex justify-content-end mx-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if datos.has_previous %}
+                        <li class="page-item border border-primary rounded">
+                            <a class="page-link" href="/historiaClinica?page={{datos.previous_page_number}}">Anterior</a>
+                        </li>
+                    {% endif %}
+                    {% for i in datos.paginator.page_range  %}
+                        <li class="page-item ">
+                            <a class="page-link" href="/historiaClinica?page={{i}}">{{i}}</a>
+                        </li> 
+                    {% endfor %}
+                    {% if datos.has_next %}
+                        <li class="page-item border border-primary rounded">
+                            <a class="page-link" href="/historiaClinica?page={{datos.next_page_number}}">Siguiente</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
+        </div>
    </div>
 
 
@@ -84,7 +105,11 @@
    <script type="application/javascript">
     $('#data').DataTable({
         responsive: true,
-        autoWidth: false
+        autoWidth: false,
+        order: [[0, 'desc']],
+        paging:false,
+        info:false,
+        searching: false,
     });
    </script>
 {% endblock %}

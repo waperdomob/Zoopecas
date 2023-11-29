@@ -9,6 +9,7 @@ from django.views.generic import CreateView, ListView,UpdateView,DeleteView
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
+from HistoriasClinicas.models import Propietarios
 from Ventas.forms import VentasForm
 from Ventas.models import Venta, DetVenta
 from Inventario.models import Productos
@@ -70,6 +71,15 @@ class SaleCreateView(PermissionRequiredMixin, CreateView):
         data = {}
         try:
             action = request.POST['action']
+            if action == 'search_cliente':
+                data = []
+                term = request.POST['term'].strip()
+                clientes = Propietarios.objects.filter(nombrePr__icontains=term)[0:10]
+                for i in clientes:
+                    item = i.toJSON()
+                    item['text'] = i.nombrePr
+                    data.append(item)
+
             if action == 'search_products':
                 data = []
                 products = Productos.objects.filter(producto__icontains=request.POST['term'])[0:10]
@@ -77,6 +87,7 @@ class SaleCreateView(PermissionRequiredMixin, CreateView):
                     item = i.toJSON()
                     item['value'] = i.producto
                     data.append(item)
+                    
             elif action == 'search_autocomplete':
                 data = []
                 ids_exclude = json.loads(request.POST['ids'])
@@ -112,8 +123,6 @@ class SaleCreateView(PermissionRequiredMixin, CreateView):
                         cantidad_ActualP = cantidad_ActualP - detalle.cant
                         Productos.objects.filter(id = i['id']).update(cantidad_total = cantidad_ActualP)
             
-            else:
-                data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)

@@ -22,7 +22,7 @@ class listaMascotas(ListView):
     model = Mascotas
     
     def get(self, request, *args, **kwargs):
-        mascotas = Mascotas.objects.all()
+        mascotas = Mascotas.objects.all().order_by("-id")
         mascota_form = MascotasForm()
         context = {'datos': mascotas,'form2':mascota_form, 'fecha_actual':dtime.date.today()}
         return render(request,'list_mascotas.html',context)

@@ -91,7 +91,7 @@ class HistoriasClinicas(models.Model):
     respiracion = models.FloatField(help_text='(X minuto)')
     inspeccion = models.CharField(max_length=250)
     TLIC = models.FloatField(help_text='(seg)')
-    hidratacion = models.FloatField(help_text='(seg)')
+    hidratacion = models.FloatField(help_text='(%)')
     peso = models.FloatField(help_text='(Kg)')
     ganglios = models.CharField(max_length=250)
     sistDigestivo = models.CharField(max_length=250,help_text='(Gusto)')
@@ -111,7 +111,7 @@ class HistoriasClinicas(models.Model):
     cotizacion1=models.IntegerField()
     tratamientoInstaurado=models.CharField(max_length=250)
     cotizacion2=models.IntegerField()
-    observaciones=models.CharField(max_length=250)
+    observaciones=models.TextField()
     veterinario = models.ManyToManyField(Empleados)
 
     def __str__(self):
@@ -120,7 +120,7 @@ class HistoriasClinicas(models.Model):
 class Seguimiento(models.Model):
     fecha = models.DateField(auto_now_add=True)
     hora = models.TimeField(auto_now_add=True)
-    observaciones = models.CharField(max_length=200)
+    observaciones = models.TextField()
     responsable = models.ForeignKey(Empleados,null=False, on_delete=models.CASCADE)
     historiaClinica = models.ForeignKey(HistoriasClinicas,null=False, on_delete=models.CASCADE)
 

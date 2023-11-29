@@ -21,7 +21,6 @@ def citasCreate(request):
             newcita = citas.save(commit=False)
             newcita.save()        
             Notificaciones.objects.create(notificacion_type=1, cita = newcita, fecha= newcita.fecha )
-            print("Hola ")
         return redirect('inicio')
 
     else:

@@ -226,6 +226,7 @@ $(function () {
         }
         vents.items.fecha_compra = $('input[name="fecha_compra"]').val();
         vents.items.cliente = $('select[name="cliente"]').val();
+        console.log(vents.items.cliente);
         vents.items.metodoPago = $('select[name="metodoPago"]').val();
         var parameters = new FormData();
         parameters.append('action', $('input[name="action"]').val());
@@ -275,6 +276,33 @@ $(function () {
         $(this).val('').trigger('change.select2');
     });
     vents.list(); 
+    $('select[name="cliente"]').select2({
+        theme: "bootstrap4",
+        language: 'es',
+                    
+        ajax: {
+            delay: 250,
+            type: 'POST',
+            url: window.location.pathname,
+            data: function (params) {
+                var queryParameters = {
+                    term: params.term,
+                    action: 'search_cliente'
+                }
+                return queryParameters;
+            },
+            processResults: function (data) {
+                console.log(data)
+                return {                        
+                    results: data
+                };
+            },
+        allowClear: true,
+        
+        },
+        placeholder: 'Ingrese un Nombre o apellido',
+        minimumInputLength: 1,
+    });
 
 });
 
