@@ -20,7 +20,10 @@ class RemoveNoficacion(View):
 
     def delete(self, request, notificacion_pk, *args, **kwargs):
         notificacion = Notificaciones.objects.get(pk = notificacion_pk)
-        notificacion.user_has_seen = True
-        notificacion.save()
-        return HttpResponse('Success', content_type= 'text/plain')
+        if notificacion.cita.asistencia == True:
+            notificacion.user_has_seen = True
+            notificacion.save()
+            return HttpResponse('Success', content_type= 'text/plain')
+        else:
+            return HttpResponse('Error', content_type= 'text/plain')
     

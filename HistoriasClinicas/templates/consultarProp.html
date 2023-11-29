@@ -23,9 +23,8 @@
 {% include 'asignarCita_Modal.html' %}
 
 <div class="container">
-    <div class="container">
         <div class="row">
-            <div class="col-md-6 col-12 contenedor">
+            <div class="col-md-7 col-12 contenedor">
               <div class="d-grid gap-2 col-8 mx-auto">
                 <button  id="" type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#asignarCita_Modal"> Asignar cita <i class="fa-solid fa-syringe"></i></button>
               </div>
@@ -45,7 +44,7 @@
                     </thead>
                       <tbody>
                         {% for object in citas %}
-                        <tr>                          
+                        <tr>
                             <td>{{object.fecha|date:'d-m-Y'}}</td>
                             <td>{{object.hora}}</td>
                             <td>{{object.mascota}} </td>
@@ -66,7 +65,7 @@
             <div class="col-md-1 col-12">
               
             </div>
-            <div class="col-md-5 col-12 contenedor">
+            <div class="col-md-4 col-12 contenedor">
                 <br>
               <h1 style="color:#0275d8"><center>Registro</center></h1>
               <br>
@@ -94,8 +93,7 @@
               <br><br>
       
             </div>
-          </div>
-    </div>
+        </div>
     <div class="modal fade contenedor" id="editarCitaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     </div>
 </div>
@@ -106,7 +104,8 @@
     <script type="application/javascript">
       $('#data').DataTable({
         responsive: true,
-        autoWidth: false
+        autoWidth: false,
+        order: [[0, 'desc']]
     });
     var $ = jQuery.noConflict();
     function abrir_modal_editCita(url){
