@@ -14,7 +14,6 @@
                   <th scope="col">Hora</th>
                   <th scope="col">Observaciones</th>
                   <th scope="col">responsable</th>
-                  <th scope="col"><center>Acciones</center></th>
                 </tr>
             </thead>
               <tbody>
@@ -25,9 +24,6 @@
                     <td>{{ obj.hora }}</td>
                     <td>{{ obj.observaciones }}</td>
                     <td>{{ obj.responsable }}</td>
-                    <td>
-                      <a href="{% url 'detalleHC' obj.id %}" class="btn btn-warning">Editar</a>
-                      <a href="{% url 'editarHC' obj.id %}" class="btn btn-danger"> Eliminar </a></td>
                 </tr>
                 {% endfor %}
                  

@@ -118,7 +118,7 @@ class crearHistoriaC(ListView):
     model = HistoriasClinicas
     
     def get(self, request, *args, **kwargs):
-        historiasC = HistoriasClinicas.objects.all()
+        historiasC = HistoriasClinicas.objects.all().order_by('-id')
         page = request.GET.get('page',1)
         pag = Paginator(historiasC,10)
         historiasClinicas = pag.get_page(page)
@@ -158,8 +158,10 @@ class HCDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        seguimiento = SeguimientoForm()
+
         context['seguimientos'] = Seguimiento.objects.filter(historiaClinica_id=self.kwargs['pk'])
-                
+        context['form2'] = seguimiento
         return context
    
 class HistoriaClinicaPDF(View):
@@ -221,10 +223,7 @@ def create_seguimiento(request,pk):
             return redirect('historiaClinica')#redirigue a donde deseas
 
     else:
-        historiasClinicas = HistoriasClinicas.objects.all()
-        seguimiento = SeguimientoForm()
-        context = {'datos': historiasClinicas,'form2':seguimiento, 'fecha_actual':dtime.date.today()}
-        return render(request,'indexHC.html',context)
+        return redirect('historiaClinica')
 
     
 @login_required
@@ -244,9 +243,7 @@ def create_HC(request):
         else:
             messages.error(request, "Hubo un error al guardar la historia clinica, intenta nuevamente")
 
-        historiasClinicas = HistoriasClinicas.objects.all()        
-        context = {'datos': historiasClinicas, 'fecha_actual':dtime.date.today()}
-        return render(request,'indexHC.html',context)
+        return redirect('historiaClinica')
 
 def page_not_found404(request, exception):
 

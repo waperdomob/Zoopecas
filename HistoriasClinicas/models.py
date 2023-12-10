@@ -114,6 +114,9 @@ class HistoriasClinicas(models.Model):
     observaciones=models.TextField(null=True, blank=True)
     veterinario = models.ManyToManyField(Empleados)
 
+    class Meta:
+        ordering = ['-id']
+
     def __str__(self):
         return self.quejaPrincipal
 
