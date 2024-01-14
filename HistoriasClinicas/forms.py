@@ -131,7 +131,7 @@ class HistoriasCForm(forms.ModelForm):
             'cotizacion1':forms.NumberInput(attrs={'class':'form-control'}), 
             'tratamientoInstaurado':forms.TextInput(attrs={'class':'form-control'}),
             'cotizacion2':forms.NumberInput(attrs={'class':'form-control'}),
-            'observaciones':forms.TextInput(attrs={'class':'form-control'}),
+            'observaciones':forms.Textarea(attrs={'class':'form-control','rows': 3}),
             'veterinario':forms.SelectMultiple(attrs={'class':'form-control '}),
 
         }
@@ -143,7 +143,7 @@ class SeguimientoForm(forms.ModelForm):
         exclude = ('historiaClinica',)
 
         widgets = {
-            'observaciones':forms.TextInput(attrs={'class':'form-control'}),
+            'observaciones':forms.Textarea(attrs={'class':'form-control','rows': 3}),
 	        'responsable':forms.Select(attrs={'class':'form-control'}),
             'historiaClinica':forms.Select(attrs={'class':'form-control'}),
         }

@@ -46,7 +46,7 @@ class Temporizador(Thread):
 
     def run(self):
         # Pasamos el string a dato tipo datetime
-        aux = datetime.strptime(self.hora, '%H:%M:%S')
+        aux = datetime.strptime(self.hora, '%H:%M')
         # Obtenemos la fecha y hora actuales.
         hora = datetime.now()
         # Sustituimos la hora por la hora a ejecutar la función.
@@ -85,7 +85,7 @@ def index(request):
             t.stop()   # Detenemos el hilo.
         mascota = MascotasForm()
         propietario = PropietariosForm() 
-        datos = Citas.objects.all().order_by('-id')
+        datos = Citas.objects.all().order_by('id')
         form = SearchForm()
         formCita = CitasForm()       
         return render(request, 'consultarProp.html', {'citas':datos,'form': form, 'form2':mascota,'form3':propietario,'formCita':formCita,'cliente': False, })

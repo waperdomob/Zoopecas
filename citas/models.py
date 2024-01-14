@@ -22,6 +22,7 @@ class Citas(models.Model):
     mascota=models.ForeignKey(Mascotas,null=False, on_delete=models.CASCADE)
     tipo=models.ForeignKey(TipoCita,null=False, on_delete=models.CASCADE)
     asistencia = models.BooleanField(default=False, blank=True)
+    created = models.DateField(auto_now_add=True, blank=True, null= True)
 
     def __str__(self):
         return self.tipo.tipodeCita
