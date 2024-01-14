@@ -111,7 +111,7 @@ class HistoriasClinicas(models.Model):
     cotizacion1=models.IntegerField()
     tratamientoInstaurado=models.CharField(max_length=250)
     cotizacion2=models.IntegerField()
-    observaciones=models.CharField(max_length=200)
+    observaciones=models.CharField(max_length=250)
     veterinario = models.ManyToManyField(Empleados)
 
     def __str__(self):
