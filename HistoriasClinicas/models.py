@@ -120,7 +120,7 @@ class HistoriasClinicas(models.Model):
 class Seguimiento(models.Model):
     fecha = models.DateField(auto_now_add=True)
     hora = models.TimeField(auto_now_add=True)
-    observaciones = models.CharField(max_length=200)
+    observaciones = models.CharField(max_length=250)
     responsable = models.ForeignKey(Empleados,null=False, on_delete=models.CASCADE)
     historiaClinica = models.ForeignKey(HistoriasClinicas,null=False, on_delete=models.CASCADE)
 
