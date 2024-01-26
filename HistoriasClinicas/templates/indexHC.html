@@ -63,8 +63,8 @@
                         <td>{{object.observaciones}}</td>
                         <td>{{object.fecha}}</td>
                         <td>
-                            <a href="{% url 'detalleHC' object.id %}" class="btn btn-primary">Ver</a>
-                            <a href="{% url 'editarHC' object.id %}" class="btn btn-warning"> Editar </a>
+                            <a href="{% url 'detalleHC' object.id %}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{% url 'editarHC' object.id %}" class="btn btn-warning"><i class="fa-solid fa-file-pen"></i></a>
                             <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#seguimientoModal{{object.id}}"><span class="glyphicon glyphicon-trash">+</span ></a>
                             <!-- Modal Structure -->
                             {% include 'seguimientoM.html' %}
@@ -80,6 +80,7 @@
                 <ul class="pagination">
                     {% if datos.has_previous %}
                         <li class="page-item border border-primary rounded">
+                            <a class="page-link" href="/historiaClinica?page=1">&laquo; first</a>
                             <a class="page-link" href="/historiaClinica?page={{datos.previous_page_number}}">Anterior</a>
                         </li>
                     {% endif %}
@@ -91,6 +92,7 @@
                     {% if datos.has_next %}
                         <li class="page-item border border-primary rounded">
                             <a class="page-link" href="/historiaClinica?page={{datos.next_page_number}}">Siguiente</a>
+                            <a class="page-link" href="/historiaClinica?page={{datos..paginator.num_pages}}">last &raquo;</a>
                         </li>
                     {% endif %}
                     </ul>

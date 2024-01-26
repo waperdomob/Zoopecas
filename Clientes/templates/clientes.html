@@ -61,9 +61,9 @@
                     <td>{{object.documentoid}}</td>
                     <td>{{object.correo}}</td>
                     <td>
-                        <a href="{% url 'detalleCliente' object.id %}" class="btn btn-primary" >Ver Cliente <i class="fa-solid fa-user"></i></a>
-                        <button onclick="abrir_modal_editCliente(`{% url 'editarCliente' object.id %}`)" class="btn btn-warning">Edit<i class="fa-solid fa-file-pen"></i></button>
-                        <button onclick="abrir_modal_eliminarCliente(`{% url 'eliminarCliente' object.id %}`)" class="btn btn-danger">Delete<i class="fa-solid fa-box-archive"></i></button></td>
+                        <a href="{% url 'detalleCliente' object.id %}" class="btn btn-primary" ><i class="fa-solid fa-eye"></i></a>
+                        <button onclick="abrir_modal_editCliente(`{% url 'editarCliente' object.id %}`)" class="btn btn-warning"><i class="fa-solid fa-file-pen"></i></button>
+                        <button onclick="abrir_modal_eliminarCliente(`{% url 'eliminarCliente' object.id %}`)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></td>
                 </tr>
                 {% endfor %}
             </tbody>
