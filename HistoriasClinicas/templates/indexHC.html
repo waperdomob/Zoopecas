@@ -92,7 +92,7 @@
                     {% if datos.has_next %}
                         <li class="page-item border border-primary rounded">
                             <a class="page-link" href="/historiaClinica?page={{datos.next_page_number}}">Siguiente</a>
-                            <a class="page-link" href="/historiaClinica?page={{datos..paginator.num_pages}}">last &raquo;</a>
+                            <a class="page-link" href="/historiaClinica?page={{datos.paginator.num_pages}}">last &raquo;</a>
                         </li>
                     {% endif %}
                     </ul>
