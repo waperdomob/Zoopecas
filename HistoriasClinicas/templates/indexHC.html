@@ -83,10 +83,10 @@
                             <a class="page-link" href="/historiaClinica?page={{datos.previous_page_number}}">Anterior</a>
                         </li>
                     {% endif %}
-                    {% for i in datos.paginator.page_range  %}
-                        <li class="page-item ">
+                    {% for i in page_range %}
+                        <li class="page-item">
                             <a class="page-link" href="/historiaClinica?page={{i}}">{{i}}</a>
-                        </li> 
+                        </li>
                     {% endfor %}
                     {% if datos.has_next %}
                         <li class="page-item border border-primary rounded">

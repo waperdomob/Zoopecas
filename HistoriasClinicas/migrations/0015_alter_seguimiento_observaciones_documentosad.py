@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='seguimiento',
             name='observaciones',
-            field=models.CharField(max_length=200),
+            field=models.CharField(max_length=250),
         ),
         migrations.CreateModel(
             name='documentosAd',

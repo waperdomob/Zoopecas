@@ -122,8 +122,13 @@ class crearHistoriaC(ListView):
         page = request.GET.get('page',1)
         pag = Paginator(historiasC,10)
         historiasClinicas = pag.get_page(page)
+        page_range_to_show = 5  # Puedes ajustar este valor según tus necesidades
+        current_page = historiasClinicas.number
+        start_page = max(1, current_page - page_range_to_show // 2)
+        end_page = min(pag.num_pages, current_page + page_range_to_show // 2)
+        page_range = range(start_page, end_page + 1)
         seguimiento = SeguimientoForm()
-        context = {'datos': historiasClinicas,'form2':seguimiento, 'fecha_actual':dtime.date.today()}
+        context = {'datos': historiasClinicas, 'page_range': page_range,'form2':seguimiento, 'fecha_actual':dtime.date.today()}
         return render(request,'indexHC.html',context)
 
     @csrf_exempt
