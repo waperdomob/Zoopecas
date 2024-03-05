@@ -26,13 +26,16 @@
                     <td>{{ obj.observaciones }}</td>
                     <td>{{ obj.responsable }}</td>
                     <td>
-                      <a href="{% url 'detalleHC' obj.id %}" class="btn btn-warning">Editar</a>
-                      <a href="{% url 'editarHC' obj.id %}" class="btn btn-danger"> Eliminar </a></td>
+                      <button onclick="abrir_modal_edit(`{% url 'update_seguimiento' obj.id %}`)" class="btn btn-warning"><i class="fa-solid fa-file-pen"></i></button>
+                      <button onclick="abrir_modal_eliminar(`{% url 'delete_seguimiento' obj.id %}`)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
                 </tr>
                 {% endfor %}
-                 
               </tbody>
           </table>
+          <div class="modal fade contenedor" id="seguimiento_edit_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade contenedor" id="seguimiento_delete_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>                    
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -41,3 +44,20 @@
       </div>
     </div>
   </div>
+  {% block javascript %}
+        <script type="text/javascript">
+            $('#seguimiento_edit_modal').load(url, function (){
+                    $(this).modal('hide');
+                });
+            function abrir_modal_edit(url){
+                $('#seguimiento_delete_modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+            function abrir_modal_eliminar(url){
+                $('#seguimiento_edit_modal').load(url, function (){
+                    $(this).modal('show');
+                });
+            }
+        </script>
+{% endblock %}

@@ -8,7 +8,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.middleware import *
 from django.views import View
-from django.views.generic import ListView, DetailView,UpdateView
+from django.views.generic import CreateView, ListView, DetailView,  DeleteView, UpdateView
 from django.views.decorators.csrf import csrf_exempt
 from django.http import  HttpResponseRedirect, JsonResponse
 import os
@@ -256,3 +256,29 @@ def create_HC(request):
 def page_not_found404(request, exception):
 
     return render(request,'404.html')
+
+
+class UpdateSeguimiento(UpdateView):
+    model = Seguimiento
+    form_class = SeguimientoForm
+    template_name = 'seguimientoEdit.html'
+    success_url = reverse_lazy('historiaClinica')
+
+
+    def get_queryset(self):
+        return self.model.objects.get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Editar Seguimiento de Historia Clinica'
+        context['datos'] = Seguimiento.objects.all()   
+        return context
+
+class DeleteSeguimiento(DeleteView):
+    model = Seguimiento
+    template_name = 'Seguimiento_eliminarModal.html'
+
+    def post(self, request,pk, *args, **kwargs):        
+        object = Seguimiento.objects.get(id=pk)
+        object.delete()
+        return redirect('historiaClinica')

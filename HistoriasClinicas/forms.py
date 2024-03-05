@@ -132,6 +132,7 @@ class HistoriasCForm(forms.ModelForm):
             'tratamientoInstaurado':forms.TextInput(attrs={'class':'form-control'}),
             'cotizacion2':forms.NumberInput(attrs={'class':'form-control'}),
             'observaciones':forms.Textarea(attrs={'class':'form-control','rows': 3}),
+            'consideraciones':forms.Textarea(attrs={'class':'form-control','rows': 4}),
             'veterinario':forms.SelectMultiple(attrs={'class':'form-control '}),
 
         }

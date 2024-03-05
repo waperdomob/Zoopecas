@@ -39,7 +39,7 @@ class registrarCliente(CreateView):
 
     def get_context_data(self, **kwargs):        
         context = {}
-        context['title'] = 'LISTA DE CLIENTES'
+        context['title'] = 'REGISTRAR CLIENTE'
         context['clientes'] = self.get_queryset()
         context['form'] = self.form_class
         return context

@@ -207,6 +207,14 @@
                 
             {%  endif %}
             {% endfor %}
+            <h4>11. CONSIDERACIONES:</h4>
+            {% for row in form %}
+            {% if "consideraciones" in row.label_tag  %}
+                {{ row }} 
+                <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>
+                
+            {%  endif %}
+            {% endfor %}
             {% for row in form %}
             {% if "VETERINARIO" in row.label_tag  %}
                 <label  class="textLabel" for="{{ row.html_name }}" >
