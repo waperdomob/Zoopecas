@@ -3,7 +3,7 @@
     <div class="modal-content contenedor2" >
       <div class="modal-header contenedorModal" >
         <h5 class="modal-title" id="exampleModalLabel">{{title}}"</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" onclick="cerrarModalEdit()" aria-label="Close"></button>
       </div>
       <div class="modal-body contenedorModal" id="modal-body" >
           <div id="alert-box"></div>
@@ -13,7 +13,7 @@
               <br>
               <div class="modal-footer contenedorModal">
                   <button class="btn btn-success" type="submit" value="Update"> Actualizar</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" onclick="cerrarModalEdit()">Close</button>
 
               </div>
         </form>

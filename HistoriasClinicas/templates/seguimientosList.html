@@ -1,5 +1,5 @@
 <div class="modal fade" id="seguimientoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl" >
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Seguimientos Historia Clinica</h5>
@@ -27,7 +27,7 @@
                     <td>{{ obj.responsable }}</td>
                     <td>
                       <button onclick="abrir_modal_edit(`{% url 'update_seguimiento' obj.id %}`)" class="btn btn-warning"><i class="fa-solid fa-file-pen"></i></button>
-                      <button onclick="abrir_modal_eliminar(`{% url 'delete_seguimiento' obj.id %}`)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                      <!-- <button onclick="abrir_modal_eliminar(`{% url 'delete_seguimiento' obj.id %}`)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button> -->
                     </td>
                 </tr>
                 {% endfor %}
@@ -46,18 +46,23 @@
   </div>
   {% block javascript %}
         <script type="text/javascript">
-            $('#seguimiento_edit_modal').load(url, function (){
-                    $(this).modal('hide');
-                });
             function abrir_modal_edit(url){
-                $('#seguimiento_delete_modal').load(url, function (){
-                    $(this).modal('show');
-                });
-            }
-            function abrir_modal_eliminar(url){
                 $('#seguimiento_edit_modal').load(url, function (){
                     $(this).modal('show');
                 });
+                $('#seguimientoModal').modal({ backdrop: 'static', keyboard: false });
             }
+            function abrir_modal_eliminar(url){
+                $('#seguimiento_delete_modal').load(url, function (){
+                    $(this).modal('show');
+                });
+                $('#seguimientoModal').modal({ backdrop: 'static', keyboard: false });
+            }
+
+            function cerrarModalEdit() {
+                $('#seguimiento_edit_modal').modal('hide');
+                $('#seguimientoModal').modal({ backdrop: true, keyboard: true });
+            }
+
         </script>
 {% endblock %}

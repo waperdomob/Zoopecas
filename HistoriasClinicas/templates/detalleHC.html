@@ -116,6 +116,7 @@
                 </div>
             </div>
             <h5 style="font-weight:bold;">11. OBSERVACIONES: <small>{{ object.observaciones |safe}}</small></h5>
+            <h5 style="font-weight:bold;">11. CONSIDERACIONES: <small>{{ object.consideraciones |safe}}</small></h5>
             {% for object in object.veterinario.all %}
                 <h5 style="font-weight:bold;">MEDICO VETERINARIO: <small>{{ object|safe}}</small></h5>
             {% endfor %}
