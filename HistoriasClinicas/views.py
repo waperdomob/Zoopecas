@@ -19,7 +19,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from weasyprint import HTML
 from django.contrib import messages
-from django.shortcuts import  redirect, render
+from django.shortcuts import  get_object_or_404, redirect, render
 
 from HistoriasClinicas.forms import HistoriasCForm, MascotasForm, PropietariosForm, SearchForm, SeguimientoForm
 from HistoriasClinicas.models import Mascotas, Propietarios, HistoriasClinicas, Seguimiento
@@ -257,6 +257,25 @@ def page_not_found404(request, exception):
 
     return render(request,'404.html')
 
+class CreateSeguimiento(CreateView):
+    model = Seguimiento
+    form_class = SeguimientoForm
+    template_name = 'seguimientoCreate.html'
+    success_url = reverse_lazy('historiaClinica')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Crear Seguimiento de Historia Clinica'
+        context['historia_clinica'] = get_object_or_404(HistoriasClinicas, pk=self.kwargs['pk'])
+        return context
+
+    def form_valid(self, form):
+        historia_clinica_id = self.kwargs['pk']
+        historia_clinica = get_object_or_404(HistoriasClinicas, pk=historia_clinica_id)
+        form.instance.historiaClinica = historia_clinica
+        form.save()
+        # Redireccionar a la URL 'detalleHC' con el ID de la historia clínica
+        return HttpResponseRedirect(reverse('detalleHC', args=[historia_clinica_id]))
 
 class UpdateSeguimiento(UpdateView):
     model = Seguimiento
@@ -264,10 +283,10 @@ class UpdateSeguimiento(UpdateView):
     template_name = 'seguimientoEdit.html'
     success_url = reverse_lazy('historiaClinica')
 
-
-    def get_queryset(self):
-        return self.model.objects.get_queryset()
-
+    def get_success_url(self):
+        historia_clinica_id = self.object.historiaClinica_id
+        return reverse('detalleHC', kwargs={'pk': historia_clinica_id})
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Editar Seguimiento de Historia Clinica'

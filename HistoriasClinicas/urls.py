@@ -14,6 +14,7 @@ urlpatterns = [
     path('savePropietario/', create_Propietario, name='create_Propietario'),
     path('saveMascota/', create_Mascota, name='create_Mascota'),
     path('seguimiento/create/<int:pk>/', create_seguimiento, name='create_seguimiento'),
+    path('seguimiento/registrar/<int:pk>/', login_required(views.CreateSeguimiento.as_view()), name='registrar_seguimiento'),
     path('seguimiento/update/<int:pk>/', login_required(views.UpdateSeguimiento.as_view()), name='update_seguimiento'),
     path('seguimiento/delete/<int:pk>/', login_required(views.DeleteSeguimiento.as_view()), name='delete_seguimiento'),
     path('saveHistoriaClinica/', create_HC, name='saveHistoriaClinica'),

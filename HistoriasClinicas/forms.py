@@ -146,7 +146,6 @@ class SeguimientoForm(forms.ModelForm):
         widgets = {
             'observaciones':forms.Textarea(attrs={'class':'form-control','rows': 3}),
 	        'responsable':forms.Select(attrs={'class':'form-control'}),
-            'historiaClinica':forms.Select(attrs={'class':'form-control'}),
         }
 
 class docsADForm(forms.ModelForm):

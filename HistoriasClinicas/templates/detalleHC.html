@@ -123,10 +123,26 @@
         </div>
           
             <div class="d-grid gap-2 col-4 mx-auto">
+                <button onclick="abrir_modal_create(`{% url 'registrar_seguimiento' object.id %}`)" class="btn btn-primary">Registrar Seguimiento</button>
                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#seguimientoModal"> Seguimientos </button>
 
                 <a href="{% url 'HCPDF' object.id %}" class="btn btn-warning" target="_blank"> Generar PDF </a>
             </div>
             <br><br>
             {% include "seguimientosList.html"  %}
+        <div class="modal fade contenedor" id="seguimiento_create_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+
+{%  endblock  %}
+{% block javascript %}
+    <script type="text/javascript">
+        function abrir_modal_create(url){
+            $('#seguimiento_create_modal').load(url, function (){
+                $(this).modal('show');
+            });
+        }
+
+        function cerrarModalCreate() {
+            $('#seguimiento_create_modal').modal('hide');
+        }
+    </script>
 {%  endblock  %}
