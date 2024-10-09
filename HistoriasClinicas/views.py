@@ -21,8 +21,8 @@ from weasyprint import HTML
 from django.contrib import messages
 from django.shortcuts import  get_object_or_404, redirect, render
 
-from HistoriasClinicas.forms import HistoriasCForm, MascotasForm, PropietariosForm, SearchForm, SeguimientoForm
-from HistoriasClinicas.models import Mascotas, Propietarios, HistoriasClinicas, Seguimiento
+from HistoriasClinicas.forms import DocumentosForm, HistoriasCForm, MascotasForm, PropietariosForm, SearchForm, SeguimientoForm
+from HistoriasClinicas.models import Documento, Mascotas, Propietarios, HistoriasClinicas, Seguimiento
 from Veterinaria.settings import STATIC_URL
 from citas.forms import CitasForm
 from citas.models import Citas
@@ -153,9 +153,8 @@ class HCUpdate(UpdateView):
         return context
 
 class HCDetailView(DetailView):
-
     model = HistoriasClinicas
-    template_name='detalleHC.html'
+    template_name = 'detalleHC.html'
 
     def get_queryset(self):
         qs = super(HCDetailView, self).get_queryset()
@@ -164,7 +163,8 @@ class HCDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['seguimientos'] = Seguimiento.objects.filter(historiaClinica_id=self.kwargs['pk'])
-                
+        context['documentos'] = Documento.objects.filter(historia_clinica=self.object)
+
         return context
    
 class HistoriaClinicaPDF(View):
@@ -235,18 +235,34 @@ def create_seguimiento(request,pk):
 @login_required
 def new_HC(request):
     historiasClinicas = HistoriasCForm()
-
-    context = {'form':historiasClinicas,'fecha_actual':dtime.date.today(),'Hora_actual': dtime.datetime.now().time()}
+    documentosForm = DocumentosForm()
+    context = {'form':historiasClinicas, 'doc_form':documentosForm, 'fecha_actual':dtime.date.today(),'Hora_actual': dtime.datetime.now().time()}
     return  render(request,'formulario.html',context)
 
 @login_required
 def create_HC(request):
 
     if request.method=="POST":
-        formulario = HistoriasCForm(request.POST)
-        if formulario.is_valid():            
-            formulario.save()
+        historiaClinica = HistoriasCForm(request.POST)
+        documentosForm = DocumentosForm(request.POST, request.FILES)
+        if historiaClinica.is_valid() and documentosForm.is_valid():            
+            historia_clinica = historiaClinica.save()
+
+            # Guardar cada documento
+            archivos = request.FILES.getlist('archivos')
+            if archivos:
+                print(f"Archivos recibidos: {[archivo.name for archivo in archivos]}") 
+                for archivo in archivos:
+                    Documento.objects.create(
+                        historia_clinica=historia_clinica,
+                        archivo=archivo,
+                        titulo=archivo.name  # Usar el nombre del archivo para el título
+                    )
+            else:
+                print("No se recibieron archivos.") 
         else:
+            print(f"Errores del formulario HistoriaClinica: {historiaClinica.errors}")
+            print(f"Errores del formulario Documentos: {documentosForm.errors}")
             messages.error(request, "Hubo un error al guardar la historia clinica, intenta nuevamente")
 
         historiasClinicas = HistoriasClinicas.objects.all()        

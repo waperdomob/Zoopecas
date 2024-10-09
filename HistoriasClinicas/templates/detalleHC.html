@@ -120,6 +120,22 @@
             {% for object in object.veterinario.all %}
                 <h5 style="font-weight:bold;">MEDICO VETERINARIO: <small>{{ object|safe}}</small></h5>
             {% endfor %}
+
+            <h5 style="font-weight:bold;">Documentos asociados</h5>
+                <ul style="list-style: none; padding: 0;">
+                    {% for documento in documentos %}
+                        <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="width: 70%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                <strong>{{ documento.titulo }}</strong>
+                            </span>
+                            <a href="{{ documento.archivo.url }}" target="_blank" class="btn btn-primary btn-sm" style="text-decoration: none; color: white; margin-right: 50%;">
+                                Ver
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li>No hay documentos asociados.</li>
+                    {% endfor %}
+                </ul>
         </div>
           
             <div class="d-grid gap-2 col-4 mx-auto">

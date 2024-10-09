@@ -28,7 +28,7 @@
     <div class="container">
         <h5 style="text-align: right;">Fecha Actual : {{fecha_actual}}</h5>
         <h5 style="text-align: right;">Hora Actual : {{Hora_actual}}</h5>
-        <form action="{% url 'saveHistoriaClinica' %}" method="POST">
+        <form action="{% url 'saveHistoriaClinica' %}" method="POST" enctype="multipart/form-data">
           {%  csrf_token  %}
             {% for row in form %}
             {% if "mascota" in row.label_tag  %}
@@ -225,6 +225,14 @@
                 
             {%  endif %}
             {% endfor %}
+            <h4>Documentos Adjuntos:</h4>
+                <div class="container">
+                    <label class="textLabel" for="documentos">
+                        Adjuntar Archivos
+                    </label>
+                    <input type="file" id="archivos" name="archivos" multiple>
+                    <p class="help-block">{{ doc_form.errors.as_text }}</p>
+                </div>
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button type="submit" class="btn btn-primary btn-lg mt-3"
                         style="text-decoration: none; color:white">

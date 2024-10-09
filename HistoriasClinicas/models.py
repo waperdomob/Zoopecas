@@ -118,6 +118,14 @@ class HistoriasClinicas(models.Model):
     def __str__(self):
         return self.quejaPrincipal
 
+class Documento(models.Model):
+    historia_clinica = models.ForeignKey(HistoriasClinicas, related_name='documentos', on_delete=models.CASCADE)
+    archivo = models.FileField(upload_to='documentos/')
+    titulo = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return f"Documento {self.id} - {self.historia_clinica}"
+
 class Seguimiento(models.Model):
     fecha = models.DateField(auto_now_add=True)
     hora = models.TimeField(auto_now_add=True)
