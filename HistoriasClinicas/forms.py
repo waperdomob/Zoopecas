@@ -138,7 +138,7 @@ class HistoriasCForm(forms.ModelForm):
         }
 
 class DocumentosForm(forms.Form):
-    archivos = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True, 'class': 'form-control'}))
+    archivos = forms.FileField(required=False, widget=forms.ClearableFileInput(attrs={'multiple': True, 'class': 'form-control'}))
 
 class SeguimientoForm(forms.ModelForm):
 
