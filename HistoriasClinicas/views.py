@@ -118,7 +118,7 @@ class crearHistoriaC(ListView):
     model = HistoriasClinicas
     
     def get(self, request, *args, **kwargs):
-        historiasC = HistoriasClinicas.objects.all()
+        historiasC = HistoriasClinicas.objects.filter(is_active=True).all()
         page = request.GET.get('page',1)
         pag = Paginator(historiasC,10)
         historiasClinicas = pag.get_page(page)

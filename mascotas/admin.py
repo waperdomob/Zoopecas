@@ -1,9 +1,10 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
 from mascotas.models import *
 from HistoriasClinicas.models import  Especies, Mascotas, Razas , Sexos
 
 # Register your models here.
-class mascotasAdmin(admin.ModelAdmin):
+class mascotasAdmin(ImportExportModelAdmin):
     list_display=("id","foto","nombreMas","color","especie")
 
 class razasAdmin(admin.ModelAdmin):

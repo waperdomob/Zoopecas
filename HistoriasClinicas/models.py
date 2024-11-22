@@ -114,6 +114,7 @@ class HistoriasClinicas(models.Model):
     observaciones=models.CharField(max_length=250)
     consideraciones = models.TextField(null= True, blank=True)
     veterinario = models.ManyToManyField(Empleados)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.quejaPrincipal
