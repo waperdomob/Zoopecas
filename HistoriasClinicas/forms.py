@@ -95,7 +95,7 @@ class HistoriasCForm(forms.ModelForm):
             'tratamientoInstaurado':'Tratamiento Instaurado',
             'cotizacion2':'Cotizacion 2',
             'veterinario':'MEDICO VETERINARIO',
-
+            'is_active': 'Is Active'
 
         }
         widgets = {
@@ -134,6 +134,7 @@ class HistoriasCForm(forms.ModelForm):
             'observaciones':forms.Textarea(attrs={'class':'form-control','rows': 3}),
             'consideraciones':forms.Textarea(attrs={'class':'form-control','rows': 4}),
             'veterinario':forms.SelectMultiple(attrs={'class':'form-control '}),
+            'is_active':forms.CheckboxInput(attrs={'class':'cajaCheck radio-checkbox'}),
 
         }
 

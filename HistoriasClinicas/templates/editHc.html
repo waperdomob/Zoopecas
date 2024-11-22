@@ -225,6 +225,15 @@
                 
             {%  endif %}
             {% endfor %}
+            {% for row in form %}
+            {% if "Is Active" in row.label_tag  %}
+                <label  class="textLabel" for="{{ row.html_name }}" >
+                    {{ row.label_tag }}
+                </label>{{ row.help_text }}
+                {{ row }} 
+                <p class="help-block">{{ row.errors.as_text }} {{ row.field.css_classes }}</p>
+            {%  endif %}
+            {% endfor %}
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button type="submit" class="btn btn-primary btn-lg mt-3"
                         style="text-decoration: none; color:white">
